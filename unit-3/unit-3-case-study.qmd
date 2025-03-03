@@ -18,34 +18,36 @@ execute:
 
 ## 0. INTRODUCTION
 
-The Unit 3 case study extends previous research and evaluation work by me and some of my colleagues at the Friday Institute for Educational Innovation at North Carolina State University. In addition to many other areas of inquiry, our work was aimed at understanding and improving peer interaction and discussion in the Friday Institute's Massively Open Online Courses for Educators (MOOC-Ed) and Online Professional Learning programs. To learn more about these courses and programs, visit: <https://place.fi.ncsu.edu>
+The Unit 3 case study extends previous research and evaluation work by myself and some of my colleagues at the Friday Institute for Educational Innovation at North Carolina State University. In addition to many other areas of inquiry, our work was aimed at understanding and improving peer interaction and discussion in the Friday Institute's Massively Open Online Courses for Educators (MOOC-Ed) and Online Professional Learning programs. To learn more about these courses and programs, visit: <https://place.fi.ncsu.edu>
 
 ### Case Study Focus
 
-Our focus this week will be on identifying "topics" by examining how words cohere into different latent, or hidden, themes based on patterns of co-occurrence of words within documents. With a bit of tongue-in-cheek, [Meeks and Weingart (2012)](http://journalofdigitalhumanities.org/2-1/dh-contribution-to-topic-modeling/) describe topic modeling as: 
+Our focus this week will be on identifying "topics" by examining how words cohere into different latent, or hidden, "themes" based on patterns of co-occurrence of words within documents. With a bit of tongue-in-cheek, [Meeks and Weingart (2012)](http://journalofdigitalhumanities.org/2-1/dh-contribution-to-topic-modeling/) describe topic modeling as: 
 
 > *...focused on corpora and not individual texts, treating the works themselves as unceremonious 'buckets of words,' and providing seductive but obscure results in the forms of easily interpreted (and manipulated) 'topics'.... To achieve its results, it leverages occult statistical methods like 'dirichlet priors' and 'bayesian models.'*
 
-That being said, [Weingart](http://journalofdigitalhumanities.org/2-1/dh-contribution-to-topic-modeling/) also noted that "a topic model is a "clever and exceptionally versatile little algorithm that can be customized to all sorts of applications" and [Bail (2020)](https://sicss.io/2020/materials/day3-text-analysis/topic-modeling/rmarkdown/Topic_Modeling.html#running-your-first-topic-model) add that topic modeling can be "a powerful tool for identifying general trends in a corpus that can then be analyzed in a more granular manner using other techniques."
+That being said, [Weingart](http://journalofdigitalhumanities.org/2-1/dh-contribution-to-topic-modeling/) also noted that "a topic model is a "clever and exceptionally versatile little algorithm that can be customized to all sorts of applications" and [Bail (2020)](https://sicss.io/2020/materials/day3-text-analysis/topic-modeling/rmarkdown/Topic_Modeling.html#running-your-first-topic-model) added that topic modeling can be "a powerful tool for identifying general trends in a corpus that can then be analyzed in a more granular manner using other techniques" such as more traditional qualitative methods.
 
-With respect to the actual R workflow of applying topic models to documents and text of interests, Silge & Robinson and a new bottom row their flowchart consisting new data structures (i.e., a corpus object and document-term matrix) and and the LDA model:  
+With respect to the actual R workflow of applying topic models to documents and text of interests, Silge & Robinson @silge2017text added a new bottom row their flowchart consisting of three new terms, including new data structures (i.e., a **corpus** object and **document-term matrix**) and the **Latent Dirichlet Allocation (LDA)** model:
 
 [![Figure source: Silge, J., & Robinson, D. (2017). Text mining with R: A tidy approach. O'Reilly Media, Inc. Retrieved from: https://www.tidytextmining.com/topicmodeling.html](img/tm_flow.png "A flowchart of a text analysis that incorporates topic modeling. The topicmodels package takes a Document-Term Matrix as input and produces a model that can be tided by tidytext, such that it can be manipulated and visualized with dplyr and ggplot2."){width="90%"}](https://www.tidytextmining.com/topicmodeling.html)
 
-This week will be also be our first introduction to the "Model" process of the data-intensive workflow described in our course text, [*Learning Analytics Goes to School*](https://catalog.lib.ncsu.edu/catalog/NCSU4862134)*.* As noted by Krumm and Means (2018), this workflow is not always a linear process and there is often a great deal of iteration that occurs within and between wrangling, exploring, modeling. As illustrated by our workflow below, this week we will primarily explore our data after the modeling process in order to gain some additional insight into the topics generated by our model. Specifically, this week covers the following concepts and skills:
+This week will be also be our first introduction to the "Model" process of the data-intensive workflow described in our course text, [*Learning Analytics Goes to School*](https://catalog.lib.ncsu.edu/catalog/NCSU4862134)*.* As noted by Krumm and Means @krumm2018, this workflow is not always a linear process and there is often a great deal of iteration that occurs within and between wrangling, exploring, and modeling. As illustrated by our workflow below, this week we will primarily explore our data ***after*** the modeling process in order to gain some additional insight into the topics generated by our model.
 
-1.  **Prepare**: Prior to analysis, we'll take a quick look at some of the related MOOC-Ed research and evaluation work to gain some context for our analysis. This should aid in the interpretation of our results and help guide some decisions as we tidy, model, and visualize our data.
-2.  **Wrangle**: In section 2 we again revisit tidying and tokenizing text using the `tidytext` package but are also introduced to the the `stm` package. This package makes use of `tm` text mining package to preprocess text and will also be our first introduction to word stemming.
-3.  **Model**: We take a look at two different approaches to topic modeling: Latent Dirichlet Allocation (LDA) and Structural Topic Modeling (STM), which is very similar to LDA but can use metadata about documents to improve the assignment of words to "topics" in a corpus and examine relationships between topics and covariates. 
-4.  **Explore**: To further explore the results of our topic model, we use several handy functions from the `topicmodels` and `stm` packages, including the `findThoughts` function for viewing documents assigned to a given topic and the `toLDAvis` function for exploring topic and word distributions.
+More specifically, our Unit 3 case study covers the following concepts and skills:
+
+1.  **Prepare**: Prior to analysis, we'll take a quick look at some of the related MOOC-Ed research and evaluation work to gain some context for our analysis. This should aid in the interpretation of our results and help guide decisions as we tidy, model, and visualize our data.
+2.  **Wrangle**: In section 2 we again revisit the process of tidying and tokenizing text using the {[tidytext](https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html)} package, but we also introduce the `stm` package. This package makes use of the {[tm](https://cran.r-project.org/web/packages/tm/index.html)} text mining package to preprocess text and will also be our first introduction to word "stemming."
+3.  **Model**: We next take a look at two different approaches to topic modeling: Latent Dirichlet Allocation (LDA) and Structural Topic Modeling (STM) via the {[stm](http://www.structuraltopicmodel.com)} package. STM is very similar to LDA but can use metadata about documents to improve the assignment of words to "topics" in a corpus by examine relationships between topics and other variables.
+4.  **Explore**: Finally, we further explore the results of our topic model using several handy functions from the {[topicmodels](https://cran.r-project.org/web/packages/topicmodels/index.html)} and {stm} packages, including the `findThoughts` function for viewing documents assigned to a given topic and the `toLDAvis` function for visually exploring topics and word distributions.
 
 ## 1. PREPARE
 
 To help us better understand the context, questions, and data sources we'll be using in Unit 3, this section will focus on the following topics:
 
-a.  **Context**. As context for our analysis this week, we'll review several related papers by me and some of my current and former colleagues relevant to our analysis of MOOC-Ed discussion forums.
-b.  **Questions.** We'll also examine what insight topic modeling can provide to a question that we asked participants answer in their professional learning teams (PLTs).
-c.  **Project Setup.** This should be very familiar by now, but we'll set up a new R project and install and load the required packages for the topic modeling case study.
+a.  **Context**. As context for our analysis this week, we'll review several related papers by myself and some of my current and former colleagues relevant to our analysis of MOOC-Ed discussion forums.
+b.  **Questions.** We'll also examine what insight topic modeling can provide to a question that we asked participants to answer in their professional learning teams (PLTs).
+c.  **Project Setup.** This should be very familiar by now, but we'll also learn about load the required packages for the topic modeling case study.
 
 ### 1a. Context
 
@@ -71,6 +73,10 @@ For further description of the forums and data retrieval process, see also the f
 
 -   Kellogg, S., Booth, S., & Oliver, K. (2014). [A social network perspective on peer supported learning in MOOCs for educators.](https://www.erudit.org/en/journals/irrodl/1900-v1-n1-irrodl04945/1065545ar.pdf) *International Review of Research in Open and Distributed Learning*, *15*(5), 263-289.
 
+Also, for a more recent paper on topic modeling in MOOC-Eds, see:
+
+-   Barker, H. A., Lee, H. S., Kellogg, S., & Anderson, R. (2024). The Viability of Topic Modeling to Identify Participant Motivations for Enrolling in Online Professional Development. *Online Learning*, *28*(1), 175-195. Retrieved from: <https://files.eric.ed.gov/fulltext/EJ1418006.pdf>
+
 **Summary of Key Findings**
 
 The following highlight some key findings related to the discussion forums in the papers cited above:
@@ -79,6 +85,7 @@ The following highlight some key findings related to the discussion forums in th
 2.  Analysis of discussion forum data in TSDI provided a very clear picture of how enthusiastic many PLT members and leaders were to talk to others in the online community. They posed their questions and shared ideas with others about teaching statistics throughout the units, even though they were also meeting synchronously several times with their colleagues in small group PLTs.
 3.  Findings on knowledge construction demonstrated that over half of the discussions in both courses moved beyond sharing information and statements of agreement and entered a process of dissonance, negotiation and co-construction of knowledge, but seldom moved beyond this phase in which new knowledge was tested or applied. These findings echo similar research on difficulties in promoting knowledge construction in online settings.
 4.  Topic modeling provides more interpretable and cohesive models for discussion forums than other popular unsupervised modeling techniques such as k-means and k-medoids clustering algorithms.
+5.  The unsupervised approach to topic modeling (LDA) provides some general insight into the distribution of topics across large data sets but requires manual interpretation to determine meaningful themes.
 
 ### 1b. Guiding Questions
 
@@ -96,24 +103,39 @@ And just to reiterate yet again from Unit 1, one overarching question we'll expl
 
 > How do we to **quantify** what a document or collection of documents is about?
 
-### 1c. Set Up
+### 1c. Load Libraries
 
-As highlighted in [Chapter 6 of Data Science in Education Using R](https://datascienceineducation.com/c06.html) (DSIEUR), one of the first steps of every workflow should be to set up a "Project" within RStudio. This will be your "home" for any files and code used or created in Unit 2.
+In addition to the use of the {tidyverse} and {tidytext} packages for text mining, we'll make use of several specialized R packages facilitate topic modeling, visualization, and result interpretation.
 
-You are welcome to continue using the same project created for Unit 1, or create an entirely new project for Unit 2. However, after you've created your project open up a new R script, and load the following packages that we'll be needing for this case study:
+Below is a brief introduction to key packages commonly used in the topic modeling diagram shared earlier:
 
-```{r load-packages, message=FALSE}
-library(tidyverse)
-library(tidytext)
-library(SnowballC)
-library(topicmodels)
-library(stm)
-library(ldatuning)
-library(knitr)
-library(LDAvis)
+**1. Text Preprocessing**
+
+-   **SnowballC:** Provides stemming capabilities to reduce words to their root forms, improving consistency in topic modeling.
+
+**2. Topic Modeling Algorithms**
+
+-   **topicmodels:** Implements Latent Dirichlet Allocation (LDA) and Correlated Topic Models (CTM) for extracting topics from text data.
+
+-   **stm:** Extends LDA by incorporating document metadata (e.g., time, author, demographic variables), allowing for more context-aware topic modeling.
+
+**3. Model Selection & Optimization**
+
+-   **ldatuning:** Helps determine the optimal number of topics for LDA models using various evaluation metrics.
+
+**4. Visualization & Interpretation**
+
+-   **LDAvis:** provides an interactive visualization tool for exploring LDA topic distributions and word associations.
+
+#### **👉 Your Turn ⤵**
+
+Use the code chunk below to load all of the packages highlighted above, including the {tidyverse} and {tidytext} packages:
+
+```{r}
+# YOUR CODE HERE
+
+
 ```
-
-At the end of this week, I'll ask that you share with me your R script as evidence that you have complete the case study. Although I highly recommend that that you manually type the code shared throughout this case study, for large blocks of text it may be easier to copy and paste.
 
 ## 2. WRANGLE
 
