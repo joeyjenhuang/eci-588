@@ -499,10 +499,8 @@ terms(forums_lda, 5) |>
 Use the code chunk below to increase the number of terms associated with each "Topic" and answer the prompt that follows:
 
 ```{r}
-# YOUR CODE HERE
-
-
-
+terms(forums_lda, 10) |>
+  as_tibble()
 ```
 
 As you can see form the output, each "Topic" is essentially a "bag-of-words" that typically occur together across documents. Pick two topics from the table above and use a short phrase or sentence that you think describes the topic.
