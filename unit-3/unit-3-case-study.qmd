@@ -480,13 +480,45 @@ Note that we used the `control =` argument to pass a random number (`588`) to se
 
 By default, the `LDA()` function uses the `method =` "VEM" (Variational Expectation Maximization) estimation method, which is generally faster and more scalable. However, there is "Gibbs" (Gibbs Sampling) method, which is more accurate but computationally intensive, as well as the "CTM" (Correlated Topic Model) method, a variation of LDA with correlated topics.
 
-Finally, tying back to our work in Unit 1, Bail (2020) notes that topic assignments for each word are updated in an iterative fashion and that LDA employs the Term Frequency-Inverse Document Frequency (TF-IDF) metric to assign probabilities.
+Finally, tying back to our work in Unit 1, Chris Bail (2020) notes that topic assignments for each word are updated in an iterative fashion and that LDA employs the Term Frequency-Inverse Document Frequency (TF-IDF) metric to assign probabilities.
+
+#### Viewing Topic Terms
+
+Before moving on, let's view the top 5 words in each topic using the dead simple `terms()` function. We'll also send this to the `as_tibble()` function to make the output a little easier to read:
+
+```{r}
+terms(forums_lda, 5) |>
+  as_tibble()
+```
+
+#### **👉 Your Turn ⤵**
+
+Use the code chunk below to increase the number of terms associated with each "Topic" and answer the prompt that follows:
+
+```{r}
+# YOUR CODE HERE
+
+
+
+```
+
+As you can see form the output, each "Topic" is essentially a "bag-of-words" that typically occur together across documents. Pick two topics from the table above and use a short phrase or sentence that you think describes the topic.
+
+-   TOPIC X: YOUR DESCRIPTION HERE
+
+-   TOPIC X: YOUR DESCRIPTION HERE
 
 ### 3b. Fitting a Structural Topic Model
 
-Bail notes that LDA, while perhaps the most common approach to topic modeling, is just one of many different types, including Dynamic Topic Models, Correlated Topic Models, Hierarchical Topic Models, and more recently, Structural Topic Modeling (STM). He argues that one reason STM has rising in popularity and use is that it employs meta data about documents to improve the assignment of words to topics in a corpus and that can be used to examine relationships between covariates and documents. 
+Bail notes that LDA, while perhaps the most common approach to topic modeling, is just one of many different types, including Dynamic Topic Models, Correlated Topic Models, Hierarchical Topic Models, and more recently, Structural Topic Modeling (STM). He argues that one reason STM has rising in popularity and use is that it employs meta data about documents to improve the assignment of words to topics in a corpus and that can be used to examine relationships between covariates and documents.
 
 Also, since Julia Silge has indicated that STM is, "my current favorite implementation of topic modeling in R" and has built supports in the `tidytext` package for building structural topic models, this package definitely is worth discussing in this case study. I also highly recommend her own case study of the `stm` package: [The game is afoot! Topic modeling of Sherlock Holmes stories](https://juliasilge.com/blog/sherlock-holmes-stm/) as well as her follow up post, [Training, evaluating, and interpreting topic models](https://juliasilge.com/blog/evaluating-stm/).
+
+::: callout-note
+**LLM-Based Approaches to Topic Modeling**
+
+Large Language Models (LLMs), such as GPT-4, BERT, and T5, which leverage deep learning and contextual embeddings, have also emerged as promising approaches for modeling topics withing a corpus. Unlike traditional Latent Dirichlet Allocation (LDA), LLM-based topic modeling approaches and libraries such as {[**BERTopic**](https://maartengr.github.io/BERTopic/index.html)} use pre-trained transformers, embeddings, and clustering techniques to extract meaningful topics.
+:::
 
 #### The `stm` Package
 
