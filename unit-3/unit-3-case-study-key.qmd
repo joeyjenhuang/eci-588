@@ -138,22 +138,17 @@ library(LDAvis)
 
 ## 2. WRANGLE
 
-As noted previously, data wrangling involves some combination of cleaning, reshaping, transforming, and merging data (Wickham & Grolemund, 2017). This week we'll revisit tidying and tokenizing text using the `tidytext` package, but are also introduced to the the `stm` package. This package makes use of `tm` text mining package to preprocess text (e.g., removing punctuation, stop words, etc.) and will also be our first introduction to word stemming.
+As noted previously, data wrangling involves some combination of cleaning, reshaping, transforming, and merging data [@wickham2023r]. This week we'll revisit tidying and tokenizing text using the {tidytext} package, but are also introduced to the the {stm} package. This package makes use of {tm} text mining package to preprocess text (e.g., removing punctuation, stop words, etc.) and will also be our first introduction to word stemming.
 
-a.  **Import Data**. We'll be working with .csv files this week and the `read_csv()` function but will introduce a new argument for changing column types.
-b.  **Cast a DTM**. We revisit the `tidytext` package to "tidy" and tokenize our forum data and introduce the `cast_dtm()` function to create the document term matrix (dtm) need for topic modeling.
+a.  **Import Data**. We'll be working with .csv files this week and the `read_csv()` function and will revisit the argument for changing column types.
+b.  **Cast a DTM**. We'll also revisit the {tidytext} package to "tidy" and tokenize our forum data and introduce the `cast_dtm()` function to create the document term matrix (dtm) need for topic modeling.
 c.  **To Stem or not to STEM?** We conclude our data wrangling by also introducing the `textProcessor()` function for preprocessing and discuss the pros and cons of word stemming.
 
 ### 2a. Import Forum Data
 
-To get started, we need to import, or "read", our data into R. The function used to import your data will depend on the file format of the data you are trying to import. First, however, you'll need to do the following:
+To get started, we need to import, or "read", our data into R. The function used to import your data will depend on the file format of the data you are trying to import. First, however, check your Files tab in RStudio to verify that there is indeed file named `ts_forum_data.csv` in your `data` folder.
 
-1.  Download the `ts_forum_data.csv` file we'll be using for this Unit from our NCSU Moodle course site.
-2.  Create a folder in the directory on your computer where you stored your R Project and name it "data".
-3.  Add the file to your data folder.
-4.  Check your Files tab in RStudio to verify that your file is indeed in your data folder.
-
-Now let's read our data into our Environment using the `read_csv()` function and assign it to a variable name so we can work with it like any other object in R.
+Now let's read our data into our Environment using the `read_csv()` function and assign it to a variable named `ts_forum_data` so we can work with it like any other object in R.
 
 ```{r read-csv}
 ts_forum_data <- read_csv("data/ts_forum_data.csv", 
@@ -166,6 +161,35 @@ ts_forum_data <- read_csv("data/ts_forum_data.csv",
 ```
 
 By default, many of the columns like `course_id` and `forum_id` are read in as numeric data. For our purposes, we plan to treat them as unique identifiers or names for out courses, forums, discussions, and posts. The `read_csv()` function has a handy `col_types =` argument changing the column types from numeric to characters.
+
+#### **👉 Your Turn ⤵**
+
+Use the code chunk below to inspect the data frame you just imported using a function of your choosing and answer the questions that follow:
+
+```{r}
+ts_forum_data
+```
+
+In this case study, we are exploring the use of topic modeling to analyze online discussions in an online course for educators. One critical step in preparing data for analysis is creating a codebook, which serves as a reference document that defines each variable in a dataset, including its meaning, format, and potential values.
+
+In the table, provide a short description for each variable based on what you think the values for each column represent. The fist one has been completed for you:
+
+| Variable Name | Short Description |
+|-----------------|---------------------------------------------------|
+| course_id | A unique identifier for the course. |
+| course_name | Name of the MOOC-Ed course. |
+| forum_id | Unique identifier for the forum within a course. |
+| forum_name | Name of the forum (e.g., specific discussion topics). |
+| discussion_id | Unique identifier for each discussion thread. |
+| discussion_name | Title of the discussion thread. |
+| discussion_creator | Unique identifier of the user who started the discussion. |
+| discussion_poster | Unique identifier of the user who posted within a discussion. |
+| discussion_reference | ID of the discussion being referenced (if applicable). |
+| parent_id | ID of the parent post if this post is a reply. |
+| post_date | Timestamp indicating when the post was made (format: YY/MM/DD HH:MM:SS). |
+| post_id | Unique identifier for each forum post. |
+| post_title | Title of the forum post. |
+| post_content | Full text of the forum post. |
 
 ### 2b. Cast a Document Term Matrix
 
