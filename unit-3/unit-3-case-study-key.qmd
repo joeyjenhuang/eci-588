@@ -193,7 +193,7 @@ In the table, provide a short description for each variable based on what you th
 
 ### 2b. Cast a Document Term Matrix
 
-In this section we'll revisit some familiar `tidytext` functions used in Units 1 & 2 for tidying and tokenizing text and introduce some new functions from the `stm` package for processing text and transforming our data frames into new data structures required for topic modeling.
+In this section we'll revisit some familiar `tidytext` functions used in Units 1 & 2 for tidying and tokenizing text and introduce some new functions from the {stm} package for processing text and transforming our data frames into new data structures required for topic modeling.
 
 #### Functions Used
 
@@ -226,8 +226,8 @@ Prior to topic modeling, we have a few remaining steps to tidy our text that hop
 Let's tokenize our forum text and by using the familiar `unnest_tokens()` and remove stop words per usual:
 
 ```{r tokenize-forums}
-forums_tidy <- ts_forum_data %>%
-  unnest_tokens(output = word, input = post_content) %>%
+forums_tidy <- ts_forum_data |>
+  unnest_tokens(output = word, input = post_content) |>
   anti_join(stop_words, by = "word")
 
 forums_tidy
@@ -236,53 +236,73 @@ forums_tidy
 Now let's do a quick word count to see some of the most common words used throughout the forums. This should get a sense of what we're working with and later we'll need these word counts for creating our document term matrix for topic modeling:
 
 ```{r count-words}
-forums_tidy %>%
+forums_tidy |>
   count(word, sort = TRUE)
 ```
 
 Terms like "students," "data," and "class" are about what we would have expected from a course teaching statistics. The term "agree" and "time" however, are not so intuitive and worth a quick look as well.
 
-##### ✅ Comprehension Check
+#### **👉 Your Turn ⤵**
 
-Use the `filter()` and `grepl()` functions introduced in [Unit 1. Section 3b](https://sbkellogg.github.io/eci-588/unit-1/unit-1-walkthrough.html#b.-word-search) to filter for rows in our `ts_forum_data` data frame that contain the terms "agree" and "time" and another term or terms of your choosing. Select a random sample of 10 posts using the `sample_n()` function for your terms and answer the following questions:
-
-1.  What, if anything, do these posts have in common?
-
-2.  What topics or themes might be apparent, or do you anticipate emerging, from our topic modeling?
-
-Your output should look something like this:
+Use the `filter()` and `grepl()` functions introduced in [Unit 1. Section 3b](https://sbkellogg.github.io/eci-588/unit-1/unit-1-walkthrough.html#b.-word-search) to filter for rows in our `ts_forum_data` data frame that contain a term or terms of your choosing. Select a random sample of 10 posts using the `sample_n()` function for your term(s) and answer the questions below.
 
 ```{r find-quotes, echo=FALSE}
-forum_quotes <- ts_forum_data %>%
-  select(post_content) %>% 
-  filter(grepl('time', post_content))
+forum_quotes <- ts_forum_data |>
+  select(post_content) |> 
+  filter(grepl('learn', post_content))
 
 sample_n(forum_quotes,10)
 ```
 
+Your output should look something like this:
+
+![](img/sample-posts.png){width="100%"}
+
+#### ❓Questions
+
+1.  What, if anything, do these posts have in common?
+
+    -   YOUR RESPONSE HERE
+
+2.  What topics or themes might be apparent, or do you anticipate emerging, from our topic modeling?
+
+    -   YOUR RESPONSE HERE
+
 #### Creating a Document Term Matrix
 
-As highlighted in [Chapter 5 of Text Mining with R](https://www.tidytextmining.com/dtm.html#cast-dtm), the `topicmodels` package and the [Latent Dirichlet allocation (LDA)](https://www.tidytextmining.com/topicmodeling.html#latent-dirichlet-allocation) algorithm and `LDA()` function it uses expects document-term matrix as the data input.
+As highlighted in [Chapter 5 of Text Mining with R](https://www.tidytextmining.com/dtm.html#cast-dtm), the {topicmodels} package and the [Latent Dirichlet allocation (LDA)](https://www.tidytextmining.com/topicmodeling.html#latent-dirichlet-allocation) algorithm and `LDA()` function it uses expects document-term matrix as the data input.
 
 Before we create a our document-term matrix, however, we have an important decision to make:
 
 > **What do we consider to be a "document" in a MOOC-Ed discussion forum?**
 
-For example, we could consider each individual discussion post, or `post_id` in our data frame, as a document. It might also make sense to combine texts from all posts within each discussion, or `disccussion_id`, and consider that as a document since these posts are often interconnected an build off one another.
+For example, we could consider each individual discussion post, or `post_id` in our data frame, as a document. It might also make sense to combine texts from all posts within each discussion, or `disccussion_id`, and consider that as our "document" since these posts are often interconnected an build off one another. For now, however, let treat each individual post as a unique document.
 
-For now, however, let treat each individual post as a unique "document." noted above, to create our document term matrix, we'll need to first `count()` how many times each `word` occurs in each document, or `post_id` in our case, and create a matrix that contains one row per post as our original data frame did, but now contains a column for each `word` in the entire corpus and a value of `n` for how many times that word occurs in each post.
+To create our document term matrix, we'll need to first `count()` how many times each `word` occurs in each document, or `post_id` in our case, like so:
 
-To create this document term matrix from our post counts, we'll use the `cast_dtm()` function like so and assign it to the variable `forums_dtm`:
+```{r}
+forums_tidy |>
+  count(post_id, word) |>
+  arrange(desc(n))
+```
+
+Once we have created a count of each word contained in a document, we next create a "tidy" matrix that contains one row per post as our original data frame did, but now contains a column for each `word` in the entire corpus and a value of `n` for how many times that word occurs in each post.
+
+Let's create this document term matrix from our post counts, we'll use the `cast_dtm()` function and assign it to the variable `forums_dtm`:
 
 ```{r cast-dtm}
-forums_dtm <- forums_tidy %>%
-  count(post_id, word) %>%
+forums_dtm <- forums_tidy |>
+  count(post_id, word) |>
   cast_dtm(post_id, word, n)
 ```
 
-##### ✅ Comprehension Check
+#### **👉 Your Turn ⤵**
 
-Take a look at our `forums_dtm` object in the console and answer the following question:
+Use the code chunk below to print the `forums_dtm` object in the console and answer the following question:
+
+```{r}
+print(forums_dtm)
+```
 
 1.  What "class" of object is `forums_dtm`?
 2.  How many unique documents and terms are included our matrix?
@@ -352,9 +372,9 @@ For now, we will leave as is the `forums_dtm` we created earlier with words unst
 Since the `unnest_tokens()` function does not (intentionally I believe) include a stemming function, one approach would be to use the `wordStem()` function from the `snowballC` package to either replace our `words` column with a word stems or create a new variable called `stem` with our stemmed words. Let's do the latter and take a look at the original words and the stem that was produced:
 
 ```{r wordStem}
-stemmed_forums <- ts_forum_data %>%
-  unnest_tokens(output = word, input = post_content) %>%
-  anti_join(stop_words, by = "word") %>%
+stemmed_forums <- ts_forum_data |>
+  unnest_tokens(output = word, input = post_content) |>
+  anti_join(stop_words, by = "word") |>
   mutate(stem = wordStem(word))
 
 stemmed_forums
@@ -372,31 +392,31 @@ Complete the following code using what we learned in the section on [Creating a 
 **Hint:** Make sure your code includes stem counts rather than word counts.
 
 ```{r stem-practice, eval=FALSE}
-stemmed_dtm <- ts_forum_data %>%
-  unnest_tokens(output = word, input = post_content) %>%
-  anti_join(stop_words, by = "word") %>%
-  mutate(stem = wordStem(word)) %>%
-  ______() %>%
-  ______() %>%
+stemmed_dtm <- ts_forum_data |>
+  unnest_tokens(output = word, input = post_content) |>
+  anti_join(stop_words, by = "word") |>
+  mutate(stem = wordStem(word)) |>
+  ______() |>
+  ______() |>
   
 stemmed_dtm
 ```
 
 ```{r stem-counts, echo=FALSE, message=FALSE}
-stemmed_dtm <- ts_forum_data %>%
-  unnest_tokens(output = word, input = post_content) %>%
-  anti_join(stop_words, by = "word") %>%
-  mutate(stem = wordStem(word)) %>%
-  count(post_id, stem, sort = TRUE) %>%
+stemmed_dtm <- ts_forum_data |>
+  unnest_tokens(output = word, input = post_content) |>
+  anti_join(stop_words, by = "word") |>
+  mutate(stem = wordStem(word)) |>
+  count(post_id, stem, sort = TRUE) |>
   cast_dtm(post_id, stem, n)
 
 stemmed_dtm
 forums_dtm
 
-stem_counts <- ts_forum_data %>%
-  unnest_tokens(output = word, input = post_content) %>%
-  anti_join(stop_words, by = "word") %>%
-  mutate(stem = wordStem(word)) %>%
+stem_counts <- ts_forum_data |>
+  unnest_tokens(output = word, input = post_content) |>
+  anti_join(stop_words, by = "word") |>
+  mutate(stem = wordStem(word)) |>
   count(stem, sort = TRUE)
 
 stem_counts
@@ -619,17 +639,17 @@ Obviously, it's not very easy to interpret what the topics are about from a data
 
 ```{r top_terms}
 
-top_terms <- tidy_lda %>%
-  group_by(topic) %>%
-  slice_max(beta, n = 5, with_ties = FALSE) %>%
-  ungroup() %>%
+top_terms <- tidy_lda |>
+  group_by(topic) |>
+  slice_max(beta, n = 5, with_ties = FALSE) |>
+  ungroup() |>
   arrange(topic, -beta)
 
-top_terms %>%
-  mutate(term = reorder_within(term, beta, topic)) %>%
-  group_by(topic, term) %>%    
-  arrange(desc(beta)) %>%  
-  ungroup() %>%
+top_terms |>
+  mutate(term = reorder_within(term, beta, topic)) |>
+  group_by(topic, term) |>    
+  arrange(desc(beta)) |>  
+  ungroup() |>
   ggplot(aes(beta, term, fill = as.factor(topic))) +
   geom_col(show.legend = FALSE) +
   scale_y_reordered() +
@@ -661,26 +681,26 @@ td_gamma
 Next, we'll adopt Julia's code wholesale to create a filtered data frame of our `top_terms`, join this to a new data frame for `gamma-terms` and create a nice clean table using the `kabel()` function `knitr` package:
 
 ```{r prevalence_table}
-top_terms <- td_beta %>%
-  arrange(beta) %>%
-  group_by(topic) %>%
-  top_n(7, beta) %>%
-  arrange(-beta) %>%
-  select(topic, term) %>%
-  summarise(terms = list(term)) %>%
-  mutate(terms = map(terms, paste, collapse = ", ")) %>% 
+top_terms <- td_beta |>
+  arrange(beta) |>
+  group_by(topic) |>
+  top_n(7, beta) |>
+  arrange(-beta) |>
+  select(topic, term) |>
+  summarise(terms = list(term)) |>
+  mutate(terms = map(terms, paste, collapse = ", ")) |> 
   unnest()
 
-gamma_terms <- td_gamma %>%
-  group_by(topic) %>%
-  summarise(gamma = mean(gamma)) %>%
-  arrange(desc(gamma)) %>%
-  left_join(top_terms, by = "topic") %>%
+gamma_terms <- td_gamma |>
+  group_by(topic) |>
+  summarise(gamma = mean(gamma)) |>
+  arrange(desc(gamma)) |>
+  left_join(top_terms, by = "topic") |>
   mutate(topic = paste0("Topic ", topic),
          topic = reorder(topic, gamma))
 
-gamma_terms %>%
-  select(topic, gamma, terms) %>%
+gamma_terms |>
+  select(topic, gamma, terms) |>
   kable(digits = 3, 
         col.names = c("Topic", "Expected topic proportion", "Top 7 terms"))
 ```
