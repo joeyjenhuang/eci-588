@@ -436,43 +436,44 @@ stem_counts
 
 ## 3. MODEL
 
-This unit provides our first opportunity for modeling a text as data. In very simple terms, modeling involves developing a mathematical summary of a dataset. These summaries can help us further explore trends and patterns in our data.
+This unit provides our first opportunity (VADER aside) for modeling text as data. In very simple terms, modeling involves developing a mathematical summary of a dataset. These summaries can help us further explore trends and patterns in our data.
 
-In their book, *Learning Analytics Goes to School,* Krumm and Means (2018) describe two general types of modeling approaches used in the Data-Intensive Research workflow: unsupervised and supervised machine learning. In distinguishing between the two, they note:
+In their book, *Learning Analytics Goes to School,* Krumm and Means @krumm2018 describe two general types of modeling approaches used in the Data-Intensive Research workflow: unsupervised and supervised learning. In distinguishing between the two, they note:
 
-> *Unsupervised learning algorithms can be used to understand the structure of one's dataset. Supervised models, on the other hand, help to quantify relationships between features and a known outcome. Known outcomes are also commonly referred to as labels or dependent variables.*
+> ***Unsupervised** learning algorithms can be used to understand the structure of one's dataset. **Supervised** models, on the other hand, help to quantify relationships between features and a known outcome. Known outcomes are also commonly referred to as labels or dependent variables.*
 
 In Section 3 we focus on Topic Modeling, an unsupervised learning approach to automatically identify topics in a collection of documents. In fact, we'll explore two different approaches to topic modeling, as well as strategies for identifying the "right" number of topics:
 
-a.  **Fitting a Topic Modeling with LDA**. In this section we learn to use the `topicmodels` package and associated `LDA()` function for unsupervised classification of our forum discussions to find natural groupings of words, or topics.
-b.  **Fitting a Structural Topic Model**. We then explore the use of the `stm` package and `stm()` function to fit our model and uses metadata about documents to improve the assignment of words to "topics" in a corpus.
+a.  **Fitting a Topic Modeling with LDA**. In this section we learn to use the {topicmodels} package and associated `LDA()` function for unsupervised classification of our forum discussions to find natural groupings of words, or topics.
+b.  **Fitting a Structural Topic Model**. We then explore the use of the {stm} package and `stm()` function to fit our model and uses metadata about documents to improve the assignment of words to "topics" in a corpus.
 c.  **Choosing K.** Finally, we wrap up Section 3 by learning about diagnostic properties like exclusivity, semantic coherence, and heldout likelihood for helping to select an appropriate number of topics.
 
 ### 3a. Fitting a Topic Modeling with LDA
 
-Before running our first topic model using the `LDA()` function, let's quick recap from our readings some basic principles behind Latent Dirichlet allocation and why LDA is of preferred over other automatic classification or clustering approaches.
+Before running our first topic model using the `LDA()` function, let's quick recap from our readings some basic principles behind Latent Dirichlet Allocation and why LDA is of preferred over other automatic classification or clustering approaches.
 
 Unlike simple forms of cluster analysis such as k-means clustering, LDA is a **"mixture" model**, which in our context means that:
 
 1.  **Every [document]{.underline} contains a mixture of topics.** Unlike algorithms like k-means, LDA treats each document as a mixture of topics, which allows documents to "overlap" each other in terms of content, rather than being separated into discrete groups. So in practice, this means that a discussion forum post could have an estimated topic proportion of 70% for Topic 1 (e.g. be mostly about a Topic 1), but also be partly about Topic 2.
 2.  **Every [topic]{.underline} contains a mixture of words.** For example, if we specified in our LDA model just 2 topics for our discussion posts, we might find that one topic seems to be about pedagogy while another is about learning. The most common words in the pedagogy topic might be "teacher", "strategies", and "instruction", while the learning topic may be made up of words like "understanding" and "students". However, words can be shared between topics and words like "statistics" or "assessment" might appear in both equally.
 
-Similar to k-means other other simple clustering approaches, however, LDA does require us to specify a value of *k* for the number of topics in our corpus. Selecting *k* is no trivial matter and can greatly impact your results.
+Similar to k-means other other simple clustering approaches, however, LDA does require us to specify beforehand a value for *k*, i.e., the number of topics in our corpus. Selecting *k* is no trivial matter and can greatly impact your results.
 
-Since we don't have a have strong rationale about the number of topics that might exist in discussion forums, let's use the `n_distinct()` function from the `dplyr` package to find the number of unique forum names in our course data and run with that:
+Since we don't have a have strong rationale about the number of topics that might exist in discussion forums, let's use the `n_distinct()` function from the `dplyr` package to find the number of unique forum names in our course data and use that as a starting point:
 
 ```{r n-distinct}
 n_distinct(ts_forum_data$forum_name)
 ```
 
-Since it looks like there are 20 distinct discussion forums, we'll use that as our value for the `k =` argument of the `LDA()`. Be patient while this runs, since the default setting of is to perform a large number of iterations.
+Since it looks like there are about 20 distinct discussion forums, we'll use that as our value for the `k =` argument of the `LDA()`. Be patient while this runs, since the default setting of is to perform a large number of iterations and can take several minutes to "fit" a model to the data.
 
 ```{r LDA}
 n_distinct(ts_forum_data$forum_name)
 
 forums_lda <- LDA(forums_dtm, 
-                  k = 20, 
-                  control = list(seed = 588)
+                  k = 20,
+                  method = "VEM",
+                  control = list(seed = 588),
                   )
 
 forums_lda
@@ -480,7 +481,9 @@ forums_lda
 
 Note that we used the `control =` argument to pass a random number (`588`) to seed the assignment of topics to each word in our corpus. Since LDA is a [stochastic algorithm](https://machinelearningmastery.com/stochastic-in-machine-learning/) that could have different results depending on where the algorithm starts, specified a `seed` for reproducibility and so we're all seeing the same results every time we specify the same number of topics.
 
-And tying back to our work in Unit 1, Bail (2020) notes that topic assignments for each word are updated in an iterative fashion and that LDA employs the Term Frequency-Inverse Document Frequency (TF-IDF) metric to assign probabilities.
+By default, the `LDA()` function uses the `method =` "VEM" (Variational Expectation Maximization) estimation method, which is generally faster and more scalable. However, there is "Gibbs" (Gibbs Sampling) method, which is more accurate but computationally intensive, as well as the "CTM" (Correlated Topic Model) method, a variation of LDA with correlated topics.
+
+Finally, tying back to our work in Unit 1, Bail (2020) notes that topic assignments for each word are updated in an iterative fashion and that LDA employs the Term Frequency-Inverse Document Frequency (TF-IDF) metric to assign probabilities.
 
 ### 3b. Fitting a Structural Topic Model
 
