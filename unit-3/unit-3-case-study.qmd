@@ -12,8 +12,6 @@ theme:
   dark: cyborg
 editor: visual
 bibliography: lit/references.bib
-execute: 
-  eval: false
 ---
 
 ## 0. INTRODUCTION
@@ -510,14 +508,14 @@ As you can see form the output, each "Topic" is essentially a "bag-of-words" tha
 
 ### 3b. Fitting a Structural Topic Model
 
-Bail notes that LDA, while perhaps the most common approach to topic modeling, is just one of many different types, including Dynamic Topic Models, Correlated Topic Models, Hierarchical Topic Models, and more recently, Structural Topic Modeling (STM). He argues that one reason STM has rising in popularity and use is that it employs meta data about documents to improve the assignment of words to topics in a corpus and that can be used to examine relationships between covariates and documents.
+Bail notes that LDA, while perhaps the most common approach to topic modeling, is just one of many different types, including Dynamic Topic Models, Correlated Topic Models, Hierarchical Topic Models, and more recently, Structural Topic Modeling (STM). He argues that one reason STM has risen in popularity and use is that it employs meta data about documents to improve the assignment of words to topics in a corpus and can be used to examine relationships between covariates and documents.
 
 Also, since Julia Silge has indicated that STM is, "my current favorite implementation of topic modeling in R" and has built supports in the `tidytext` package for building structural topic models, this package definitely is worth discussing in this case study. I also highly recommend her own case study of the `stm` package: [The game is afoot! Topic modeling of Sherlock Holmes stories](https://juliasilge.com/blog/sherlock-holmes-stm/) as well as her follow up post, [Training, evaluating, and interpreting topic models](https://juliasilge.com/blog/evaluating-stm/).
 
 ::: callout-note
 **LLM-Based Approaches to Topic Modeling**
 
-Large Language Models (LLMs), such as GPT-4, BERT, and T5, which leverage deep learning and contextual embeddings, have also emerged as promising approaches for modeling topics withing a corpus. Unlike traditional Latent Dirichlet Allocation (LDA), LLM-based topic modeling approaches and libraries such as {[**BERTopic**](https://maartengr.github.io/BERTopic/index.html)} use pre-trained transformers, embeddings, and clustering techniques to extract meaningful topics.
+Large Language Models (LLMs), such as GPT-4, BERT, and T5, which leverage deep learning and contextual embeddings, have also emerged as promising approaches for modeling topics within a corpus. Unlike traditional Latent Dirichlet Allocation (LDA), LLM-based topic modeling approaches and libraries such as {[BERTopic](https://maartengr.github.io/BERTopic/index.html)} use pre-trained transformers, embeddings, and clustering techniques to extract meaningful topics.
 :::
 
 #### The `stm` Package
@@ -560,19 +558,59 @@ By default, it only shows the first 3 terms so let's change that to 5 to help wi
 plot.STM(forums_stm, n = 5)
 ```
 
-Note that you can also just use `plot()` as well:
+Note that you can also just use the base R `plot()` function as well:
 
 ```{r plot}
 plot(forums_stm, n = 5)
 ```
 
-##### ✅ Comprehension Check
+You should see an output that looks something like the image below:
 
-Fit a model for both LDA and STM using different values for K and answer the following questions:
+![](img/stm-topics.png){width="100%"}
+
+Let's break down what we're seeing:
+
+-   **Title: "Top Topics"**
+
+    -   This indicates that the visualization represents the most prominent topics identified by the STM model.
+
+-   **Topic Labels and Keywords**
+
+    -   Each topic is listed as `Topic X` (e.g., `Topic 19`, `Topic 1`, etc.), followed by its **most representative words**.
+
+    -   The words are **stemmed** (e.g., *statist* → *statistics*, *cours* → *course*), indicating preprocessing steps such as stemming or lemmatization.
+
+    -   The keywords reflect the **semantic content**, or "signature," of each topic and provide a snapshot of what each topic represents.
+
+-   **Horizontal Bars**
+
+    -   Each horizontal bar represents the **expected topic proportion**, i.e., how prevalent each topic is in the corpus, i.e., our entire body of posts.
+
+    -   The **longer the bar**, the more dominant the topic is across documents.
+
+-   **X-Axis: "Expected Topic Proportions"**
+
+    -   This represents the proportion of the dataset that each topic occupies.
+
+    -   Topics with higher proportions are more frequently discussed in the corpus.
+
+#### **👉 Your Turn ⤵**
+
+Fit a model for both LDA and STM using different values for K and answer the questions below:
+
+```{r}
+# YOUR CODE HERE
+
+
+
+```
 
 1.  What topics appear to be similar to those using 20 topics for K?
+    -   YOUR RESPONSE HERE
 2.  Knowing that you don't have as much context as I do, how might you interpret one of these latent topics or themes using the key terms assigned?
+    -   YOUR RESPONSE HERE
 3.  What topic emerged that seem dramatically different and how might you interpret this topic?
+    -   YOUR RESPONSE HERE
 
 ### 3c. Finding *K*
 
@@ -582,9 +620,9 @@ As alluded to earlier, selecting the number of topics for your model is a non-tr
 
 There are several approaches to estimating a value for K and we'll take a quick look at one from the `ldatuning` package and one from our `stm` package.
 
-#### The FindTopicsNumber Function
+#### The `FindTopicsNumber()` Function
 
-The `ldatuning` package has functions for both calculating and plotting different metrics that can be used to estimate the most preferable number of topics for LDA model. It also conveniently takes the standard document term matrix object that we created from out tidy text and has the added benefit of running fairly quickly, especially compared to the function for finding K from the `stm` package.
+The {ldatuning} package has functions for both calculating and plotting different metrics that can be used to estimate the most preferable number of topics for LDA model. It also conveniently takes the standard document term matrix object that we created from out tidy text and has the added benefit of running fairly quickly, especially compared to the function for finding *K* from the {stm} package.
 
 Let's use the defaults specified in the `?FindTopicNumber` documentation and modify slightly get metrics for a sequence of topics from 10-75 counting by 5 and plot the output we saved using the `FindTopicsNumber_plot()` function:
 
@@ -606,7 +644,7 @@ FindTopicsNumber_plot(k_metrics)
 
 Note that the `FindTopicNumbers()` function contains three additional metrics for calculating metrics that can be used to estimate the most preferable number of topics for LDA model. We used the Griffiths2004 metrics included in the default example and I've also found this to produce the most interpretable results as show in the figure below:
 
-![](img/k_metrics.png){width="90%"}
+![](img/k-metrics.png){width="100%"}
 
 As a general rule of thumb and overly simplistic heuristic, we're looking for an inflection point in our plot which indicates an optimal number of topics to select for a value of K.
 
@@ -626,11 +664,17 @@ findingk <- searchK(docs,
 plot(findingk)
 ```
 
-Note that Running `searchK()` function on this corpus took all night on a pretty powerful MacBook Pro and crashed once as well, so I do not expect you to run this for the case study. I ran a couple iterations and landed on between 5 and 15 with an optimal number of topics somewhere around 14:
+::: callout-warning
+**Computationally Intensive!**
+
+Note that running the `searchK()` function on this corpus took all night on a pretty powerful MacBook Pro and crashed once as well, so I do not expect you to run this for the case study.
+:::
+
+After a couple iterations `searchK()` landed on between 5 and 15 with an optimal number of topics somewhere around 14:
 
 ![](img/searchk_results.png){width="90%"}
 
-Given the somewhat conflicting results, also somewhat selfishly and for the same of simplicity for this case study, I'm just going to stick with the rather arbitrary selection of 20 topics for the remainder of this Unit.
+Given the somewhat conflicting results – also somewhat selfishly and for the same of simplicity for this case study – I'm just going to stick with the rather arbitrary selection of 20 topics for the remainder of this case study.
 
 #### The LDAvis Explorer
 
@@ -640,7 +684,7 @@ One final tool that I want to introduce from the `stm` package is the `toLDAvis(
 toLDAvis(mod = forums_stm, docs = docs)
 ```
 
-As you can see from the browser screen shot below, our current stm model of 20 topics is resulting in a lot of overlap among topics and suggest that 20 may not be an optimal number of topics, as other approaches for finding k also suggests:
+As you can see from the browser screen shot below, our current STM with 20 topics is resulting in a lot of overlap among topics and suggest that 20 may not be an optimal number of topics, as other approaches for finding k also suggests:
 
 ![](img/ldavis.png)
 
@@ -656,7 +700,7 @@ Bail (2018) cautions, however, that:
 
 Hidden within this `forums_lda` topic model object we created are per-topic-per-word probabilities, called β ("beta"). It is the probability of a term (word) belonging to a topic. 
 
-Let's take a look at the 5 most likely terms assigned to each topic, i.e. those with the largest β values using the `terms()` function from the `topicmodels` package:
+Let's take a look again at the 5 most likely terms assigned to each topic, i.e. those with the largest β values using the `terms()` function from the `topicmodels` package:
 
 ```{r terms}
 terms(forums_lda, 5)
@@ -664,13 +708,13 @@ terms(forums_lda, 5)
 
 Even though we've somewhat arbitrarily selected the number of topics for our corpus, some these topics or themes are fairly intuitive to interpret. For example:
 
--   Topic 11 (technology, students, software, program, excel) seems to be about students use of technology including software programs like excel;
+-   **Topic 11** (technology, students, software, program, excel) seems to be about students use of technology including software programs like excel;
 
--   Topic 9 (questions, kids, love, gapminder, sharing) seems to be about the gapminder activity from the MOOC-Ed and kids enjoyment of it; and
+-   **Topic 9** (questions, kids, love, gapminder, sharing) seems to be about the gapminder activity from the MOOC-Ed and kids enjoyment of it; and
 
--   Topic 18 (data, students, collect, real, sets) seems to be about student collection and use of real world data sets.
+-   **Topic 18** (data, students, collect, real, sets) seems to be about student collection and use of real world data sets.
 
-Not surprisingly, the `tidytext` package has a handy function conveniently name `tidy()` to convert our lda model to a tidy data frame containing these beta values for each term:
+Not surprisingly, the `tidytext` package has a handy function conveniently name `tidy()` to convert our LDA model to a tidy data frame containing these beta values for each term:
 
 ```{r tidy_lda}
 
@@ -708,7 +752,7 @@ Now that we have a sense of the most common words associated with each topic, le
 
 Also, hidden within our `forums_lda` topic model object we created are per-document-per-topic probabilities, called γ ("gamma"). This provides the probabilities that each document is generated from each topic, that gamma matrix. We can combine our beta and gamma values to understand the topic prevalence in our corpus, and which words contribute to each topic.
 
-To do this, we're going to borrow some code from the Silge (2018) post, [Training, evaluating, and interpreting topic models](https://juliasilge.com/blog/evaluating-stm/).
+To do this, we're going to again borrow some code from the Silge (2018) post, [Training, evaluating, and interpreting topic models](https://juliasilge.com/blog/evaluating-stm/).
 
 First, let's create two tidy data frames for our beta and gamma values
 
@@ -757,17 +801,17 @@ plot(forums_stm, n = 7)
 
 ### 4c. Reading the Tea Leaves
 
-Recognizing that topic modeling is best used as a "tool for reading" and provides only an incomplete answer to our overarching, **"How do we quantify what a corpus is about?"**, the results do suggest some potential topics that have emerges as well as some areas worth following up on.
+Recognizing that topic modeling is best used as a "tool for reading" and provides only an incomplete answer to our overarching, **"How do we quantify what a corpus is about?"**, the results do suggest some potential topics that have emerged, as well as some areas worth following up on.
 
 Specifically, looking at some of the common clusters of words for the more prevalent topics suggest that some key topics or "latent themes" (renamed in bold) might include:
 
--   **Teaching Statistics:** Unsurprising, given the course title, the topics most prevalent in both the `forums_stm` and `forums_lda` models contains the terms "teach", "students", "statistics". This could be an "overarching theme" but more likely may simply be just the residue of the course title though being sprinkled throughout the forums and deserves some follow up. Topics 8 from the LDA model may overlap with this topic as well.
+-   **Teaching Statistics:** Unsurprising, given the course title, the topics most prevalent in both the `forums_stm` and `forums_lda` models contains the terms "teach", "students", "statistics". This could be an "overarching theme" but more likely may simply just be residue from the course title being sprinkled throughout the forums and deserves some follow up. Topics 8 from the LDA model may overlap with this topic as well.
 -   **Course Utility:** The second most prevalent Topics (13 and 2) in the `lda` and `stm` models respectively, seem to potentially be about the usefulness of course "resources" like lessons, tools, videos, and activities. I'm wagering this might be a forum dedicated to course feedback. Topic 15 from the STM model also suggest this may be a broader theme.
--   **Using Real-World Data:** Topics 18 & 12 from the LDA model particularly intrigue me and I'm wagering this is pretty positive sentiment among participants about the value and benefit of having students collect and analyze real data sets (e.g. Census data in Topic 1) and work on projects relevant to their real life. Will definitely follow up on this one.
--   **Technology Use:** Several topics (6 & 11 from LDA and 8 & 19 from STM) appear to be about student use of technology and software like calculators and Excel for teaching statistics and using simulations. Topic 16 from LDA also suggest the use of the Common Online Data Analysis Platform ([CODAP](Common%20Online%20Data%20Analysis%20Platform%20(CODAP)%20Open-source%20software%20for%20dynamic%20data%20exploration)).
+-   **Using Real-World Data:** Topics 18 & 12 from the LDA model particularly intrigued me and I'm wagering this is pretty positive sentiment among participants about the value and benefit of having students collect and analyze real data sets (e.g. Census data in Topic 1) and work on projects relevant to their real life. Will definitely follow up on this one.
+-   **Technology Use:** Several topics (6 & 11 from LDA and 8 & 19 from STM) appear to be about student use of technology and software like calculators and Excel for teaching statistics and using simulations. Topic 16 from LDA also suggest the use of the Common Online Data Analysis Platform ([CODAP](https://codap.concord.org)).
 -   **Student Struggle & Engagement:** Topic 15 from LDA and Topic 16 from STM also intrigue me and appear to be two opposite sides of perhaps the same coin. The former includes "struggle" and "reading" which suggests perhaps a barrier to teaching statistics while Topic 16 contains top stems like "engage", "activ", and "think" and may suggest participants anticipate activities may engage students.
 
-To serve as a check on my tea leaf reading, I'm going to follow Bail's recommendation to examine some of these topics qualitatively. The `stm` package has another useful function though exceptionally fussy function called `findThoughts` which extracts passages from documents within the corpus associate with topics that you specify.
+To serve as a check on my tea leaf reading, I'm going to follow Bail's recommendation to examine some of these topics qualitatively. The `stm` package has another useful (though exceptionally fussy) function called `findThoughts` which extracts passages from documents within the corpus associate with topics that you specify.
 
 The first line of code may not be necessary for your independent analysis, but because the `textProcessor()` function removed several documents during processing, the `findthoughts()` function can't properly index the processed docs. This [line of code found on stackoverflow](https://stackoverflow.com/questions/43492667/r-stm-number-of-provided-texts-and-number-of-documents-modeled-do-not-match) removes documents from original `ts_forum_data` source that were removed during processing so there is a one-to-one correspondence with `forums_stm` and so you can use the function to find posts associated with a given topic.
 
@@ -784,7 +828,7 @@ findThoughts(forums_stm,
              thresh = 0.5)
 ```
 
-Duplicate posts aside, this **Course Utility** topic returns posts there were expected based on my interpretation of the key terms for Topic 2. It looks like I may have read those tea leaves correctly.
+Duplicate posts aside, this **Course Utility** topic returns posts there were expected based on my interpretation of the key terms for Topic 2. It looks like I may have read those tea leaves correctly!
 
 Now let's take a look at Topic 16 that we thought might be related to student engagement:
 
@@ -797,7 +841,7 @@ findThoughts(forums_stm,
              thresh = 0.5)
 ```
 
-It looks like my tea reading was a partially correct for Topic 16, though the results seem to be about a specific "Pepsi challenge" activity to conduct with students.
+It looks like my tea reading was a partially correct for Topic 16, though the results seem to be about a specific "Pepsi challenge" activity conducted with students.
 
 Finally, let's look at posts from Topic 3 which we though might be an overarching theme about teaching statistics:
 
@@ -814,15 +858,50 @@ findThoughts(forums_stm,
 
 Looking at just the 10 posts returned, perhaps a better name for this topic would be **Course Reflections on Teaching Statistics**.
 
-#### Unit Takeaway
+#### Key Takeaways
 
 In addition to some useful R packages and functions for the actual process of topic modeling, hopefully there are two main lessons I'm hoping you take away from this case study:
 
-1.  **Topic modeling requires a lot of decisions.** Beyond deciding on a value for K, there are a number of key decisions that you have to make that can dramatically affect your results. For example, to stem or not to stem? What qualifies as a document? What flavor or topic modeling is best suited to your data and research questions? How many iterations to run?
+1.  **Topic modeling requires a lot of decisions.** Beyond deciding on a value for K, there are a number of key decisions that you have to make that can dramatically affect your results. For example, to stem or not to stem? What qualifies as a document? What flavor of topic modeling is best suited to your data and research questions? How many iterations should you run?
 2.  **Topic modeling is as much art as (data) science.** As Bail (2018) noted, the term "topic" is somewhat ambitious, and topic models do not produce highly nuanced classification of texts. Once you've fit your model, interpreting your model requires some mental gymnastics and ideally some knowledge of the context from which the data came to help with interpretation of your topics. Moreover, the quantitative approaches for making the decisions highlighted above are imperfect and a good deal of human judgment required.
 
-##### ✅ Comprehension Check
+#### **👉 Your Turn ⤵**
 
-Using the STM model you fit from the Section 3 \[Comprehension Check\] with a different value for K, use the approaches demonstrated in Section 4 to explore and interpret your topics and terms and revisit the following question:
+Using the STM model you fit in Section 3 with a different value for K, use the approaches demonstrated in Section 4 to explore and interpret your topics and terms and answer the question below.
 
-1.  Now that you have a little more context, how might you revise your initial interpretation of some of the latent topics or latent themes from your model?
+```{r}
+# YOUR CODE HERE
+
+
+
+```
+
+## 5. COMMUNICATE
+
+Recall that the final(ish) step in our workflow/process is sharing the results of analysis with wider audience. Krumm et al. (2018) outlined the following 3-step process for communicating with education stakeholders what you have learned through analysis:
+
+1.  **Select**. Communicating what one has learned involves selecting among those analyses that are most important and most useful to an intended audience, as well as selecting a form for displaying that information, such as a graph or table in static or interactive form, i.e. a "data product."
+2.  **Polish**. After creating initial versions of data products, research teams often spend time refining or polishing them, by adding or editing titles, labels, and notations and by working with colors and shapes to highlight key points.
+3.  **Narrate**. Writing a narrative to accompany the data products involves, at a minimum, pairing a data product with its related research question, describing how best to interpret the data product, and explaining the ways in which the data product helps answer the research question.
+
+In this case study, we focused applying some fairly standard topic modeling approaches to help us understand topics that emerged in online discussion forums as part of a online course for statistics educators. Specifically, we made our very first attempt at fitting both LDA and STM topic models to identify the key words .
+
+For this case study, let's focus on returning to our research question and communicating our findings to the MOOC-Ed team:
+
+> What topics emerged in the discussion forums?
+
+#### **👉 Your Turn** **⤵**
+
+Imagine that your are part of the MOOC-Ed research team responsible for communicating your work to the instructional developers and course facilitators on the team. Based on the analyses conducted in Sections 3 & 4, write a brief summary for three key findings from our topic modeling that you think would be interesting and potentially actionable for the team.
+
+1.  KEY FINDING
+
+2.  KEY FINDING
+
+3.  KEY FINDING
+
+### Congratulations!
+
+You've completed the Unit 3 Case Study: Topic Modeling in MOOC-Eds. **To "turn in" your work, you can click the "Render" icon in the menu bar above.** This will create a HTML report in your Files pane that serves as a record of your completed assignment and that can be opened in a browser or shared on the web.
+
+### References
