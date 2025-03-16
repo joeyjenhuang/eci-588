@@ -67,29 +67,41 @@ With the exception of the Self-Selected resource, **you are not required to post
 
 ### Guiding Questions
 
-#### Topic 1: What is Topic Modeling? And other new terms.
+#### Topic 1: What is Quantitative Enthography? And other new terms.
 
 Reflecting on the course text and your self-selected reading, answer one or more of the following questions:
 
-1.  What exactly is "topic modeling"?
+1.  How would you define *Quantitative Ethnography* and *Epistemic Network Analysis* in your own words?
 
-2.  What is it trying to accomplish and how does it work? 
+2.  In your opinion, how do QE and ENA compare to other text mining approachces we've learned about so far in this course? What about other more traditional educational research approaches (like analyzing test scores statistically or qualitatively coding interview transcripts)?
 
-3.  What are some other new terms, words, concepts that you have come across in the resources that were unfamiliar to you, or that you had come across before but feel you have a better understanding of after this week?
+3.  What are some of the theoretical foundations of QE? How do these theories shape the way we collect, code, and interpret text as data, and in what ways do they set QE apart from purely empirical approaches?
+
+4.  What is an "epistemic frame" in the context of QE, and how does this concept inform the analytical approach of ENA?
+
+5.  How does quantitative ethnography attempt to bridge the gap between qualitative and quantitative research methods? What unique advantages might this integrated approach offer?
+
+6.  How would you explain the core principles of quantitative ethnography to a colleague who is familiar with traditional qualitative research but skeptical of quantitative approaches?
+
+7.  What are some other new terms, words, concepts that you have come across in the resources that were unfamiliar to you, or that you had come across before but feel you have a better understanding of after this week?
 
 #### Topic 2: Applications in Education
 
 Reflecting on the course text and your self-selected reading, answer one or more of the following questions:
 
-1.  How has topic modeling been applied to educational contexts, or in other fields that might be relevant to education? 
+1.  How might ENA be used to analyze collaborative learning processes? What aspects of group interaction could it illuminate that might otherwise remain hidden?
 
-2.  How have/could these methods be applied to better understand and improve student learning and the contexts in which learning occurs?  
+2.  What potential applications does QE/ENA have for understanding online learning environments? How might it help us better understand virtual educational spaces?
 
-3.  How might text mining be applied in your professional context? 
+3.  How might instructors use insights from ENA to inform their teaching practices and improve classroom discourse?
 
-4.  How has/could text mining be applied to address systemic issues or persistent problems in Education?
+4.  Identify a real-world educational scenario where QE and ENA could be applied (for example, analyzing a classroom discussion, an online course forum, or a collaborative group project). What research question might a study in this context ask, and how could QE/ENA provide insights into that question that other methods might miss?
 
-#### Topic 3: Topic Modeling Measures
+5.  How might ENA be applied across different educational levels, from K-12 to higher education? What adaptations might be necessary for different contexts?
+
+6.  What potential does QE/ENA hold for understanding interdisciplinary learning, where students must integrate knowledge from multiple domains?
+
+#### Topic 3: Methods and Measures
 
 Reflecting on the course text and your self-selected reading, answer one or more of the following questions:
 
@@ -101,9 +113,9 @@ Reflecting on the course text and your self-selected reading, answer one or more
 
 Reflecting on the course text and your self-selected reading, answer one or more of the following questions:
 
-1.  What are some of the advantages of topic-modeling approaches compared to approaches we examined in Unit 1 & 2?
+1.  Can you describe a scenario where using QE/ENA would likely offer clearer or deeper insights than other text mining methods, or more conventional research methods, and conversely, a scenario where QE/ENA might not be the best approach?
 
-2.  What are some of the issues, challenges, and limitations of this approach? 
+2.  What potential limitations or challenges should researchers be aware of when applying QE and ENA in education? Consider issues such as the complexity of the analysis, the need for expertise in both qualitative and quantitative methods, or difficulties in interpreting network results for practical educational decisions.
 
 #### Topic 5: Text-Based Data Sources
 
