@@ -1,5 +1,5 @@
 ---
-title: "Unit 2 Readings: Dictionary-Based Methods"
+title: "Unit 4 Readings: Intro to Quantitative Enthnography"
 subtitle: "ECI 588: Text Mining in Education"
 author: "Dr. Shaun Kellogg"
 date: today
