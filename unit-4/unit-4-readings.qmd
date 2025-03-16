@@ -134,11 +134,11 @@ Provide a brief overview of your self-selected resource that includes the follow
 
 -   What was the **purpose** of your article?
 
--   How was Topic Modeling **defined** and/or characterized?
+-   How was QE/ENA **defined** and/or characterized?
 
 -   What **data source(s)** were analyzed or discussed?
 
--   How, if at all, did your article touch upon the **application(s)** of text mining to "understand and improve learning and the contexts in which learning occurs?"
+-   How, if at all, did your article touch upon the **application(s)** of QE/ENA to "understand and improve learning and the contexts in which learning occurs?"
 
 -   What were some key **findings** from the analysis?
 
