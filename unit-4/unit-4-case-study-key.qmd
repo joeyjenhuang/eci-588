@@ -137,8 +137,6 @@ Now let's read our data into our Environment using the `read_csv()` function and
 
 ```{r read-csv}
 rescushell_data <- read_csv("data/rescushell-data.csv")
-
-rescushell_data
 ```
 
 #### **👉 Your Turn ⤵**
@@ -147,7 +145,7 @@ Use the code chunk below to inspect the data frame you just imported using a fun
 
 ```{r}
 # YOUR CODE HERE
-ts_forum_data
+rescushell_data
 ```
 
 In this case study, we are exploring the use of Epistemic Network Analysis (ENA) to analyze collaborative discussions within the RescuShell virtual internship platform. One critical step in preparing data for analysis is creating a codebook, which serves as a reference document that defines each variable in a dataset, including its meaning, format, and potential values.
@@ -200,216 +198,157 @@ In the table below, a short description is provided for each variable based on t
 | Collaboration                  | Code indicating discussions explicitly related to collaboration and teamwork processes.   |
 +--------------------------------+-------------------------------------------------------------------------------------------+
 
-### 2b. Prepare Data for an ENA model
+### 2b. Specify ENA Model Parameters
 
 To prepare data for ENA model, there is a function called `ena()` which enables researchers to set the parameters for their model. This function wraps two other functions—`ena.accumulate.data()` and `ena.make.set()`—which can be used together to achieve the same result.
 
-In the following sections, we will demonstrate how to set each parameter and explain how different choices affect the resulting ENA model.
+The following sections demonstrate how to set each parameter and explain how different choices affect the resulting ENA model.
 
-#### Specify units
+#### Specify Units
 
-In ENA, *units* can be individuals, ideas, organizations, or any other entity whose structure of connections you want to model. To set the units parameter, specify which column(s) in the data contain the variables that identify unique units.
+In ENA, ***units*** can be individuals, ideas, organizations, or any other entity whose structure of connections you want to model. To set the units parameter, specify which column(s) in the data contain the variables that identify unique units.
 
-For this example, choose the “Condition” column and the “UserName” column to define the units. The “Condition” column has two unique values: `FirstGame`, and `SecondGame`, representing novice users and relative expert users, respectively, as some students participated in *RescuShell*after having already completed a different engineering virtual internship. The “UserName” column includes unique user names for all students (*n*=48). This way of defining the units means that ENA will construct a network for each student in each condition.
+For this example, choose the `Condition` column and the `UserName` column to define the units. The `Condition` column has two unique values: `FirstGame`, and `SecondGame`, representing novice users and relative expert users, respectively, as some students participated in *RescuShell* after having already completed a different engineering virtual internship. The `UserName` column includes unique user names for all students (*n*=48). This way of defining the units means that ENA will construct a network for each student in each condition.
 
 ```{r}
 unitCols <- c("Condition", "UserName")
 ```
 
-To verify that the units are correctly specified, subset and preview the unique values in the units columns. There are 48 units from two conditions, which means that the ENA model will produce 48 individual-level networks for each of the units, and each unit is uniquely associated with either the novice group (`FirstGame`) or the relative expert group (`SecondGame`).
+To verify that the units are correctly specified, lets subset and preview the unique values in the units columns. To do that, we'll pipe `|>` the data frame `rescushell_data`, `select` only the columns whose names are stored in the character vector `unitCols` using `all_of()`, which ensures those names are treated literally and throws an error if any are missing, and then use the `distinct()` function to drop any duplicate rows across those selected columns.
 
-```         
-unique(data[, unitCols])
+```{r}
+
+rescushell_data |>
+  select(all_of(unitCols)) |>
+  distinct()
+
 ```
 
-|     |
-|-----|
-|     |
+There should 48 units from two conditions, which means that the ENA model will produce 48 individual-level networks for each of the units, and each unit is uniquely associated with either the novice group (`FirstGame`) or the relative expert group (`SecondGame`).
 
-+-----+-----------+-------------+
-|     | Condition | UserName    |
-|     |           |             |
-|     | \<chr\>   | \<chr\>     |
-+:====+:==========+:============+
-| 1   | FirstGame | steven z    |
-+-----+-----------+-------------+
-| 2   | FirstGame | akash v     |
-+-----+-----------+-------------+
-| 3   | FirstGame | alexander b |
-+-----+-----------+-------------+
-| 4   | FirstGame | brandon l   |
-+-----+-----------+-------------+
-| 6   | FirstGame | christian x |
-+-----+-----------+-------------+
-| 299 | FirstGame | jordan l    |
-+-----+-----------+-------------+
-| 300 | FirstGame | arden f     |
-+-----+-----------+-------------+
-| 301 | FirstGame | margaret n  |
-+-----+-----------+-------------+
-| 302 | FirstGame | connor f    |
-+-----+-----------+-------------+
-| 304 | FirstGame | jimmy i     |
-+-----+-----------+-------------+
+#### Specify Codes
 
-1-10 of 48 rows
+Next, let's specify the columns that contain the ***codes***. Codes are ressearcher defined concepts whose pattern of association we want to model for each "unit."
 
-#### 3.3.2 Specify codes
-
-Next, specify the columns that contain the *codes*. Codes are concepts whose pattern of association you want to model for each unit. ENA represent codes as nodes in the networks and co-occurrences of codes as edges. Most researchers use binary coding in ENA analyses, where the values in the code columns are either 0 (indicating that the code is not present in that line) or 1 (indicating that the code is present in that line). `RS.data` contains six code columns, all of which will be used here.
+ENA represent codes as nodes in the networks and co-occurrences of codes as edges. Most researchers use binary coding in ENA analyses, where the values in the code columns are either 0 (indicating that the code is not present in that line) or 1 (indicating that the code is present in that line). `rescushell_data` contains six code columns, all of which will be used here.
 
 To specify the code columns, enter the code column names in a vector.
 
-```         
-codeCols = c('Data', 'Technical.Constraints', 'Performance.Parameters', 'Client.and.Consultant.Requests', 'Design.Reasoning', 'Collaboration')
+```{r}
+codeCols <- c('Data', 'Technical.Constraints', 'Performance.Parameters', 'Client.and.Consultant.Requests', 'Design.Reasoning', 'Collaboration')
 ```
 
-To verify that the codes are correctly specified, preview the code columns selected.
+#### **👉 Your Turn ⤵**
 
-```         
-data[,codeCols]
+Use the code chunk below to verify that the codes are correctly specified, by using the `select()` and `all_of()` functions again.
+
+```{r}
+#YOUR CODE HERE
+rescushell_data |>
+  select(all_of(codeCols))
 ```
 
-|     |
-|-----|
-|     |
+Your code should return a tibble containing only the six columns you listed in `codeCols` vector (in exactly that order) and all 3,824 rows from `rescushell_data`. In other words, you’ll see a preview of the data frame with just the columns:
 
-+---------+-----------------------+------------------------+---+
-| Data    | Technical.Constraints | Performance.Parameters |   |
-|         |                       |                        |   |
-| \<int\> | \<int\>               | \<int\>                |   |
-+========:+======================:+=======================:+===+
-| 0       | 0                     | 0                      |   |
-+---------+-----------------------+------------------------+---+
-| 0       | 0                     | 0                      |   |
-+---------+-----------------------+------------------------+---+
-| 0       | 0                     | 0                      |   |
-+---------+-----------------------+------------------------+---+
-| 0       | 0                     | 0                      |   |
-+---------+-----------------------+------------------------+---+
-| 0       | 0                     | 0                      |   |
-+---------+-----------------------+------------------------+---+
-| 0       | 0                     | 0                      |   |
-+---------+-----------------------+------------------------+---+
-| 0       | 0                     | 0                      |   |
-+---------+-----------------------+------------------------+---+
-| 0       | 0                     | 0                      |   |
-+---------+-----------------------+------------------------+---+
-| 0       | 0                     | 0                      |   |
-+---------+-----------------------+------------------------+---+
-| 0       | 0                     | 0                      |   |
-+---------+-----------------------+------------------------+---+
+-   Data
 
-...
+-   Technical.Constraints
 
-1-10 of 3,824 rows \| 1-3 of 6 columns
+-   Performance.Parameters
 
-#### 3.3.3 Specify conversations
+-   Client.and.Consultant.Requests
 
-The conversation parameter determines which lines in the data *can* be connected. Codes in lines that are not in the same conversation cannot be connected. For example, you may want to model connections within different time segments, such as days, or different steps in a process, such as activities.
+-   Design.Reasoning
 
-In our example, choose the “Condition”, “GroupName”, and “ActivityNumber” columns to define the conversations. These choices indicate that connections can only happen between students who were in the same condition (FirstGame or `SecondGame`) and on the same project team (group), and within the same activity. This definition of conversation reflects what actually happened in the simulation: in a given condition, students only interacted with those who were in the same group, and each activity occurred on a different day.
+-   Collaboration.
 
-To specify the conversation parameter, enter the column names in a vector.
+::: callout-important
+**Note:** If every name in `codeCols` matches a column in `rescushell_data`, you’ll get a normal tibble output; ***if any name is misspelled or doesn’t exist, select(all_of()) will throw an error***, alerting you to fix the typo before proceeding.
+:::
 
-```         
-conversationCols = c("Condition", "GroupName", "ActivityNumber")
+#### Specify Conversations
+
+The ***conversation*** parameter determines which lines in the data *can* be connected. Codes in lines that are not in the same conversation cannot be connected. For example, you may want to model connections within different time segments, such as days, or different steps in a process, such as activities.
+
+For this case study, we'll choose the `Condition`, `GroupName`, and `ActivityNumber` columns to define the "conversations." These choices indicate that connections can only happen between students who were in the same condition (`FirstGame` or `SecondGame`) and on the same project team (group), and within the same activity. This definition of conversation reflects what actually happened in the simulation: in a given condition, students only interacted with those who were in the same group, and each activity occurred on a different day.
+
+#### **👉 Your Turn ⤵**
+
+Similar to how we specified **units** and **codes** above, use the code chunk below to created a character vector that specifies the **conversation** parameter using the `Condition`, `GroupName`, and `ActivityNumber` columns, and then verify that the conversations are correctly specified by subset and preview the unique values in the conversation columns.
+
+```{r}
+conversationCols <- c("Condition", "GroupName", "ActivityNumber")
+
+rescushell_data |>
+  select(all_of(conversationCols))
 ```
 
-To verify that the conversations are correctly specified, subset and preview the unique values in the conversation columns.
+Again, your code should return a tibble containing only the thre columns you listed in `conversationCols` vector (in exactly that order) and all 3,824 rows from `rescushell_data`.
 
-```         
-unique(data[, conversationCols])
-```
+#### Specify the Window
 
-|     |
-|-----|
-|     |
+Once the conversation parameter is specified, a ***window*** method needs to be specified. Whereas the conversation parameter specifies which lines *can be* related, the window parameter determines which lines within the same conversation *are* related. The most common window method used in ENA is called a moving stanza window, which is what will be used here.
 
-+-----+-----------+-----------+----------------+
-|     | Condition | GroupName | ActivityNumber |
-|     |           |           |                |
-|     | \<chr\>   | \<chr\>   | \<int\>        |
-+:====+:==========+:==========+===============:+
-| 1   | FirstGame | Electric  | 1              |
-+-----+-----------+-----------+----------------+
-| 12  | FirstGame | Electric  | 3              |
-+-----+-----------+-----------+----------------+
-| 15  | FirstGame | Electric  | 4              |
-+-----+-----------+-----------+----------------+
-| 18  | FirstGame | Electric  | 5              |
-+-----+-----------+-----------+----------------+
-| 91  | FirstGame | Electric  | 6              |
-+-----+-----------+-----------+----------------+
-| 93  | FirstGame | Electric  | 7              |
-+-----+-----------+-----------+----------------+
-| 110 | FirstGame | Electric  | 8              |
-+-----+-----------+-----------+----------------+
-| 127 | FirstGame | Electric  | 9              |
-+-----+-----------+-----------+----------------+
-| 237 | FirstGame | Electric  | 10             |
-+-----+-----------+-----------+----------------+
-| 249 | FirstGame | Electric  | 11             |
-+-----+-----------+-----------+----------------+
-
-...
-
-1-10 of 153 rows
-
-#### 3.3.4 Specify the window
-
-Once the conversation parameter is specified, a window method needs to be specified. Whereas the conversation parameter specifies which lines *can be* related, the window parameter determines which lines within the same conversation *are* related. The most common window method used in ENA is called a moving stanza window, which is what will be used here.
-
-Briefly, a moving stanza window is a sliding window of fixed length that moves through a conversation to detect and accumulate code co-occurrences in recent temporal context. The lines within a designated stanza window are considered related to each other. For instance, if the moving stanza window is 7, then each line in the conversation is linked to the six preceding lines. See Siebert-Evenstone et al. (2017) and Ruis et al. (2019) for more detailed explanations of windows in ENA models.
+Briefly, a ***moving stanza window*** is a sliding window of fixed length that moves through a conversation to detect and accumulate code co-occurrences in recent temporal context. The lines within a designated stanza window are considered related to each other. For instance, if the moving stanza window is 7, then each line in the conversation is linked to the six preceding lines.
 
 Here, set the window.size.back parameter equal to 7. User can specify a different moving stanza window size by passing a different numerical value to the `window.size.back` parameter.
 
-```         
+```{r}
 window.size.back = 7
 ```
 
-The ENA package also enables use of an infinite stanza window, which assumes that lines in any part of a conversation are related. The infinite stanza window works the same way as a moving stanza window, but there is no limit on the number of previous lines that are included in the window besides the conversation itself. The infinite stanza window is less commonly used in ENA, but is specified as follows:
+The ENA package also enables use of an **infinite stanza window**, which assumes that lines in any part of a conversation are related. The infinite stanza window works the same way as a moving stanza window, but there is no limit on the number of previous lines that are included in the window besides the conversation itself.
+
+The infinite stanza window is less commonly used in ENA, but is specified as follows:
+
+```{r}
+
+```
 
 ```         
 window.size.back = "INF"
 ```
 
-#### 3.3.5 Specify groups and rotation method
+#### Specify Groups and Rotation method
 
-When specifying the units, we chose a column that indicates two conditions: `FirstGame` (novice group) and `SecondGame` (relative expert group). To enable comparison of students in these two conditions, three additional parameters need to be specified: `groupVar`, `groups`, and `mean`.
+When specifying the units, we chose a column that indicates two conditions: `FirstGame` (novice group) and `SecondGame` (relative expert group).
 
-```         
-groupVar = "Condition" # "Condition" is the column used as our grouping variable 
-groups = c("FirstGame", "SecondGame") # "FirstGame" and "SecondGame" are the two unique values of the "Condition" column
+To enable comparison of students in these two conditions, three additional parameters need to be specified: `groupVar`, `groups`, and `mean` like so:
+
+```{r}
+groupVar <- "Condition" # "Condition" is the column used as our grouping variable 
+groups <- c("FirstGame", "SecondGame") # "FirstGame" and "SecondGame" are the two unique values of the "Condition" column
 mean = TRUE
 ```
 
-These three parameters indicate that when building the ENA model, the first dimension will maximize the difference between the two conditions: `FirstGame` and `SecondGame.` This difference maximization is achieved through `mean = TRUE`, which specifies that a *means rotation*will be performed at the dimensional reduction stage. If the means rotation is set to FALSE or there aren’t two distinct groups in your data, ENA will by default use singular value decomposition (SVD) to perform the dimensional reduction. Bowman et al. (2022) provide a mathematical explanation of the methods used in ENA to perform dimensional reductions.
+These three parameters indicate that when building the ENA model, the first dimension will maximize the difference between the two conditions: `FirstGame` and `SecondGame.` This difference maximization is achieved through `mean = TRUE`, which specifies that a *means rotation* will be performed at the dimensional reduction stage. If the means rotation is set to FALSE or there aren’t two distinct groups in your data, ENA will by default use singular value decomposition (SVD) to perform the dimensional reduction.
 
-#### 3.3.6 Specify metadata
+#### Specify Metadata
 
-The last parameter to be specified is metadata. Metadata columns are not required to construct an ENA model, but they provide information that can be used to subset units in the resulting model.
+Finally, the last parameter to be specified is **metadata**. Metadata columns are not required to construct an ENA model, but they provide information that can be used to subset units in the resulting model.
 
-Specify the metadata columns shown below to include data on student outcomes related to reported self-confidence before and after participating in engineering virtual internships. We will use this data to demonstrate a simple linear regression analysis that can be done using ENA outputs as predictors.
+Run the code chunk below to specify the metadata columns to include data on student outcomes related to reported self-confidence before and after participating in engineering virtual internships.
 
-```         
+```{r}
 metaCols = c("CONFIDENCE.Change","CONFIDENCE.Pre","CONFIDENCE.Post","C.Change") # optional
 ```
 
-#### 3.3.7 Construct a model
+We will use this data later to demonstrate a simple linear regression analysis that can be done using ENA outputs as predictors.
+
+### 2c. Construct ENA Model 
 
 Now that all the essential parameters have been specified, the ENA model can be constructed.
 
 To build an ENA model, we need two functions `ena.accumulate.data` and `ena.make.set`, and we recommend that you store the output in an object (in this case, **set.ena**).
 
-```         
-accum.ena = 
+```{r}
+accum.ena <- 
   ena.accumulate.data(
-    text_data = RS.data[, 'text'],
-    units = data[,unitCols],
-    conversation = data[,conversationCols],
-    metadata = data[,metaCols], # optional
-    codes = data[,codeCols],
+    text_data = rescushell_data[, 'text'],
+    units = rescushell_data[,unitCols],
+    conversation = rescushell_data[,conversationCols],
+    metadata = rescushell_data[,metaCols], # optional
+    codes = rescushell_data[,codeCols],
     window.size.back = 7
 )
 
@@ -424,455 +363,768 @@ set.ena =
 )
 ```
 
-### 3.4 Summary of key model outputs
+```{r}
+set.ena$connection.counts
 
-Users can explore what is stored in the object `set` by typing `set$` and select items from the drop down list. Here, we briefly describe the top-level items in `set` that are often of interest.
-
-## 3. MODEL
-
-This unit provides our first opportunity (VADER aside) for modeling text as data. In very simple terms, modeling involves developing a mathematical summary of a dataset. These summaries can help us further explore trends and patterns in our data.
-
-In their book, *Learning Analytics Goes to School,* Krumm and Means @krumm2018 describe two general types of modeling approaches used in the Data-Intensive Research workflow: unsupervised and supervised learning. In distinguishing between the two, they note:
-
-> ***Unsupervised** learning algorithms can be used to understand the structure of one's dataset. **Supervised** models, on the other hand, help to quantify relationships between features and a known outcome. Known outcomes are also commonly referred to as labels or dependent variables.*
-
-In Section 3 we focus on Topic Modeling, an unsupervised learning approach to automatically identify topics in a collection of documents. In fact, we'll explore two different approaches to topic modeling, as well as strategies for identifying the "right" number of topics:
-
-a.  **Fitting a Topic Modeling with LDA**. In this section we learn to use the {topicmodels} package and associated `LDA()` function for unsupervised classification of our forum discussions to find natural groupings of words, or topics.
-b.  **Fitting a Structural Topic Model**. We then explore the use of the {stm} package and `stm()` function to fit our model and uses metadata about documents to improve the assignment of words to "topics" in a corpus.
-c.  **Choosing K.** Finally, we wrap up Section 3 by learning about diagnostic properties like exclusivity, semantic coherence, and heldout likelihood for helping to select an appropriate number of topics.
-
-### 3a. Fitting a Topic Modeling with LDA
-
-Before running our first topic model using the `LDA()` function, let's quick recap from our readings some basic principles behind Latent Dirichlet Allocation and why LDA is of preferred over other automatic classification or clustering approaches.
-
-Unlike simple forms of cluster analysis such as k-means clustering, LDA is a **"mixture" model**, which in our context means that:
-
-1.  **Every [document]{.underline} contains a mixture of topics.** Unlike algorithms like k-means, LDA treats each document as a mixture of topics, which allows documents to "overlap" each other in terms of content, rather than being separated into discrete groups. So in practice, this means that a discussion forum post could have an estimated topic proportion of 70% for Topic 1 (e.g. be mostly about a Topic 1), but also be partly about Topic 2.
-2.  **Every [topic]{.underline} contains a mixture of words.** For example, if we specified in our LDA model just 2 topics for our discussion posts, we might find that one topic seems to be about pedagogy while another is about learning. The most common words in the pedagogy topic might be "teacher", "strategies", and "instruction", while the learning topic may be made up of words like "understanding" and "students". However, words can be shared between topics and words like "statistics" or "assessment" might appear in both equally.
-
-Similar to k-means other other simple clustering approaches, however, LDA does require us to specify beforehand a value for *k*, i.e., the number of topics in our corpus. Selecting *k* is no trivial matter and can greatly impact your results.
-
-Since we don't have a have strong rationale about the number of topics that might exist in discussion forums, let's use the `n_distinct()` function from the `dplyr` package to find the number of unique forum names in our course data and use that as a starting point:
-
-```{r n-distinct}
-n_distinct(ts_forum_data$forum_name)
 ```
-
-Since it looks like there are about 20 distinct discussion forums, we'll use that as our value for the `k =` argument of the `LDA()`. Be patient while this runs, since the default setting of is to perform a large number of iterations and can take several minutes to "fit" a model to the data.
-
-```{r LDA}
-n_distinct(ts_forum_data$forum_name)
-
-forums_lda <- LDA(forums_dtm, 
-                  k = 20,
-                  method = "VEM",
-                  control = list(seed = 588),
-                  )
-
-forums_lda
-```
-
-Note that we used the `control =` argument to pass a random number (`588`) to seed the assignment of topics to each word in our corpus. Since LDA is a [stochastic algorithm](https://machinelearningmastery.com/stochastic-in-machine-learning/) that could have different results depending on where the algorithm starts, specified a `seed` for reproducibility and so we're all seeing the same results every time we specify the same number of topics.
-
-By default, the `LDA()` function uses the `method =` "VEM" (Variational Expectation Maximization) estimation method, which is generally faster and more scalable. However, there is "Gibbs" (Gibbs Sampling) method, which is more accurate but computationally intensive, as well as the "CTM" (Correlated Topic Model) method, a variation of LDA with correlated topics.
-
-Finally, tying back to our work in Unit 1, Chris Bail (2020) notes that topic assignments for each word are updated in an iterative fashion and that LDA employs the Term Frequency-Inverse Document Frequency (TF-IDF) metric to assign probabilities.
-
-#### Viewing Topic Terms
-
-Before moving on, let's view the top 5 words in each topic using the dead simple `terms()` function. We'll also send this to the `as_tibble()` function to make the output a little easier to read:
 
 ```{r}
-terms(forums_lda, 5) |>
-  as_tibble()
-```
 
-#### **👉 Your Turn ⤵**
-
-Use the code chunk below to increase the number of terms associated with each "Topic" and answer the prompt that follows:
-
-```{r}
-terms(forums_lda, 10) |>
-  as_tibble()
-```
-
-As you can see form the output, each "Topic" is essentially a "bag-of-words" that typically occur together across documents. Pick two topics from the table above and use a short phrase or sentence that you think describes the topic.
-
--   TOPIC X: YOUR DESCRIPTION HERE
-
--   TOPIC X: YOUR DESCRIPTION HERE
-
-### 3b. Fitting a Structural Topic Model
-
-Bail notes that LDA, while perhaps the most common approach to topic modeling, is just one of many different types, including Dynamic Topic Models, Correlated Topic Models, Hierarchical Topic Models, and more recently, Structural Topic Modeling (STM). He argues that one reason STM has risen in popularity and use is that it employs meta data about documents to improve the assignment of words to topics in a corpus and can be used to examine relationships between covariates and documents.
-
-Also, since Julia Silge has indicated that STM is, "my current favorite implementation of topic modeling in R" and has built supports in the `tidytext` package for building structural topic models, this package is definitely worth discussing in this case study. I also highly recommend her own case study of the `stm` package: [The game is afoot! Topic modeling of Sherlock Holmes stories](https://juliasilge.com/blog/sherlock-holmes-stm/) as well as her follow up post, [Training, evaluating, and interpreting topic models](https://juliasilge.com/blog/evaluating-stm/).
-
-::: callout-note
-**LLM-Based Approaches to Topic Modeling**
-
-Large Language Models (LLMs), such as GPT-4, BERT, and T5, which leverage deep learning and contextual embeddings, have also emerged as promising approaches for modeling topics within a corpus. Unlike traditional Latent Dirichlet Allocation (LDA), LLM-based topic modeling approaches and libraries such as {[**BERTopic**](https://maartengr.github.io/BERTopic/index.html)} use pre-trained transformers, embeddings, and clustering techniques to extract meaningful topics.
-:::
-
-#### The `stm` Package
-
-As we've seen above, STM uses an unusual `temp` textProcessor output that is unique to the `stm` package. And as you've probably already guessed, the `stm()` function for fitting a structural topic model does not take a fairly standard document term matrix like the `LDA()` function.
-
-Before we fit our model, we'll have to extract the elements from the `temp` object created after we processed our text. Specifically, the `stm()` function expects the following arguments:
-
--   `documents =` the document term matrix to be modeled in the native stm format
--   `data =` an optional data frame containing meta data for the prevalence and/or content covariates to include in the model
--   `vocab =` a character vector specifying the words in the corpus in the order of the vocab indices in documents.
-
-Let's go ahead and extract these elements:
-
-```{r stm-docs}
-docs <- temp$documents 
-meta <- temp$meta 
-vocab <- temp$vocab 
-```
-
-And now use these elements to fit the model using the same number of topics for *K* that we specified for our LDA topic model. Let's also take advantage of the fact that we can include the `course_id` and `forum_id` covariates in the `prevealence =` argument to help improve, in theory, our model fit:
-
-```{r stm}
-forums_stm <- stm(documents=docs, 
-         data=meta,
-         vocab=vocab, 
-         prevalence =~ course_id + forum_id,
-         K=20,
-         max.em.its=25,
-         verbose = FALSE)
-
-forums_stm
-```
-
-As noted earlier, the `stm` package has a number of handy features. One of these is the `plot.STM()` function for viewing the most probable words assigned to each topic.
-
-By default, it only shows the first 3 terms so let's change that to 5 to help with interpretation:
-
-```{r plot-stm}
-plot.STM(forums_stm, n = 5)
-```
-
-Note that you can also just use the base R `plot()` function as well:
-
-```{r plot}
-plot(forums_stm, n = 5)
-```
-
-You should see an output that looks something like the image below:
-
-![](img/stm-topics.png){width="100%"}
-
-Let's break down what we're seeing:
-
--   **Title: "Top Topics"**
-
-    -   This indicates that the visualization represents the most prominent topics identified by the STM model.
-
--   **Topic Labels and Keywords**
-
-    -   Each topic is listed as `Topic X` (e.g., `Topic 19`, `Topic 1`, etc.), followed by its **most representative words**.
-
-    -   The words are **stemmed** (e.g., *statist* → *statistics*, *cours* → *course*), indicating preprocessing steps such as stemming or lemmatization.
-
-    -   The keywords reflect the **semantic content**, or "signature," of each topic and provide a snapshot of what each topic represents.
-
--   **Horizontal Bars**
-
-    -   Each horizontal bar represents the **expected topic proportion**, i.e., how prevalent each topic is in the corpus, i.e., our entire body of posts.
-
-    -   The **longer the bar**, the more dominant the topic is across documents.
-
--   **X-Axis: "Expected Topic Proportions"**
-
-    -   This represents the proportion of the dataset that each topic occupies.
-
-    -   Topics with higher proportions are more frequently discussed in the corpus.
-
-#### **👉 Your Turn ⤵**
-
-Fit a model for both LDA and STM using different values for K and answer the questions below:
-
-```{r}
-# YOUR CODE HERE
-
-
-
-```
-
-1.  What topics appear to be similar to those using 20 topics for K?
-    -   YOUR RESPONSE HERE
-2.  Knowing that you don't have as much context as I do, how might you interpret one of these latent topics or themes using the key terms assigned?
-    -   YOUR RESPONSE HERE
-3.  What topic emerged that seem dramatically different and how might you interpret this topic?
-    -   YOUR RESPONSE HERE
-
-### 3c. Finding *K*
-
-As alluded to earlier, selecting the number of topics for your model is a non-trivial decision and can dramatically impact your results. Bail (2018) notes that
-
-> *The results of topic models should not be over-interpreted unless the researcher has strong theoretical apriori about the number of topics in a given corpus, or if the researcher has carefully validated the results of a topic model using both the quantitative and qualitative techniques described above.*
-
-There are several approaches to estimating a value for K and we'll take a quick look at one from the {ldatuning} package and one from our `stm` package.
-
-#### The `FindTopicsNumber()` Function
-
-The {ldatuning} package has functions for both calculating and plotting different metrics that can be used to estimate the most preferable number of topics for LDA model. It also conveniently takes the standard document term matrix object that we created from out tidy text and has the added benefit of running fairly quickly, especially compared to the function for finding *K* from the {stm} package.
-
-Let's use the defaults specified in the `?FindTopicNumber` documentation and modify slightly get metrics for a sequence of topics from 10-75 counting by 5 and plot the output we saved using the `FindTopicsNumber_plot()` function:
-
-```{r find-topic, eval=FALSE}
-k_metrics <- FindTopicsNumber(
-  forums_dtm,
-  topics = seq(10, 75, by = 5),
-  metrics = "Griffiths2004",
-  method = "Gibbs",
-  control = list(),
-  mc.cores = NA,
-  return_models = FALSE,
-  verbose = FALSE,
-  libpath = NULL
+accum.ena <- ena.accumulate.data(
+  text_data    = RS.data %>% pull(text),
+  units        = data %>% select(all_of(unitCols)),
+  conversation = data %>% select(all_of(conversationCols)),
+  metadata     = data %>% select(all_of(metaCols)),
+  codes        = data %>% select(all_of(codeCols)),
+  window.size.back = 7
 )
 
-FindTopicsNumber_plot(k_metrics)
+set.ena <- ena.make.set(
+  enadata       = accum.ena,
+  rotation.by   = ena.rotate.by.mean,
+  rotation.params = data %>%
+    pull(Condition) %>%
+    { list(. == "FirstGame", . == "SecondGame") }
+)
 ```
 
-Note that the `FindTopicNumbers()` function contains three additional metrics for calculating metrics that can be used to estimate the most preferable number of topics for LDA model. We used the Griffiths2004 metrics included in the default example and I've also found this to produce the most interpretable results as show in the figure below:
+## 3. EXPLORE
 
-![](img/k-metrics.png){width="100%"}
+Now that we have constructed an ENA Model, we can begin explore what is stored in the `set.ena` object by typing `set$` and selecting items from the drop down list.
 
-As a general rule of thumb and overly simplistic heuristic, we're looking for an inflection point in our plot which indicates an optimal number of topics to select for a value of K.
+First, let's use the `names()` function to first determine what items are stored in the `set.ena` object:
 
-#### The findingK() Function
+```{r}
 
-Finally, Bail (2018) notes that the`stm` package has a useful function called `searchK` which allows us to specify a range of values for `k` and outputs multiple goodness-of-fit measures that are "very useful in identifying a range of values for `k` that provide the best fit for the data."
-
-The syntax of this function is very similar to the `stm()` function we used above, except that we specify a range for `k` as one of the arguments. In the code below, we search all values of `k` between 10 and 30.
-
-```{r searck-k, eval=FALSE}
-findingk <- searchK(docs, 
-                    vocab, 
-                    K = c(5:15),
-                    data = meta, 
-                    verbose=FALSE)
-
-plot(findingk)
+names(set.ena)
 ```
 
-::: callout-warning
-**Computationally Intensive!**
+Now let's take a look at some of these items that are often of interest.
 
-Note that running the `searchK()` function on this corpus took all night on a pretty powerful MacBook Pro and crashed once as well, so I do not expect you to run this for the case study.
-:::
+### 3a. Visual Summary of Key Model Outputs
 
-After a couple iterations `searchK()` landed on between 5 and 15 with an optimal number of topics somewhere around 14:
+Once an ENA set is constructed, it can be visualized, which facilitates interpretation of the model. Here, we will look at the two conditions, `FirstGame` (novices) and `SecondGame` (relative experts), by plotting their mean networks.
 
-![](img/searchk_results.png){width="90%"}
+#### Plot a Mean Network
 
-Given the somewhat conflicting results – also somewhat selfishly and for the same of simplicity for this case study – I'm just going to stick with the rather arbitrary selection of 20 topics for the remainder of this case study.
+To plot a network, use the `ena.plot.network` function. This function requires the `network`parameter (a character vector of line weights), and the line weights come from `set$line.weights`.
 
-#### The LDAvis Explorer
+First, run the following code to subset line weights for each of the two groups:
 
-One final tool that I want to introduce from the `stm` package is the `toLDAvis()` function which provides a great visualizations for exploring topic and word distributions using `LDAvis` topic browser:
+```{r}
+# Subset lineweights for `FirstGame`
+first.game.lineweights <- as.matrix(set.ena$line.weights$Condition$FirstGame)
 
-```{r LDAvis}
-toLDAvis(mod = forums_stm, docs = docs)
+# Subset lineweights for `SecondGame`
+second.game.lineweights <- as.matrix(set.ena$line.weights$Condition$SecondGame)
 ```
 
-As you can see from the browser screen shot below, our current STM with 20 topics is resulting in a lot of overlap among topics and suggest that 20 may not be an optimal number of topics, as other approaches for finding k also suggests:
+These two‑lines of code out the “line weight” adjacency matrices for each game condition from your ENA results and ensures they’re stored as plain numeric matrices:
 
-![](img/ldavis.png)
+-   **`set.ena$line.weights`** is a nested list generated by the `ena.make.set()` that contains connection‑strength data between codes in our data.
 
-## 4. EXPLORE
+-   **`$Condition$FirstGame`** (and similarly `$Condition$SecondGame`) selects the sub‑element corresponding to that experimental condition.
 
-Silge and Robinson (2018) note that fitting at topic model is the "easy part." The hard part is making sense of the model results and that the rest of the analysis involves exploring and interpreting the model using a variety of approaches which we'll case study in in this section.
+-   Wrapping it in **as.matrix()** converts whatever internal class ENA uses into a standard numeric matrix for graphing.
 
-Bail (2018) cautions, however, that:
+Each resulting matrix has our qualitative codes as both row and column names, and each cell value represents the strength (weight) of the co‑occurrence (i.e., the “line weight”) between that pair of codes for the given condition. You can now easily inspect dimensions (dim()), view row/column names (rownames(), colnames()), or feed these matrices into plotting or further network analyses.
 
-> *...post-hoc interpretation of topic models is rather dangerous... and can quickly come to resemble the process of "**reading tea leaves**," or finding meaning in patterns that are in fact quite arbitrary or even random.*
+Next, run the following code to calculate the mean networks for the two groups, and store the line weights as vectors:
 
-### 4a. Exploring Beta Values
-
-Hidden within this `forums_lda` topic model object we created are per-topic-per-word probabilities, called β ("beta"). It is the probability of a term (word) belonging to a topic. 
-
-Let's take a look again at the 5 most likely terms assigned to each topic, i.e. those with the largest β values using the `terms()` function from the `topicmodels` package:
-
-```{r terms}
-terms(forums_lda, 5) |>
-  as_tibble()
+```{r}
+first.game.mean <- as.vector(colMeans(first.game.lineweights))
+second.game.mean <- as.vector(colMeans(second.game.lineweights))
 ```
 
-Even though we've somewhat arbitrarily selected the number of topics for our corpus, some these topics or themes are fairly intuitive to interpret. For example:
+These two lines compute each code’s average connection strength (i.e. the mean of its column in the line‑weight matrix) for each condition and store the results as plain numeric vectors:
 
--   **Topic 11** (technology, students, software, program, excel) seems to be about students use of technology including software programs like excel;
+-   `colMeans(first.game.lineweights)` calculates the mean of every column in the first.game.lineweights matrix, producing a named numeric vector where each element is that code’s average co‑occurrence weight.
 
--   **Topic 9** (questions, kids, love, gapminder, sharing) seems to be about the gapminder activity from the MOOC-Ed and kids enjoyment of it; and
+-   Wrapping it in `as.vector()` strips off the names, leaving just a simple numeric vector, which is then assigned to first.game.mean.
 
--   **Topic 18** (data, students, collect, real, sets) seems to be about student collection and use of real world data sets.
+The second line does exactly the same thing for `second.game.lineweights`, yielding `second.game.mean`. Each element in these vectors tells you how strongly, on average, a given code connects to all other codes in FirstGame versus SecondGame.
 
-Not surprisingly, the `tidytext` package has a handy function conveniently name `tidy()` to convert our LDA model to a tidy data frame containing these beta values for each term:
+Finally, we can now produces an ENA network visualization showing each code’s average connection strength for the `FirstGame` condition, by
 
-```{r tidy_lda}
+1.  Using the `ena.plot(set.ena)` to initializes a default ENA network plot from our `set.ena` object.
+2.  Using the `|>` pipe operator to send the output to the `ena.plot.network(network = first.game.mean, colors = c("red"))` which will pipe the base plot into `ena.plot.network()`, which overlays a network whose edge (and node) thickness reflects the values in your numeric vector `first.game.mean`
 
-tidy_lda <- tidy(forums_lda)
+To distinguish the two mean networks, let's set the color of the `FirstGame` mean network to red.
 
-tidy_lda
+```{r}
+ena.plot(set.ena, title = "FirstGame mean plot")  |>
+  ena.plot.network(network = first.game.mean, colors = c("red"))
 ```
 
-Obviously, it's not very easy to interpret what the topics are about from a data frame like this so let's borrow code again from [Chapter 8.4.3 Interpreting the topic model](https://www.tidytextmining.com/nasa.html?q=beta#interpreting-the-topic-model) in Text Mining with R to examine the top 5 terms for each topic and then look at this information visually:
-
-```{r top_terms}
-
-top_terms <- tidy_lda |>
-  group_by(topic) |>
-  slice_max(beta, n = 5, with_ties = FALSE) |>
-  ungroup() |>
-  arrange(topic, -beta)
-
-top_terms |>
-  mutate(term = reorder_within(term, beta, topic)) |>
-  group_by(topic, term) |>    
-  arrange(desc(beta)) |>  
-  ungroup() |>
-  ggplot(aes(beta, term, fill = as.factor(topic))) +
-  geom_col(show.legend = FALSE) +
-  scale_y_reordered() +
-  labs(title = "Top 5 terms in each LDA topic",
-       x = expression(beta), y = NULL) +
-  facet_wrap(~ topic, ncol = 4, scales = "free")
-```
-
-### 4b. Exploring Gamma Values
-
-Now that we have a sense of the most common words associated with each topic, let's take a look at the topic prevalence in our MOOC-Ed discussion forum corpus, including the words that contribute to each topic we examined above.
-
-Also, hidden within our `forums_lda` topic model object we created are per-document-per-topic probabilities, called γ ("gamma"). This provides the probabilities that each document is generated from each topic, that gamma matrix. We can combine our beta and gamma values to understand the topic prevalence in our corpus, and which words contribute to each topic.
-
-To do this, we're going to again borrow some code from the Silge (2018) post, [Training, evaluating, and interpreting topic models](https://juliasilge.com/blog/evaluating-stm/).
-
-First, let's create two tidy data frames for our beta and gamma values
-
-```{r beta_gamma}
-td_beta <- tidy(forums_lda)
-
-td_gamma <- tidy(forums_lda, matrix = "gamma")
-
-td_beta
-td_gamma
-
-```
-
-Next, we'll adopt Julia's code wholesale to create a filtered data frame of our `top_terms`, join this to a new data frame for `gamma-terms` and create a nice clean table using the `kabel()` function `knitr` package:
-
-```{r prevalence_table}
-top_terms <- td_beta |>
-  arrange(beta) |>
-  group_by(topic) |>
-  top_n(7, beta) |>
-  arrange(-beta) |>
-  select(topic, term) |>
-  summarise(terms = list(term)) |>
-  mutate(terms = map(terms, paste, collapse = ", ")) |> 
-  unnest()
-
-gamma_terms <- td_gamma |>
-  group_by(topic) |>
-  summarise(gamma = mean(gamma)) |>
-  arrange(desc(gamma)) |>
-  left_join(top_terms, by = "topic") |>
-  mutate(topic = paste0("Topic ", topic),
-         topic = reorder(topic, gamma))
-
-gamma_terms |>
-  select(topic, gamma, terms) |>
-  kable(digits = 3, 
-        col.names = c("Topic", "Expected topic proportion", "Top 7 terms"))
-```
-
-And let's also compare this to the most prevalent topics and terms from our `forums_stm` model that we created using the `plot()` function:
-
-```{r plot_stm}
-plot(forums_stm, n = 7)
-```
-
-### 4c. Reading the Tea Leaves
-
-Recognizing that topic modeling is best used as a "tool for reading" and provides only an incomplete answer to our overarching, **"How do we quantify what a corpus is about?"**, the results do suggest some potential topics that have emerged, as well as some areas worth following up on.
-
-Specifically, looking at some of the common clusters of words for the more prevalent topics suggest that some key topics or "latent themes" (renamed in bold) might include:
-
--   **Teaching Statistics:** Unsurprising, given the course title, the topics most prevalent in both the `forums_stm` and `forums_lda` models contains the terms "teach", "students", "statistics". This could be an "overarching theme" but more likely may simply just be residue from the course title being sprinkled throughout the forums and deserves some follow up. Topics 8 from the LDA model may overlap with this topic as well.
--   **Course Utility:** The second most prevalent Topics (13 and 2) in the `lda` and `stm` models respectively, seem to potentially be about the usefulness of course "resources" like lessons, tools, videos, and activities. I'm wagering this might be a forum dedicated to course feedback. Topic 15 from the STM model also suggest this may be a broader theme.
--   **Using Real-World Data:** Topics 18 & 12 from the LDA model particularly intrigued me and I'm wagering this is pretty positive sentiment among participants about the value and benefit of having students collect and analyze real data sets (e.g. Census data in Topic 1) and work on projects relevant to their real life. Will definitely follow up on this one.
--   **Technology Use:** Several topics (6 & 11 from LDA and 8 & 19 from STM) appear to be about student use of technology and software like calculators and Excel for teaching statistics and using simulations. Topic 16 from LDA also suggest the use of the Common Online Data Analysis Platform ([CODAP](https://codap.concord.org)).
--   **Student Struggle & Engagement:** Topic 15 from LDA and Topic 16 from STM also intrigue me and appear to be two opposite sides of perhaps the same coin. The former includes "struggle" and "reading" which suggests perhaps a barrier to teaching statistics while Topic 16 contains top stems like "engage", "activ", and "think" and may suggest participants anticipate activities may engage students.
-
-To serve as a check on my tea leaf reading, I'm going to follow Bail's recommendation to examine some of these topics qualitatively. The `stm` package has another useful (though exceptionally fussy) function called `findThoughts` which extracts passages from documents within the corpus associate with topics that you specify.
-
-The first line of code may not be necessary for your independent analysis, but because the `textProcessor()` function removed several documents during processing, the `findthoughts()` function can't properly index the processed docs. This [line of code found on stackoverflow](https://stackoverflow.com/questions/43492667/r-stm-number-of-provided-texts-and-number-of-documents-modeled-do-not-match) removes documents from original `ts_forum_data` source that were removed during processing so there is a one-to-one correspondence with `forums_stm` and so you can use the function to find posts associated with a given topic.
-
-Let's slightly reduce our original data set to match our STM model, pass both to the `findThoughts()` function, and set our arguments to return `n =10` posts from `topics = 2` (i.e. Topic 2) that have at least 50% or `thresh = 0.5` as a minimum threshold for the estimated topic proportion.
-
-```{r findThoughts_2}
-
-ts_forum_data_reduced <-ts_forum_data$post_content[-temp$docs.removed]
-
-findThoughts(forums_stm,
-             texts = ts_forum_data_reduced,
-             topics = 2, 
-             n = 10,
-             thresh = 0.5)
-```
-
-Duplicate posts aside, this **Course Utility** topic returns posts there were expected based on my interpretation of the key terms for Topic 2. It looks like I may have read those tea leaves correctly!
-
-Now let's take a look at Topic 16 that we thought might be related to student engagement:
-
-```{r findThoughts_16}
-
-findThoughts(forums_stm,
-             texts = ts_forum_data_reduced,
-             topics = 16, 
-             n = 10,
-             thresh = 0.5)
-```
-
-It looks like my tea reading was a partially correct for Topic 16, though the results seem to be about a specific "Pepsi challenge" activity conducted with students.
-
-Finally, let's look at posts from Topic 3 which we though might be an overarching theme about teaching statistics:
-
-```{r findThoughts_3}
-
-ts_forum_data_reduced <-ts_forum_data$post_content[-temp$docs.removed]
-
-findThoughts(forums_stm,
-             texts = ts_forum_data_reduced,
-             topics = 3, 
-             n = 10,
-             thresh = 0.5)
-```
-
-Looking at just the 10 posts returned, perhaps a better name for this topic would be **Course Reflections on Teaching Statistics**.
-
-#### Key Takeaways
-
-In addition to some useful R packages and functions for the actual process of topic modeling, hopefully there are two main lessons I'm hoping you take away from this case study:
-
-1.  **Topic modeling requires a lot of decisions.** Beyond deciding on a value for K, there are a number of key decisions that you have to make that can dramatically affect your results. For example, to stem or not to stem? What qualifies as a document? What flavor of topic modeling is best suited to your data and research questions? How many iterations should you run?
-2.  **Topic modeling is as much art as (data) science.** As Bail (2018) noted, the term "topic" is somewhat ambitious, and topic models do not produce highly nuanced classification of texts. Once you've fit your model, interpreting your model requires some mental gymnastics and ideally some knowledge of the context from which the data came to help with interpretation of your topics. Moreover, the quantitative approaches for making the decisions highlighted above are imperfect and a good deal of human judgment required.
+The final output is a single network graph in which each code’s mean co‑occurrence strength (from `FirstGame`) is visually encoded by line thickness (and node size), with red lines indicating the magnitude of those average connections.
 
 #### **👉 Your Turn ⤵**
 
-Using the STM model you fit in Section 3 with a different value for K, use the approaches demonstrated in Section 4 to explore and interpret your topics and terms and answer the question below.
+Create an epistemic network for the `SecondGame` and set the color of of the network lines to blue.
 
 ```{r}
 # YOUR CODE HERE
-
-
-
+ena.plot(set.ena, title = "SecondGame mean plot")  |>
+  ena.plot.network(network = second.game.mean, colors = c("blue"))
 ```
+
+As you can see from the two network visualizations above, their node positions are exactly same. All ENA networks from the same model have the same node positions, which are determined by an optimization routine that attempts to place the nodes such that the centroid of each unit’s network and the location of the ENA point in the reduced space are co-located.
+
+Because of the fixed node positions, ENA can construct a subtracted network, which enables the identification of the most salient differences between two networks. To do this, ENA subtracts the weight of each connection in one network from the corresponding weighted connection in another network, then visualizes the differences in connection strengths. Each edge is color-coded to indicate which of the two networks contains the stronger connection, and the thickness and saturation of the edges corresponds to the magnitude of the difference.
+
+#### ❓Questions
+
+Use the two graphs above to answer the following questions and aid in their interpretation:
+
+1.  **Overall Density**: How does the overall thickness and number of lines differ between the two plots? What might an increase (or decrease) in network density from FirstGame to SecondGame tell us about how students’ conceptual connections evolved?
+
+    -   YOUR RESPONSE HERE
+
+2.  **Key Hubs**: Which code appears as the strongest “hub” (i.e., connected to more codes) in each plot? Did the centrality of that code change between FirstGame and SecondGame? What might that suggest
+
+    -   YOUR RESPONSE HERE
+
+3.  **Emerging Connections**: Are there any code‑pair links that are very faint (or absent) in FirstGame but noticeably stronger in SecondGame? What might this reflect?
+
+    -   YOUR RESPONSE HERE
+
+4.  **Peripheral Codes**: How does the position and edge thickness of the “Collaboration” node change between conditions? What might its relative isolation (or growth) indicate about the role of collaboration in each game?
+
+    -   YOUR RESPONSE HERE
+
+5.  **Interpretive Meaning**: How might you explain the educational significance of a thicker edge versus a thinner edge in these plots?
+
+    -   YOUR RESPONSE HERE
+
+Now let's plot a subtracted network, which combines the two graphs and helps to highlight where they differ.
+
+First we need to calculate the subtracted network line weights by subtracting one group’s line weights from the other. (Because ENA computes the absolute values of the differences in edge weights, the order of the two networks in the subtraction doesn’t matter.)
+
+```{r}
+subtracted.mean <- first.game.mean - second.game.mean
+```
+
+Then we'll use the `ena.plot` function again to plot the subtracted network. If the differences are relatively small, a multiplier can be applied to rescale the line weights, improving legibility.
+
+```{r}
+ena.plot(set.ena, title = "Subtracted: `FirstGame` (red) - `SecondGame` (blue)")  |>
+  ena.plot.network(network = subtracted.mean * 5, # Optional rescaling of the line weights
+                   colors = c("red", "blue"))
+```
+
+Here, the subtracted network shows that on average, students in the `FirstGame` condition (red) made more connections with `Technical.Constraints` and `Collaboration` than students in the `SecondGame` condition (blue), while students in the `SecondGame` condition made more connections with `Design.Reasoning` and `Performance.Parameters` than students in the `FirstGame` condition. This is because students with more experience of engineering design practices did not need to spend as much time and effort managing the collaborative process and learning about the basic technical elements of the problem space, and instead spent relatively more time focusing on more complex analysis and design reasoning tasks.
+
+Note that this subtracted network shows no connection between `Technical.Constraints` and `Design.Reasoning`, simply because the strength of this connection was similar in both conditions. Thus, subtraction networks should always be visualized along with with the two networks being subtracted.
+
+#### 3.5.2 Plot a mean network and its points
+
+The ENA point or points associated with a network or mean network can also be visualized. Recall from our readings that each individual epistemic network frame can be collapsed to a single point on our graph.
+
+To visualize the points associated with each of the mean networks plotted above, use `set$points`to subset the rows that are in each condition and plot each condition as a different color.
+
+```{r}
+# Subset rotated points for the first condition
+first.game.points = as.matrix(set.ena$points$Condition$FirstGame)
+
+# Subset rotated points for the second condition
+second.game.points = as.matrix(set.ena$points$Condition$SecondGame)
+```
+
+Then, plot the `FirstGame` mean network the same as above using `ena.plot.network`, use `|>` to pipe in the `FirstGame` points that we want to include, and plot them using `ena.plot.points`.
+
+Each point in the space is the ENA point for a given unit. The red and blue squares on the x-axis are the means of the ENA points for each condition, along with the 95% confidence interval on each dimension (you might need to zoom in for better readability)
+
+Since we used a means rotation to construct the ENA model, the resulting space highlights the differences between `FirstGame` and `SecondGame` by constructing a rotation that places the means of each condition as close as possible to the x-axis of the space and maximizes the differences between them.
+
+```{r}
+ena.plot(set.ena, title = " points (dots), mean point (square), and confidence interval (box)") |> 
+          ena.plot.points(points = first.game.points, colors = c("red")) |> 
+          ena.plot.group(point = first.game.points, colors =c("red"), 
+                         confidence.interval = "box")
+```
+
+Now let's overlay the mean graph over these points:
+
+```{r}
+ena.plot(set.ena, title = "FirstGame mean network and its points") |> 
+          ena.plot.network(network = first.game.mean, colors = c("red")) |>
+          ena.plot.points(points = first.game.points, colors = c("red")) |> 
+          ena.plot.group(point = first.game.points, colors =c("red"), 
+                         confidence.interval = "box") 
+```
+
+#### **👉 Your Turn ⤵**
+
+Now do the same for the `SecondGame` condition.
+
+```{r}
+# YOUR CODE HERE
+ena.plot(set.ena, title = " points (dots), mean point (square), and confidence interval (box)") |> 
+          ena.plot.points(points = second.game.points, colors = c("blue")) |> 
+          ena.plot.group(point = second.game.points, colors =c("blue"), 
+                         confidence.interval = "box")
+
+ena.plot(set.ena, title = "SecondGame mean network and its points") |> 
+          ena.plot.network(network = second.game.mean, colors = c("blue")) |>
+          ena.plot.points(points = second.game.points, colors = c("blue")) |> 
+          ena.plot.group(point = second.game.points, colors =c("blue"), 
+                         confidence.interval = "box")
+```
+
+Finally, let's do the same for subtraction as well:
+
+```{r}
+ena.plot(set.ena, title = "Subtracted mean network: `FirstGame` (red) - `SecondGame` (blue)")  |>
+          ena.plot.network(network = subtracted.mean * 5,
+          colors = c("red", "blue")) |>
+          ena.plot.points(points = first.game.points, colors = c("red")) |> 
+          ena.plot.group(point = first.game.points, colors =c("red"), 
+                         confidence.interval = "box") |>
+          ena.plot.points(points = second.game.points, colors = c("blue")) |> 
+          ena.plot.group(point = second.game.points, colors =c("blue"), 
+                         confidence.interval = "box")
+```
+
+Note that the majority of the red points (`FirstGame`) are located on the left side of the space, and the blue points (`SecondGame`) are mostly located on the right side of the space. This is consistent with the line weights distribution in the mean network: the `FirstGame` units make relatively more connections with nodes on the left side of the space, while the `SecondGame` units make relatively more connections with nodes on the right side of the space. The positions of the nodes enable interpretation of the dimensions, and thus interpretation of the locations of the ENA points.
+
+#### 3.5.3 Plot an individual unit network and its point
+
+Plotting the network and ENA point for a single unit uses the same approach. First, subset the line weights and point for a given unit:
+
+```{r}
+unit.A.line.weights = as.matrix(set.ena$line.weights$ENA_UNIT$`FirstGame.steven z`) # subset line weights
+unit.A.point = as.matrix(set.ena$points$ENA_UNIT$`FirstGame.steven z`) # subset ENA point
+```
+
+Then, plot the network and point for that unit.
+
+```{r}
+ena.plot(set.ena, title = "Individual network: `FirstGame`.steven z") |> 
+          ena.plot.network(network = unit.A.line.weights, colors = c("red")) |>
+          ena.plot.points(points = unit.A.point, colors = c("red"))
+```
+
+Following the exact same procedure, we can, for example, choose a unit from the other condition to plot and also construct a subtracted plot for those two units.
+
+```{r}
+unit.B.line.weights = as.matrix(set.ena$line.weights$ENA_UNIT$`SecondGame.samuel o`) # subset line weights
+unit.B.point = as.matrix(set.ena$points$ENA_UNIT$`SecondGame.samuel o`) # subset ENA point
+
+ena.plot(set.ena, title = "Individual network: `SecondGame`.samuel o") |> 
+          ena.plot.network(network = unit.B.line.weights, colors = c("blue")) |>
+          ena.plot.points(points = unit.B.point, colors = c("blue"))
+```
+
+To visually analyze the differences between the two individual networks, we can also plot their subtracted network.
+
+```{r}
+ena.plot(set.ena, title = "Subtracted network: `FirstGame`.steven z (red) - `SecondGame`.samuel o (blue)")  |>
+          ena.plot.network(network = (unit.A.line.weights - unit.B.line.weights) * 5,
+          colors = c("red", "blue")) |>
+          ena.plot.points(points = unit.A.point, colors = c("red")) |> 
+          ena.plot.points(points = unit.B.point, colors = c("blue"))
+```
+
+In this unit-level subtracted network, Unit A (red) made relatively more connections with codes such as `Technical.Constraints`, `Data`, and `Collaboration`, while Unit B (blue) made relatively more connections with `Design.Reasoning` and `Performance.Parameters`.
+
+#### Plot everything, everywhere, all at once
+
+The helper function `ena.plotter` enables users to plot points, means, and networks for each condition at the same time. This gives the same results as above more effecient. However, this approach does not enable customization of edge and point colors.
+
+```{r}
+#with helper function
+p <-ena.plotter(set.ena,
+            points = T,
+            mean = T, 
+            network = T,
+            print.plots = T,
+            groupVar = "Condition",
+            groups = c("SecondGame","FirstGame"),
+            subtractionMultiplier = 5)
+```
+
+```{r}
+class(p) <- c("plotly", "enaplot", "html-fill-item-overflow-hidden", "html-fill-item", class(p))
+```
+
+### 3a. Descriptive Summary of Key Model Outputs
+
+Now that we have constructed an ENA Model, we can begin explore what is stored in the `set.ena` object by typing `set$` and selecting items from the drop down list.
+
+First, let's use the `names()` function to first determine what items are stored in the `set.ena` object:
+
+```{r}
+
+names(set.ena)
+```
+
+Now let's take a look at some of these items that are often of interest.
+
+#### Connection counts
+
+Connection counts are the frequencies of unique connections a unit made. For each unit, ENA creates a cumulative adjacency vector that contains the sums of all unique code co-occurrences for that unit across all stanza windows.
+
+To access ENA adjacency vectors, let's use `set.ena$connection.counts`:
+
+```{r}
+set.ena$connection.counts
+```
+
+This data table show that there are 48 units in the ENA model, so there are 48 adjacency vectors. Each term in an ENA adjacency vector represents a unique co-occurrence of codes. Thus with six codes, each vector has 15 terms (*n* choose two). This is because ENA models are undirected and do not model co-occurrences of the same code.
+
+#### ❓Questions
+
+Take a closer look at the table output above and
+
+## 4. Model
+
+### 4a. Compare Groups Statistically
+
+In addition to visual comparison of networks, ENA points can be analyzed statistically. For example, here we might test whether the patterns of association in one condition are significantly different from those in the other condition.
+
+To demonstrate both parametric and non-parametric approaches to this question, the examples below use a Student’s *t* test and a Mann-Whitney *U* test to test for differences between the `FirstGame` and `SecondGame` condition. For more on differences between parametric and non-parametric tests, see Kaur & Kumar (2015).
+
+First, install the `lsr` package to enable calculation of effect size (Cohen’s *d*) for the *t* test.
+
+```{r}
+library(lsr)
+```
+
+```         
+# install.packages('lsr')
+```
+
+Then, subset the points to test for differences between the two conditions.
+
+```         
+ena_first_points_d1 = as.matrix(set.ena$points$Condition$FirstGame)[,1]
+ena_second_points_d1 = as.matrix(set.ena$points$Condition$SecondGame)[,1]
+
+ena_first_points_d2 = as.matrix(set.ena$points$Condition$FirstGame)[,2]
+ena_second_points_d2 = as.matrix(set.ena$points$Condition$SecondGame)[,2]
+```
+
+Conduct the *t* test on the first and second dimensions.
+
+```         
+# parametric tests
+t_test_d1 = t.test(ena_first_points_d1, ena_second_points_d1)
+t_test_d1
+```
+
+```         
+
+    Welch Two Sample t-test
+
+data:  ena_first_points_d1 and ena_second_points_d1
+t = -6.5183, df = 45.309, p-value = 5.144e-08
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.2687818 -0.1419056
+sample estimates:
+  mean of x   mean of y 
+-0.09411588  0.11122786 
+```
+
+```         
+t_test_d2 = t.test(ena_first_points_d2, ena_second_points_d2)
+t_test_d2
+```
+
+```         
+
+    Welch Two Sample t-test
+
+data:  ena_first_points_d2 and ena_second_points_d2
+t = 1.9334e-16, df = 43.175, p-value = 1
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.07768526  0.07768526
+sample estimates:
+    mean of x     mean of y 
+ 1.935145e-19 -7.254914e-18 
+```
+
+Compute any other statistics that may be of interest. A few examples are given below.
+
+```         
+mean(ena_first_points_d1)
+```
+
+```         
+[1] -0.09411588
+```
+
+```         
+mean(ena_second_points_d1)
+```
+
+```         
+[1] 0.1112279
+```
+
+```         
+mean(ena_first_points_d2)
+```
+
+```         
+[1] 1.935145e-19
+```
+
+```         
+mean(ena_second_points_d2)
+```
+
+```         
+[1] -7.254914e-18
+```
+
+```         
+sd(ena_first_points_d1)
+```
+
+```         
+[1] 0.1115173
+```
+
+```         
+sd(ena_second_points_d1)
+```
+
+```         
+[1] 0.1063515
+```
+
+```         
+sd(ena_first_points_d2)
+```
+
+```         
+[1] 0.1267104
+```
+
+```         
+sd(ena_second_points_d2)
+```
+
+```         
+[1] 0.1380851
+```
+
+```         
+length(ena_first_points_d1)
+```
+
+```         
+[1] 26
+```
+
+```         
+length(ena_second_points_d1)
+```
+
+```         
+[1] 22
+```
+
+```         
+length(ena_first_points_d2)
+```
+
+```         
+[1] 26
+```
+
+```         
+length(ena_second_points_d2)
+```
+
+```         
+[1] 22
+```
+
+```         
+cohensD(ena_first_points_d1, ena_second_points_d1)
+```
+
+```         
+[1] 1.880622
+```
+
+```         
+cohensD(ena_first_points_d2, ena_second_points_d2)
+```
+
+```         
+[1] 5.641688e-17
+```
+
+Here, along the *x* axis (MR1), a two-sample *t* test assuming unequal variance shows that the `FirstGame` (mean=-0.09, SD=0.11, N=26) condition is statistically significantly different for alpha=0.05 from the `SecondGame` condition (mean=0.11, SD=0.10, N=22; t(45.31)=-6.52, *p*=0.00, Cohen’s *d*=1.88). Along the *y* axis (SVD2), a two-sample *t* test assuming unequal variance shows that the `FirstGame` condition (mean=0.11, SD=0.13, N=26) is not statistically significantly different for alpha=0.05 from the `SecondGame` condition (mean=0.00, SD=1.3, N=22; t(43.17)=0, *p*=1.00).
+
+The Mann-Whitney *U* test is a non-parametric alternative to the independent two-sample *t* test.
+
+First, install the `rcompanion` package to calculate the effect size (*r*) for a Mann-Whitney *U* test.
+
+```         
+# install.packages('rcompanion')
+library(rcompanion)
+```
+
+Then, conduct a Mann-Whitney *U* test on the first and second dimensions.
+
+```         
+# non parametric tests
+w_test_d1 = wilcox.test(ena_first_points_d1, ena_second_points_d1)
+w_test_d2 = wilcox.test(ena_first_points_d2, ena_second_points_d2)
+
+w_test_d1
+```
+
+```         
+
+    Wilcoxon rank sum exact test
+
+data:  ena_first_points_d1 and ena_second_points_d1
+W = 50, p-value = 8.788e-08
+alternative hypothesis: true location shift is not equal to 0
+```
+
+```         
+w_test_d2
+```
+
+```         
+
+    Wilcoxon rank sum exact test
+
+data:  ena_first_points_d2 and ena_second_points_d2
+W = 287, p-value = 0.9918
+alternative hypothesis: true location shift is not equal to 0
+```
+
+Compute any other statistics that may be of interest. A few examples are given below.
+
+```         
+median(ena_first_points_d1)
+```
+
+```         
+[1] -0.08464154
+```
+
+```         
+median(ena_second_points_d1)
+```
+
+```         
+[1] 0.1300029
+```
+
+```         
+median(ena_first_points_d2)
+```
+
+```         
+[1] -0.007252397
+```
+
+```         
+median(ena_second_points_d2)
+```
+
+```         
+[1] 0.0003031848
+```
+
+```         
+length(ena_first_points_d1)
+```
+
+```         
+[1] 26
+```
+
+```         
+length(ena_second_points_d1)
+```
+
+```         
+[1] 22
+```
+
+```         
+length(ena_first_points_d2)
+```
+
+```         
+[1] 26
+```
+
+```         
+length(ena_second_points_d2)
+```
+
+```         
+[1] 22
+```
+
+```         
+abs(wilcoxonR(ena_first_points_d1, ena_second_points_d1))
+```
+
+```         
+    r 
+0.863 
+```
+
+```         
+abs(wilcoxonR(ena_first_points_d2, ena_second_points_d2))
+```
+
+```         
+    r 
+0.863 
+```
+
+Here, along the *x* axis (MR1), a Mann-Whitney *U* test shows that the `FirstGame` condition (Mdn=-0.08, N=26) was statistically significantly different for alpha=0.05 from the `SecondGame`condition (Mdn=-0.007, N=22; *U*=50, *p*=0.00, *r*=0.86). Along the *y* axis (SVD2), a Mann-Whitney *U* test shows that the `FirstGame` condition (Mdn=0.13, N=26) is not statistically significantly different for alpha=0.05 from the `SecondGame` condition (Mdn=0.00, N=22; U=287, *p*=0.99). The absolute value of `r` value in Mann-Whitney U test varies from 0 to close to 1. The interpretation values for r commonly in published literature is: `0.10 - < 0.3` (small effect), `0.30 - < 0.5` (moderate effect) and `>= 0.5` (large effect).
+
+### 3.7 Model evaluation
+
+In this section, we introduce three ways users can evaluate the quality of their ENA models.
+
+#### 3.7.1 Variance explained
+
+Briefly, variance explained (also called explained variation) refers to the proportion of the total variance in a dataset that is accounted for by a statistical model or set of predictors.
+
+In ENA, to represent high-dimensional vectors in a two-dimensional space, ENA uses either singular value decomposition or means rotation combined with SVD. For each of the reduced dimensions, the variance in patterns of association among units explained by that dimension can be computed.
+
+```         
+set.ena$model$variance
+```
+
+```         
+        MR1        SVD2        SVD3        SVD4        SVD5        SVD6 
+0.320460221 0.244500582 0.152894192 0.093518444 0.060221209 0.034883009 
+       SVD7        SVD8        SVD9       SVD10       SVD11       SVD12 
+0.027680609 0.017549851 0.013516258 0.009812554 0.008089549 0.005764568 
+      SVD13       SVD14       SVD15 
+0.004938552 0.003474931 0.002695469 
+```
+
+Here, the first dimension is MR1 and the second dimension is SVD2. The MR1 dimension has the highest variance explained at 32%.
+
+As with any statstical model, greater explained variance does not necessarily indicate a better model, as it may be due to overfitting, but it provides one indicator of model quality.
+
+#### 3.7.2 Goodness of fit
+
+Briefly, a model’s goodness of fit refers to how well a model fits or represents the data. A model with a high goodness of fit indicates that it accurately represents the data and can make reliable predictions.
+
+In ENA, a good fit means that the positions of the nodes in the space—and thus the network visualizations—are consistent with the mathematical properties of the model. In other words, we can confidently rely on the network visualizations to interpret the ENA model. The process that ENA uses to achieve high goodness of fit is called co-registration. The mathematical details of co-registration are beyond the scope of this chapter and can be found in Bowman et al., (2022).
+
+To test a model’s goodness of fit, use `ena.correlations`. The closer the value is to 1, the higher the model’s goodness of fit is. Most ENA models have a goodness of fit that is well above 0.90.
+
+```         
+ena.correlations(set.ena)
+```
+
+|     |
+|-----|
+|     |
+
++---------------+---------------+
+| pearson       | spearman      |
+|               |               |
+| \<list\>      | \<list\>      |
++==============:+==============:+
+| \<dbl \[1\]\> | \<dbl \[1\]\> |
++---------------+---------------+
+| \<dbl \[1\]\> | \<dbl \[1\]\> |
++---------------+---------------+
+
+2 rows
+
+#### 3.7.3 Close the interpretative loop
+
+Another approach to evaluate an ENA model is to confirm the alignment between quantitative model (in our case, our ENA model) and the original qualitative data. In other words, we can return to the original data to confirm that quantitative findings give a fair representation of the data. This approach is an example of what’s called as closing the interpretative loop in Quantitative Ethnography field (Shaffer, 2017).
+
+For example, based on our visual analysis of the network of `SecondGame.samuel o` in previous section, we are interested in what the lines are in the original data that contributed to the connection between `Design.Reasoning` and `Performance.Parameters`.
+
+Let’s first review what `SecondGame.samuel o` ENA network looks like.
+
+```         
+ena.plot(set.ena, title = "Individual network: `SecondGame`.samuel o") |> 
+          ena.plot.network(network = as.matrix(set.ena$line.weights$ENA_UNIT$`SecondGame.samuel o`), colors = c("blue")) |>
+          ena.plot.points(points = as.matrix(set.ena$points$ENA_UNIT$`SecondGame.samuel o`), colors = c("blue"))
+```
+
+To do so, we use `view()` function and specify required parameters as below.
+
+This is going to activate a window shows up in your `Viewer` panel. If it is too small to read, you can click on the “Show in new window” button to view it in your browser for better readability. (Note: the html page produced by the view() function will show separately from the html file knitted from RMD file)
+
+```         
+view(accum.ena, 
+     id_col = "ENA_UNIT", # do not need to change this
+     wh = c("SecondGame.samuel o"), # the unit we are interested in
+     units.by = c("Condition", "UserName"), # consistent with in 3.3.1 
+     conversation.by = c("Condition", "GroupName", "ActivityNumber"), # consistent with in 4.3.3
+     codes = c("Performance.Parameters", "Design.Reasoning"), # codes of choice
+     window = 7) # consistent with in 3.3.4
+```
+
+In the `Viewer` panel, hover over your cursor on any of the lines that are in bold, a size of 7 lines rectangle shows up, representing that in a moving stanza window of size 7, the referent line (the line in bold) and its preceding 6 lines. The 1 and 0 in `Technical.Constraints` column and Design.Reasoning column shows where the connections happened.
+
+For example, line 2477 Samuel shared his `Design.Reasoning` about “mindful of (the) how one device scores relative to other ones”, to reference back to what Casey said in line 2476 about `Performance.Parameters` “not one source/censor can be the best in every area so we had to sacrifice certain attributes”, as well as what Jackson said in line 2475 about safety as one of the `Performance.Parameters` “when it came to the different attributes, i think that all were important in their own way but i think safety is one of the most important”.
+
+This is a qualitative example of a connection made between `Performance.Parameters` and `Design.Reasoning.`
+
+### 3.8 Using ENA model outputs in other analyses
+
+It is often useful to use the outputs of ENA models in subsequent analyses. The most commonly used outputs are the ENA points, i.e., `set$points`. For example, we can use a linear regression analysis to test whether ENA points on the first two dimensions are predictive of an outcome variable, in this case, change in confidence in engineering skills.
+
+```         
+regression_data = set.ena$points
+regression_data$CONFIDENCE.Change = as.numeric(regression_data$CONFIDENCE.Change)
+```
+
+```         
+Warning: NAs introduced by coercion
+```
+
+```         
+condition_regression = lm(CONFIDENCE.Change ~ MR1 + SVD2 + Condition, 
+                          data = regression_data, 
+                          na.action = na.omit)
+summary(condition_regression)
+```
+
+```         
+
+Call:
+lm(formula = CONFIDENCE.Change ~ MR1 + SVD2 + Condition, data = regression_data, 
+    na.action = na.omit)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.18092 -0.24324 -0.08171  0.30716  1.88404 
+
+Coefficients:
+                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           1.1111     0.1490   7.457 2.82e-09 ***
+MR1                  -0.4540     0.8616  -0.527    0.601    
+SVD2                  0.3268     0.7154   0.457    0.650    
+ConditionSecondGame  -0.3484     0.2566  -1.358    0.182    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.6374 on 43 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.1228,    Adjusted R-squared:  0.0616 
+F-statistic: 2.007 on 3 and 43 DF,  p-value: 0.1273
+```
+
+The results of this regression analysis show that ENA points are not a significant predictor of the students’ pre-post change in confidence (MR1: *t*=-0.53, *p*=0.60; SVD2: *t*=0.46, *p*=0.65; Condition: *t*=-1.36, *p*=0.18). The overall model was also not significant (F(3, 43)=2.01, *p*=0.13) with an adjusted r-squared value of 0.06.
+
+Recall that the dataset we are using is a small subset of the full `RS.data`, and thus results that are significant for the whole dataset may not be for this sample.
 
 ## 5. COMMUNICATE
 

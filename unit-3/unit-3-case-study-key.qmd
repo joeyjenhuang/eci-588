@@ -49,7 +49,7 @@ c.  **Project Setup.** This should be very familiar by now, but we'll also learn
 
 ### 1a. Context
 
-[![Akoglu, K., Lee, H. & Kellogg, S. (2019). Participating in a MOOC and Professional Learning Team: How a Blended Approach to Professional Development Makes a Difference. *Journal of Technology and Teacher Education, 27(2), 129-163*. Retrieved from [https://www.learntechlib.org/primary/p/195234/](#0).](img/tsdi.png "Our world is rich with data sources, and technology makes data more accessible than ever before! To help ensure students are future ready to use data for making informed decisions, many countries around the world have increased the emphasis on statistics and data analysis in school curriculum–from elementary/primary grades through college. This course allows you to learn, along with colleagues from other schools, an investigation cycle to teach statistics and to help students explore data to make evidence-based claims. To learn more about engaging learners in making inferences and claims supported by data and how to emphasize inferential reasoning in teaching statistics through posing different types of investigative questions, enroll in our Teaching Statistics through Inferential Reasoning MOOC-Ed."){width="50%"}](https://place.fi.ncsu.edu/local/catalog/course.php?id=4&ref=1)
+[![Akoglu, K., Lee, H. & Kellogg, S. (2019). Participating in a MOOC and Professional Learning Team: How a Blended Approach to Professional Development Makes a Difference. Journal of Technology and Teacher Education, 27(2), 129-163. Retrieved from \[https://www.learntechlib.org/primary/p/195234/\](#0).](img/tsdi.png "Our world is rich with data sources, and technology makes data more accessible than ever before! To help ensure students are future ready to use data for making informed decisions, many countries around the world have increased the emphasis on statistics and data analysis in school curriculum–from elementary/primary grades through college. This course allows you to learn, along with colleagues from other schools, an investigation cycle to teach statistics and to help students explore data to make evidence-based claims. To learn more about engaging learners in making inferences and claims supported by data and how to emphasize inferential reasoning in teaching statistics through posing different types of investigative questions, enroll in our Teaching Statistics through Inferential Reasoning MOOC-Ed."){width="50%"}](https://place.fi.ncsu.edu/local/catalog/course.php?id=4&ref=1)
 
 **Abstract**
 
@@ -175,7 +175,7 @@ In this case study, we are exploring the use of topic modeling to analyze online
 In the table, provide a short description for each variable based on what you think the values for each column represent. The fist one has been completed for you:
 
 | Variable Name | Short Description |
-|-----------------|---------------------------------------------------|
+|----|----|
 | course_id | A unique identifier for the course. |
 | course_name | Name of the MOOC-Ed course. |
 | forum_id | Unique identifier for the forum within a course. |
