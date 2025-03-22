@@ -1,0 +1,905 @@
+---
+title: "Unit 4 Case Study: Intro to ENA"
+subtitle: "ECI 588: Text Mining in Education"
+author: "Dr. Shaun Kellogg"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+theme:
+  light: simplex
+  dark: cyborg
+editor: visual
+bibliography: lit/references.bib
+---
+
+## 0. INTRODUCTION
+
+This case study extends the methodology presented in the Learning Analytics in STEM Education Research (LASER) Institute by demonstrating the application of Epistemic Network Analysis (ENA) to explore collaborative learning processes in digital STEM education environments. ENA is a sophisticated technique that visualizes and quantifies connections among concepts in coded data, offering rich insights into how learners construct knowledge collaboratively.
+
+Epistemic Network Analysis, developed by David Williamson Shaffer and colleagues, enables researchers to analyze discourse and interactions within learning communities, revealing the patterns of connections among key elements of the learning process. The method is particularly valuable in STEM education research, where understanding complex interactions is critical for improving learning outcomes and pedagogical practices.
+
+### Case Study Focus
+
+This case study is adapted from a chapter by Tan et al. @tan2024epistemic in the excellent book, Learning [Analytics Methods and Tutorials](https://lamethods.org). Our focus will be on applying ENA to investigate discourse patterns in a collaborative digital STEM learning environment. Specifically, we will examine how participants engage in problem-solving activities, make connections between STEM concepts, and collaboratively construct knowledge.By using ENA, researchers can systematically map the epistemic frames that occur when learners collaboratively tackle STEM-related problems, providing a quantitative yet qualitative-rich understanding of group learning dynamics. This analysis is particularly critical for understanding the nuances of learner interactions in digital environments, which often involve complex dialogues and exchanges that traditional qualitative methods might miss or oversimplify.
+
+Our ENA case study covers the following concepts and skills:
+
+-   **Prepare:** Prior to analysis, we'll briefly review the context of collaborative digital learning platforms used in STEM education research. This helps set the stage for understanding the types of interactions and data we will analyze with ENA.
+
+-   **Wrangle:** In section 2, we detail the process of importing, cleaning, and coding text-based interaction data from digital STEM learning environments using the {tidytext} package. This preprocessing step is critical for accurately capturing relevant interactions for ENA.
+
+-   **Model:** Next, we apply Epistemic Network Analysis using the {rENA} package, highlighting how to construct and visualize ENA models that represent the structure and dynamics of learner interactions.
+
+-   **Explore:** Finally, we delve deeper into the ENA results by identifying and interpreting patterns within the visualized epistemic networks. This includes comparing network structures across different learner groups to uncover meaningful distinctions in collaborative learning processes.
+
+## 1. PREPARE
+
+To help us better understand the context, questions, and data sources we'll be using in Unit 3, this section will focus on the following topics:
+
+a.  **Context**. As context for our analysis this week, we'll review an article by Arastoopour et al. @arastoopour2015teaching that uses ENA to explore virtual internships as one method for teaching engineering design thinking.
+b.  **Questions.** We'll also examine what insight topic modeling can provide to a question that we asked participants to answer in their professional learning teams (PLTs).
+c.  **Project Setup.** This should be very familiar by now, but we'll also learn about load the required packages for the topic modeling case study.
+
+### 1a. Context
+
+[![Arastoopour Irgens, G., Shaffer, D. W., Swiecki, Z., Ruis, A. R., & Chesler, N. C. (2015). \[Teaching and assessing engineering design thinking with virtual internships and epistemic network analysis.\](https://open.clemson.edu/cgi/viewcontent.cgi?article=1004&context=ed_human_dvlpmnt_pub) International Journal of Engineering Education.](img/arastoopour.png "Our world is rich with data sources, and technology makes data more accessible than ever before! To help ensure students are future ready to use data for making informed decisions, many countries around the world have increased the emphasis on statistics and data analysis in school curriculum–from elementary/primary grades through college. This course allows you to learn, along with colleagues from other schools, an investigation cycle to teach statistics and to help students explore data to make evidence-based claims. To learn more about engaging learners in making inferences and claims supported by data and how to emphasize inferential reasoning in teaching statistics through posing different types of investigative questions, enroll in our Teaching Statistics through Inferential Reasoning MOOC-Ed."){width="50%"}](https://place.fi.ncsu.edu/local/catalog/course.php?id=4&ref=1)
+
+#### **Abstract**
+
+An engineering workforce of sufficient size and quality is essential for addressing significant global challenges such as climate change, world hunger, and energy demand. Future generations of engineers will need to identify challenging issues and design innovative solutions. To prepare young people to solve big and increasingly global problems, researchers and educators need to understand how we can best educate young people to use engineering design thinking. In this paper, we explore virtual internships, online simulations of 21st-century engineering design practice, as one method for teaching engineering design thinking. To assess the engineering design thinking, we use epistemic network analysis (ENA), a tool for measuring complex thinking as it develops over time based on discourse analysis. The combination of virtual internships and ENA provides opportunities for students to engage in authentic engineering design, potentially receive concurrent feedback on their engineering design thinking, and develop the identity, values, and ways of thinking of professional engineers.
+
+#### **Data Source & Analysis**
+
+Interaction data were collected from [RescuShell](https://www.virtualinterns.org/rescushell/), an engineering virtual internship platform. This digital platform provides a realistic engineering context where learners collaborate in solving authentic problems, simulating tasks common to engineering practice. The data used in this case study were previously examined by Shaffer & Arastoopour (2014), Arastoopour et al. (2016), and Chesler et al. (2015). The data consist primarily of text-based interactions recorded in discussion forums, chat logs, and collaborative workspaces within RescuShell.
+
+For further details regarding data collection and analysis of these data sources, see also the following papers:
+
+-   Shaffer, D. W., & Arastoopour, G. (2014). Epistemic network analysis of engineering virtual internships. Journal of Engineering Education, 103(4), 625-651.
+
+-   Arastoopour, G., Shaffer, D. W., Chesler, N. C., & Linderoth, J. (2016). Epistemic network analysis as a measure of critical thinking in engineering education. International Journal of Engineering Education, 32(6), 2476-2486.
+
+-   Chesler, N. C., Arastoopour, G., D'Angelo, C. M., Bagley, E. A., & Shaffer, D. W. (2015). Design of professional practice simulator for educating and motivating first-year engineering students. Advances in Engineering Education, 4(2), 1-27.
+
+#### **Summary of Key Findings**
+
+The following highlights key findings related to the discourse and interactions in engineering virtual internships:
+
+-   ENA effectively identified distinct discourse patterns among learners participating in engineering virtual internships, highlighting how knowledge was co-constructed and shared within these collaborative spaces.
+
+-   Analysis demonstrated how learners’ epistemic networks evolved significantly as they engaged in iterative problem-solving activities, with certain key concepts becoming increasingly central as students collaboratively advanced through the internship challenges.
+
+-   Results indicated that the discourse patterns identified by ENA corresponded to deeper cognitive engagement, where students actively negotiated and co-constructed engineering knowledge rather than merely exchanging surface-level information.
+
+-   Findings from prior analyses underscore the utility of ENA in capturing nuanced learner interactions and in differentiating between various collaborative learning approaches, suggesting its broader applicability in other STEM education research contexts.
+
+### 1b. Guiding Questions
+
+For this case study, we are interested in unpacking how participants involved in engineering virtual internships, such as those provided through the RescuShell platform, collaboratively engage in epistemic interactions that shape their learning experiences. Our specific research question for this case study is:
+
+> What are the patterns of epistemic connections formed by learners as they collaboratively engage in engineering problem-solving tasks within digital internship environments?
+
+Previous studies on ENA within engineering education have identified critical epistemic connections associated with deep learning processes. One of the central questions researchers aimed to address was:
+
+> How do epistemic networks evolve throughout the collaborative problem-solving activities?
+
+For this case study, we will further examine this question through the use of ENA.
+
+Moreover, echoing a central question identified by Silge and Robinson (2018) as critical to text mining and natural language processing, this case study will continuously explore:
+
+> How do we quantify what a document or collection of documents is about?
+
+### 1c. Load Libraries
+
+As highlighted in [Chapter 6 of Data Science in Education Using R](https://datascienceineducation.com/c06#c06p) (DSIEUR), **packages** are shareable collections of R code that contain functions, data, and documentation. Sometimes refered to as libraries, these **packages**:
+
+> increase the functionality of R by providing access to additional functions to suit a variety of needs. While it is entirely possible to do your work in R without packages, it’s not recommend. There are a wealth of packages available that reduce the learning curve the time spent on analytical projects.
+
+Run the code chunk below to load {tidyvers} and {tidytext} packages that were introduced in previous units:
+
+```{r}
+library(tidyverse)
+library(tidytext)
+```
+
+#### The rENA Package 📦
+
+![](img/rena-logo.png)
+
+The {rENA} package provides a comprehensive set of tools specifically designed for conducting Epistemic Network Analysis. It enables users to create visual representations and statistical models of the connections between coded data elements, particularly useful in educational and collaborative learning contexts. Key functions in the {rENA} package facilitate data preparation, network modeling, and interactive visualization, making it a valuable resource for researchers aiming to explore complex discourse and interaction patterns.
+
+#### **👉 Your Turn ⤵**
+
+Use the code chunk below to load the {rENA} package:
+
+```{r}
+library(rENA)
+```
+
+## 2. WRANGLE
+
+As noted previously, data wrangling involves some combination of cleaning, reshaping, transforming, and merging data [@wickham2023r]. This week we'll revisit tidying and tokenizing text using the {tidytext} package, but are also introduced to the the {stm} package. This package makes use of {tm} text mining package to preprocess text (e.g., removing punctuation, stop words, etc.) and will also be our first introduction to word stemming.
+
+a.  **Import Data**. We'll be working with .csv files this week and the `read_csv()` function and will revisit the argument for changing column types.
+b.  **Cast a DTM**. We'll also revisit the {tidytext} package to "tidy" and tokenize our forum data and introduce the `cast_dtm()` function to create the document term matrix (dtm) need for topic modeling.
+c.  **To Stem or not to STEM?** We conclude our data wrangling by also introducing the `textProcessor()` function for preprocessing and discuss the pros and cons of word stemming.
+
+### 2a. Import Forum Data
+
+To get started, we need to import, or "read", our data into R. The function used to import your data will depend on the file format of the data you are trying to import. First, however, check your Files tab in RStudio to verify that there is indeed file named `rescushell-data.csv` in your `data` folder.
+
+Our data file consists of discourse from RescuShell, an online learning simulation where students work as interns at a fictitious company to solve a realistic engineering design problem in a simulated work environment. Throughout the internship, students communicate with their project teams and mentors via online chat, and these chats are recorded in the `text` column. A set of qualitative codes were applied to the data in the “text” column, where a value of 0 indicates the absence of the code and a value of 1 indicates the presence of the code in a given line.
+
+Further details about the RS.data dataset can be found in Shaffer & Arastoopour @shaffer2014guide. Analyses of data from RescuShell and other engineering virtual internships can be found in Arastoopour et al. @arastoopour2015teaching and Chesler et al. @chesler2015novel.
+
+Now let's read our data into our Environment using the `read_csv()` function and assign it to a variable named `rescushell_data` so we can work with it like any other object in R.
+
+```{r read-csv}
+rescushell_data <- read_csv("data/rescushell-data.csv")
+
+rescushell_data
+```
+
+#### **👉 Your Turn ⤵**
+
+Use the code chunk below to inspect the data frame you just imported using a function of your choosing and answer the questions that follow:
+
+```{r}
+# YOUR CODE HERE
+ts_forum_data
+```
+
+In this case study, we are exploring the use of Epistemic Network Analysis (ENA) to analyze collaborative discussions within the RescuShell virtual internship platform. One critical step in preparing data for analysis is creating a codebook, which serves as a reference document that defines each variable in a dataset, including its meaning, format, and potential values.
+
+In the table below, a short description is provided for each variable based on the dataset provided. The first one has been completed for you:
+
++--------------------------------+-------------------------------------------------------------------------------------------+
+| Variable Name                  | Short Description                                                                         |
++================================+===========================================================================================+
+| Unnamed: 0                     | Numeric index or row identifier within the dataset.                                       |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| UserName                       | Unique identifier (username) for each participant.                                        |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| Condition                      | Experimental condition or group assignment of the participant (e.g., control, treatment). |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| CONFIDENCE.Pre                 | Participant's self-reported confidence level before the intervention/activity.            |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| CONFIDENCE.Post                | Participant's self-reported confidence level after the intervention/activity.             |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| CONFIDENCE.Change              | Change in participant's confidence level (post minus pre).                                |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| C.Level.Pre                    | Participant's initial competency or skill level before the activity.                      |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| NewC.Change                    | Newly measured change in competency level after the activity.                             |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| C.Change                       | Overall change in competency or skill level.                                              |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| Timestamp                      | Date and time when the interaction or activity was recorded.                              |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| ActivityNumber                 | Numeric identifier for specific activities within the RescuShell environment.             |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| GroupName                      | Identifier for the participant's assigned group or team.                                  |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| GameHalf                       | Indicator of the specific half or stage of the game/activity.                             |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| GameDay                        | Specific day or session within the RescuShell activity or game sequence.                  |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| text                           | Original text content of the participant's chat or discussion entry.                      |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| Data                           | Code indicating discussions involving data interpretation or usage.                       |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| Technical.Constraints          | Code indicating discussions about technical limitations or constraints of a design.       |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| Performance.Parameters         | Code indicating discussions about performance requirements or parameters of a design.     |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| Client.and.Consultant.Requests | Code indicating discussions about client or consultant requests and interactions.         |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| Design.Reasoning               | Code indicating discussions related to reasoning behind design decisions.                 |
++--------------------------------+-------------------------------------------------------------------------------------------+
+| Collaboration                  | Code indicating discussions explicitly related to collaboration and teamwork processes.   |
++--------------------------------+-------------------------------------------------------------------------------------------+
+
+### 2b. Prepare Data for an ENA model
+
+To prepare data for ENA model, there is a function called `ena()` which enables researchers to set the parameters for their model. This function wraps two other functions—`ena.accumulate.data()` and `ena.make.set()`—which can be used together to achieve the same result.
+
+In the following sections, we will demonstrate how to set each parameter and explain how different choices affect the resulting ENA model.
+
+#### Specify units
+
+In ENA, *units* can be individuals, ideas, organizations, or any other entity whose structure of connections you want to model. To set the units parameter, specify which column(s) in the data contain the variables that identify unique units.
+
+For this example, choose the “Condition” column and the “UserName” column to define the units. The “Condition” column has two unique values: `FirstGame`, and `SecondGame`, representing novice users and relative expert users, respectively, as some students participated in *RescuShell*after having already completed a different engineering virtual internship. The “UserName” column includes unique user names for all students (*n*=48). This way of defining the units means that ENA will construct a network for each student in each condition.
+
+```{r}
+unitCols <- c("Condition", "UserName")
+```
+
+To verify that the units are correctly specified, subset and preview the unique values in the units columns. There are 48 units from two conditions, which means that the ENA model will produce 48 individual-level networks for each of the units, and each unit is uniquely associated with either the novice group (`FirstGame`) or the relative expert group (`SecondGame`).
+
+```         
+unique(data[, unitCols])
+```
+
+|     |
+|-----|
+|     |
+
++-----+-----------+-------------+
+|     | Condition | UserName    |
+|     |           |             |
+|     | \<chr\>   | \<chr\>     |
++:====+:==========+:============+
+| 1   | FirstGame | steven z    |
++-----+-----------+-------------+
+| 2   | FirstGame | akash v     |
++-----+-----------+-------------+
+| 3   | FirstGame | alexander b |
++-----+-----------+-------------+
+| 4   | FirstGame | brandon l   |
++-----+-----------+-------------+
+| 6   | FirstGame | christian x |
++-----+-----------+-------------+
+| 299 | FirstGame | jordan l    |
++-----+-----------+-------------+
+| 300 | FirstGame | arden f     |
++-----+-----------+-------------+
+| 301 | FirstGame | margaret n  |
++-----+-----------+-------------+
+| 302 | FirstGame | connor f    |
++-----+-----------+-------------+
+| 304 | FirstGame | jimmy i     |
++-----+-----------+-------------+
+
+1-10 of 48 rows
+
+#### 3.3.2 Specify codes
+
+Next, specify the columns that contain the *codes*. Codes are concepts whose pattern of association you want to model for each unit. ENA represent codes as nodes in the networks and co-occurrences of codes as edges. Most researchers use binary coding in ENA analyses, where the values in the code columns are either 0 (indicating that the code is not present in that line) or 1 (indicating that the code is present in that line). `RS.data` contains six code columns, all of which will be used here.
+
+To specify the code columns, enter the code column names in a vector.
+
+```         
+codeCols = c('Data', 'Technical.Constraints', 'Performance.Parameters', 'Client.and.Consultant.Requests', 'Design.Reasoning', 'Collaboration')
+```
+
+To verify that the codes are correctly specified, preview the code columns selected.
+
+```         
+data[,codeCols]
+```
+
+|     |
+|-----|
+|     |
+
++---------+-----------------------+------------------------+---+
+| Data    | Technical.Constraints | Performance.Parameters |   |
+|         |                       |                        |   |
+| \<int\> | \<int\>               | \<int\>                |   |
++========:+======================:+=======================:+===+
+| 0       | 0                     | 0                      |   |
++---------+-----------------------+------------------------+---+
+| 0       | 0                     | 0                      |   |
++---------+-----------------------+------------------------+---+
+| 0       | 0                     | 0                      |   |
++---------+-----------------------+------------------------+---+
+| 0       | 0                     | 0                      |   |
++---------+-----------------------+------------------------+---+
+| 0       | 0                     | 0                      |   |
++---------+-----------------------+------------------------+---+
+| 0       | 0                     | 0                      |   |
++---------+-----------------------+------------------------+---+
+| 0       | 0                     | 0                      |   |
++---------+-----------------------+------------------------+---+
+| 0       | 0                     | 0                      |   |
++---------+-----------------------+------------------------+---+
+| 0       | 0                     | 0                      |   |
++---------+-----------------------+------------------------+---+
+| 0       | 0                     | 0                      |   |
++---------+-----------------------+------------------------+---+
+
+...
+
+1-10 of 3,824 rows \| 1-3 of 6 columns
+
+#### 3.3.3 Specify conversations
+
+The conversation parameter determines which lines in the data *can* be connected. Codes in lines that are not in the same conversation cannot be connected. For example, you may want to model connections within different time segments, such as days, or different steps in a process, such as activities.
+
+In our example, choose the “Condition”, “GroupName”, and “ActivityNumber” columns to define the conversations. These choices indicate that connections can only happen between students who were in the same condition (FirstGame or `SecondGame`) and on the same project team (group), and within the same activity. This definition of conversation reflects what actually happened in the simulation: in a given condition, students only interacted with those who were in the same group, and each activity occurred on a different day.
+
+To specify the conversation parameter, enter the column names in a vector.
+
+```         
+conversationCols = c("Condition", "GroupName", "ActivityNumber")
+```
+
+To verify that the conversations are correctly specified, subset and preview the unique values in the conversation columns.
+
+```         
+unique(data[, conversationCols])
+```
+
+|     |
+|-----|
+|     |
+
++-----+-----------+-----------+----------------+
+|     | Condition | GroupName | ActivityNumber |
+|     |           |           |                |
+|     | \<chr\>   | \<chr\>   | \<int\>        |
++:====+:==========+:==========+===============:+
+| 1   | FirstGame | Electric  | 1              |
++-----+-----------+-----------+----------------+
+| 12  | FirstGame | Electric  | 3              |
++-----+-----------+-----------+----------------+
+| 15  | FirstGame | Electric  | 4              |
++-----+-----------+-----------+----------------+
+| 18  | FirstGame | Electric  | 5              |
++-----+-----------+-----------+----------------+
+| 91  | FirstGame | Electric  | 6              |
++-----+-----------+-----------+----------------+
+| 93  | FirstGame | Electric  | 7              |
++-----+-----------+-----------+----------------+
+| 110 | FirstGame | Electric  | 8              |
++-----+-----------+-----------+----------------+
+| 127 | FirstGame | Electric  | 9              |
++-----+-----------+-----------+----------------+
+| 237 | FirstGame | Electric  | 10             |
++-----+-----------+-----------+----------------+
+| 249 | FirstGame | Electric  | 11             |
++-----+-----------+-----------+----------------+
+
+...
+
+1-10 of 153 rows
+
+#### 3.3.4 Specify the window
+
+Once the conversation parameter is specified, a window method needs to be specified. Whereas the conversation parameter specifies which lines *can be* related, the window parameter determines which lines within the same conversation *are* related. The most common window method used in ENA is called a moving stanza window, which is what will be used here.
+
+Briefly, a moving stanza window is a sliding window of fixed length that moves through a conversation to detect and accumulate code co-occurrences in recent temporal context. The lines within a designated stanza window are considered related to each other. For instance, if the moving stanza window is 7, then each line in the conversation is linked to the six preceding lines. See Siebert-Evenstone et al. (2017) and Ruis et al. (2019) for more detailed explanations of windows in ENA models.
+
+Here, set the window.size.back parameter equal to 7. User can specify a different moving stanza window size by passing a different numerical value to the `window.size.back` parameter.
+
+```         
+window.size.back = 7
+```
+
+The ENA package also enables use of an infinite stanza window, which assumes that lines in any part of a conversation are related. The infinite stanza window works the same way as a moving stanza window, but there is no limit on the number of previous lines that are included in the window besides the conversation itself. The infinite stanza window is less commonly used in ENA, but is specified as follows:
+
+```         
+window.size.back = "INF"
+```
+
+#### 3.3.5 Specify groups and rotation method
+
+When specifying the units, we chose a column that indicates two conditions: `FirstGame` (novice group) and `SecondGame` (relative expert group). To enable comparison of students in these two conditions, three additional parameters need to be specified: `groupVar`, `groups`, and `mean`.
+
+```         
+groupVar = "Condition" # "Condition" is the column used as our grouping variable 
+groups = c("FirstGame", "SecondGame") # "FirstGame" and "SecondGame" are the two unique values of the "Condition" column
+mean = TRUE
+```
+
+These three parameters indicate that when building the ENA model, the first dimension will maximize the difference between the two conditions: `FirstGame` and `SecondGame.` This difference maximization is achieved through `mean = TRUE`, which specifies that a *means rotation*will be performed at the dimensional reduction stage. If the means rotation is set to FALSE or there aren’t two distinct groups in your data, ENA will by default use singular value decomposition (SVD) to perform the dimensional reduction. Bowman et al. (2022) provide a mathematical explanation of the methods used in ENA to perform dimensional reductions.
+
+#### 3.3.6 Specify metadata
+
+The last parameter to be specified is metadata. Metadata columns are not required to construct an ENA model, but they provide information that can be used to subset units in the resulting model.
+
+Specify the metadata columns shown below to include data on student outcomes related to reported self-confidence before and after participating in engineering virtual internships. We will use this data to demonstrate a simple linear regression analysis that can be done using ENA outputs as predictors.
+
+```         
+metaCols = c("CONFIDENCE.Change","CONFIDENCE.Pre","CONFIDENCE.Post","C.Change") # optional
+```
+
+#### 3.3.7 Construct a model
+
+Now that all the essential parameters have been specified, the ENA model can be constructed.
+
+To build an ENA model, we need two functions `ena.accumulate.data` and `ena.make.set`, and we recommend that you store the output in an object (in this case, **set.ena**).
+
+```         
+accum.ena = 
+  ena.accumulate.data(
+    text_data = RS.data[, 'text'],
+    units = data[,unitCols],
+    conversation = data[,conversationCols],
+    metadata = data[,metaCols], # optional
+    codes = data[,codeCols],
+    window.size.back = 7
+)
+
+set.ena = 
+  ena.make.set(
+    enadata = accum.ena, # the accumulation run above
+    rotation.by = ena.rotate.by.mean, # equivalent of mean=TRUE in the ena function
+    rotation.params = list(
+      accum.ena$meta.data$Condition=="FirstGame", # equivalent of groups in the ena function
+      accum.ena$meta.data$Condition=="SecondGame" # equivalent of groups in the ena function
+  )
+)
+```
+
+### 3.4 Summary of key model outputs
+
+Users can explore what is stored in the object `set` by typing `set$` and select items from the drop down list. Here, we briefly describe the top-level items in `set` that are often of interest.
+
+## 3. MODEL
+
+This unit provides our first opportunity (VADER aside) for modeling text as data. In very simple terms, modeling involves developing a mathematical summary of a dataset. These summaries can help us further explore trends and patterns in our data.
+
+In their book, *Learning Analytics Goes to School,* Krumm and Means @krumm2018 describe two general types of modeling approaches used in the Data-Intensive Research workflow: unsupervised and supervised learning. In distinguishing between the two, they note:
+
+> ***Unsupervised** learning algorithms can be used to understand the structure of one's dataset. **Supervised** models, on the other hand, help to quantify relationships between features and a known outcome. Known outcomes are also commonly referred to as labels or dependent variables.*
+
+In Section 3 we focus on Topic Modeling, an unsupervised learning approach to automatically identify topics in a collection of documents. In fact, we'll explore two different approaches to topic modeling, as well as strategies for identifying the "right" number of topics:
+
+a.  **Fitting a Topic Modeling with LDA**. In this section we learn to use the {topicmodels} package and associated `LDA()` function for unsupervised classification of our forum discussions to find natural groupings of words, or topics.
+b.  **Fitting a Structural Topic Model**. We then explore the use of the {stm} package and `stm()` function to fit our model and uses metadata about documents to improve the assignment of words to "topics" in a corpus.
+c.  **Choosing K.** Finally, we wrap up Section 3 by learning about diagnostic properties like exclusivity, semantic coherence, and heldout likelihood for helping to select an appropriate number of topics.
+
+### 3a. Fitting a Topic Modeling with LDA
+
+Before running our first topic model using the `LDA()` function, let's quick recap from our readings some basic principles behind Latent Dirichlet Allocation and why LDA is of preferred over other automatic classification or clustering approaches.
+
+Unlike simple forms of cluster analysis such as k-means clustering, LDA is a **"mixture" model**, which in our context means that:
+
+1.  **Every [document]{.underline} contains a mixture of topics.** Unlike algorithms like k-means, LDA treats each document as a mixture of topics, which allows documents to "overlap" each other in terms of content, rather than being separated into discrete groups. So in practice, this means that a discussion forum post could have an estimated topic proportion of 70% for Topic 1 (e.g. be mostly about a Topic 1), but also be partly about Topic 2.
+2.  **Every [topic]{.underline} contains a mixture of words.** For example, if we specified in our LDA model just 2 topics for our discussion posts, we might find that one topic seems to be about pedagogy while another is about learning. The most common words in the pedagogy topic might be "teacher", "strategies", and "instruction", while the learning topic may be made up of words like "understanding" and "students". However, words can be shared between topics and words like "statistics" or "assessment" might appear in both equally.
+
+Similar to k-means other other simple clustering approaches, however, LDA does require us to specify beforehand a value for *k*, i.e., the number of topics in our corpus. Selecting *k* is no trivial matter and can greatly impact your results.
+
+Since we don't have a have strong rationale about the number of topics that might exist in discussion forums, let's use the `n_distinct()` function from the `dplyr` package to find the number of unique forum names in our course data and use that as a starting point:
+
+```{r n-distinct}
+n_distinct(ts_forum_data$forum_name)
+```
+
+Since it looks like there are about 20 distinct discussion forums, we'll use that as our value for the `k =` argument of the `LDA()`. Be patient while this runs, since the default setting of is to perform a large number of iterations and can take several minutes to "fit" a model to the data.
+
+```{r LDA}
+n_distinct(ts_forum_data$forum_name)
+
+forums_lda <- LDA(forums_dtm, 
+                  k = 20,
+                  method = "VEM",
+                  control = list(seed = 588),
+                  )
+
+forums_lda
+```
+
+Note that we used the `control =` argument to pass a random number (`588`) to seed the assignment of topics to each word in our corpus. Since LDA is a [stochastic algorithm](https://machinelearningmastery.com/stochastic-in-machine-learning/) that could have different results depending on where the algorithm starts, specified a `seed` for reproducibility and so we're all seeing the same results every time we specify the same number of topics.
+
+By default, the `LDA()` function uses the `method =` "VEM" (Variational Expectation Maximization) estimation method, which is generally faster and more scalable. However, there is "Gibbs" (Gibbs Sampling) method, which is more accurate but computationally intensive, as well as the "CTM" (Correlated Topic Model) method, a variation of LDA with correlated topics.
+
+Finally, tying back to our work in Unit 1, Chris Bail (2020) notes that topic assignments for each word are updated in an iterative fashion and that LDA employs the Term Frequency-Inverse Document Frequency (TF-IDF) metric to assign probabilities.
+
+#### Viewing Topic Terms
+
+Before moving on, let's view the top 5 words in each topic using the dead simple `terms()` function. We'll also send this to the `as_tibble()` function to make the output a little easier to read:
+
+```{r}
+terms(forums_lda, 5) |>
+  as_tibble()
+```
+
+#### **👉 Your Turn ⤵**
+
+Use the code chunk below to increase the number of terms associated with each "Topic" and answer the prompt that follows:
+
+```{r}
+terms(forums_lda, 10) |>
+  as_tibble()
+```
+
+As you can see form the output, each "Topic" is essentially a "bag-of-words" that typically occur together across documents. Pick two topics from the table above and use a short phrase or sentence that you think describes the topic.
+
+-   TOPIC X: YOUR DESCRIPTION HERE
+
+-   TOPIC X: YOUR DESCRIPTION HERE
+
+### 3b. Fitting a Structural Topic Model
+
+Bail notes that LDA, while perhaps the most common approach to topic modeling, is just one of many different types, including Dynamic Topic Models, Correlated Topic Models, Hierarchical Topic Models, and more recently, Structural Topic Modeling (STM). He argues that one reason STM has risen in popularity and use is that it employs meta data about documents to improve the assignment of words to topics in a corpus and can be used to examine relationships between covariates and documents.
+
+Also, since Julia Silge has indicated that STM is, "my current favorite implementation of topic modeling in R" and has built supports in the `tidytext` package for building structural topic models, this package is definitely worth discussing in this case study. I also highly recommend her own case study of the `stm` package: [The game is afoot! Topic modeling of Sherlock Holmes stories](https://juliasilge.com/blog/sherlock-holmes-stm/) as well as her follow up post, [Training, evaluating, and interpreting topic models](https://juliasilge.com/blog/evaluating-stm/).
+
+::: callout-note
+**LLM-Based Approaches to Topic Modeling**
+
+Large Language Models (LLMs), such as GPT-4, BERT, and T5, which leverage deep learning and contextual embeddings, have also emerged as promising approaches for modeling topics within a corpus. Unlike traditional Latent Dirichlet Allocation (LDA), LLM-based topic modeling approaches and libraries such as {[**BERTopic**](https://maartengr.github.io/BERTopic/index.html)} use pre-trained transformers, embeddings, and clustering techniques to extract meaningful topics.
+:::
+
+#### The `stm` Package
+
+As we've seen above, STM uses an unusual `temp` textProcessor output that is unique to the `stm` package. And as you've probably already guessed, the `stm()` function for fitting a structural topic model does not take a fairly standard document term matrix like the `LDA()` function.
+
+Before we fit our model, we'll have to extract the elements from the `temp` object created after we processed our text. Specifically, the `stm()` function expects the following arguments:
+
+-   `documents =` the document term matrix to be modeled in the native stm format
+-   `data =` an optional data frame containing meta data for the prevalence and/or content covariates to include in the model
+-   `vocab =` a character vector specifying the words in the corpus in the order of the vocab indices in documents.
+
+Let's go ahead and extract these elements:
+
+```{r stm-docs}
+docs <- temp$documents 
+meta <- temp$meta 
+vocab <- temp$vocab 
+```
+
+And now use these elements to fit the model using the same number of topics for *K* that we specified for our LDA topic model. Let's also take advantage of the fact that we can include the `course_id` and `forum_id` covariates in the `prevealence =` argument to help improve, in theory, our model fit:
+
+```{r stm}
+forums_stm <- stm(documents=docs, 
+         data=meta,
+         vocab=vocab, 
+         prevalence =~ course_id + forum_id,
+         K=20,
+         max.em.its=25,
+         verbose = FALSE)
+
+forums_stm
+```
+
+As noted earlier, the `stm` package has a number of handy features. One of these is the `plot.STM()` function for viewing the most probable words assigned to each topic.
+
+By default, it only shows the first 3 terms so let's change that to 5 to help with interpretation:
+
+```{r plot-stm}
+plot.STM(forums_stm, n = 5)
+```
+
+Note that you can also just use the base R `plot()` function as well:
+
+```{r plot}
+plot(forums_stm, n = 5)
+```
+
+You should see an output that looks something like the image below:
+
+![](img/stm-topics.png){width="100%"}
+
+Let's break down what we're seeing:
+
+-   **Title: "Top Topics"**
+
+    -   This indicates that the visualization represents the most prominent topics identified by the STM model.
+
+-   **Topic Labels and Keywords**
+
+    -   Each topic is listed as `Topic X` (e.g., `Topic 19`, `Topic 1`, etc.), followed by its **most representative words**.
+
+    -   The words are **stemmed** (e.g., *statist* → *statistics*, *cours* → *course*), indicating preprocessing steps such as stemming or lemmatization.
+
+    -   The keywords reflect the **semantic content**, or "signature," of each topic and provide a snapshot of what each topic represents.
+
+-   **Horizontal Bars**
+
+    -   Each horizontal bar represents the **expected topic proportion**, i.e., how prevalent each topic is in the corpus, i.e., our entire body of posts.
+
+    -   The **longer the bar**, the more dominant the topic is across documents.
+
+-   **X-Axis: "Expected Topic Proportions"**
+
+    -   This represents the proportion of the dataset that each topic occupies.
+
+    -   Topics with higher proportions are more frequently discussed in the corpus.
+
+#### **👉 Your Turn ⤵**
+
+Fit a model for both LDA and STM using different values for K and answer the questions below:
+
+```{r}
+# YOUR CODE HERE
+
+
+
+```
+
+1.  What topics appear to be similar to those using 20 topics for K?
+    -   YOUR RESPONSE HERE
+2.  Knowing that you don't have as much context as I do, how might you interpret one of these latent topics or themes using the key terms assigned?
+    -   YOUR RESPONSE HERE
+3.  What topic emerged that seem dramatically different and how might you interpret this topic?
+    -   YOUR RESPONSE HERE
+
+### 3c. Finding *K*
+
+As alluded to earlier, selecting the number of topics for your model is a non-trivial decision and can dramatically impact your results. Bail (2018) notes that
+
+> *The results of topic models should not be over-interpreted unless the researcher has strong theoretical apriori about the number of topics in a given corpus, or if the researcher has carefully validated the results of a topic model using both the quantitative and qualitative techniques described above.*
+
+There are several approaches to estimating a value for K and we'll take a quick look at one from the {ldatuning} package and one from our `stm` package.
+
+#### The `FindTopicsNumber()` Function
+
+The {ldatuning} package has functions for both calculating and plotting different metrics that can be used to estimate the most preferable number of topics for LDA model. It also conveniently takes the standard document term matrix object that we created from out tidy text and has the added benefit of running fairly quickly, especially compared to the function for finding *K* from the {stm} package.
+
+Let's use the defaults specified in the `?FindTopicNumber` documentation and modify slightly get metrics for a sequence of topics from 10-75 counting by 5 and plot the output we saved using the `FindTopicsNumber_plot()` function:
+
+```{r find-topic, eval=FALSE}
+k_metrics <- FindTopicsNumber(
+  forums_dtm,
+  topics = seq(10, 75, by = 5),
+  metrics = "Griffiths2004",
+  method = "Gibbs",
+  control = list(),
+  mc.cores = NA,
+  return_models = FALSE,
+  verbose = FALSE,
+  libpath = NULL
+)
+
+FindTopicsNumber_plot(k_metrics)
+```
+
+Note that the `FindTopicNumbers()` function contains three additional metrics for calculating metrics that can be used to estimate the most preferable number of topics for LDA model. We used the Griffiths2004 metrics included in the default example and I've also found this to produce the most interpretable results as show in the figure below:
+
+![](img/k-metrics.png){width="100%"}
+
+As a general rule of thumb and overly simplistic heuristic, we're looking for an inflection point in our plot which indicates an optimal number of topics to select for a value of K.
+
+#### The findingK() Function
+
+Finally, Bail (2018) notes that the`stm` package has a useful function called `searchK` which allows us to specify a range of values for `k` and outputs multiple goodness-of-fit measures that are "very useful in identifying a range of values for `k` that provide the best fit for the data."
+
+The syntax of this function is very similar to the `stm()` function we used above, except that we specify a range for `k` as one of the arguments. In the code below, we search all values of `k` between 10 and 30.
+
+```{r searck-k, eval=FALSE}
+findingk <- searchK(docs, 
+                    vocab, 
+                    K = c(5:15),
+                    data = meta, 
+                    verbose=FALSE)
+
+plot(findingk)
+```
+
+::: callout-warning
+**Computationally Intensive!**
+
+Note that running the `searchK()` function on this corpus took all night on a pretty powerful MacBook Pro and crashed once as well, so I do not expect you to run this for the case study.
+:::
+
+After a couple iterations `searchK()` landed on between 5 and 15 with an optimal number of topics somewhere around 14:
+
+![](img/searchk_results.png){width="90%"}
+
+Given the somewhat conflicting results – also somewhat selfishly and for the same of simplicity for this case study – I'm just going to stick with the rather arbitrary selection of 20 topics for the remainder of this case study.
+
+#### The LDAvis Explorer
+
+One final tool that I want to introduce from the `stm` package is the `toLDAvis()` function which provides a great visualizations for exploring topic and word distributions using `LDAvis` topic browser:
+
+```{r LDAvis}
+toLDAvis(mod = forums_stm, docs = docs)
+```
+
+As you can see from the browser screen shot below, our current STM with 20 topics is resulting in a lot of overlap among topics and suggest that 20 may not be an optimal number of topics, as other approaches for finding k also suggests:
+
+![](img/ldavis.png)
+
+## 4. EXPLORE
+
+Silge and Robinson (2018) note that fitting at topic model is the "easy part." The hard part is making sense of the model results and that the rest of the analysis involves exploring and interpreting the model using a variety of approaches which we'll case study in in this section.
+
+Bail (2018) cautions, however, that:
+
+> *...post-hoc interpretation of topic models is rather dangerous... and can quickly come to resemble the process of "**reading tea leaves**," or finding meaning in patterns that are in fact quite arbitrary or even random.*
+
+### 4a. Exploring Beta Values
+
+Hidden within this `forums_lda` topic model object we created are per-topic-per-word probabilities, called β ("beta"). It is the probability of a term (word) belonging to a topic. 
+
+Let's take a look again at the 5 most likely terms assigned to each topic, i.e. those with the largest β values using the `terms()` function from the `topicmodels` package:
+
+```{r terms}
+terms(forums_lda, 5) |>
+  as_tibble()
+```
+
+Even though we've somewhat arbitrarily selected the number of topics for our corpus, some these topics or themes are fairly intuitive to interpret. For example:
+
+-   **Topic 11** (technology, students, software, program, excel) seems to be about students use of technology including software programs like excel;
+
+-   **Topic 9** (questions, kids, love, gapminder, sharing) seems to be about the gapminder activity from the MOOC-Ed and kids enjoyment of it; and
+
+-   **Topic 18** (data, students, collect, real, sets) seems to be about student collection and use of real world data sets.
+
+Not surprisingly, the `tidytext` package has a handy function conveniently name `tidy()` to convert our LDA model to a tidy data frame containing these beta values for each term:
+
+```{r tidy_lda}
+
+tidy_lda <- tidy(forums_lda)
+
+tidy_lda
+```
+
+Obviously, it's not very easy to interpret what the topics are about from a data frame like this so let's borrow code again from [Chapter 8.4.3 Interpreting the topic model](https://www.tidytextmining.com/nasa.html?q=beta#interpreting-the-topic-model) in Text Mining with R to examine the top 5 terms for each topic and then look at this information visually:
+
+```{r top_terms}
+
+top_terms <- tidy_lda |>
+  group_by(topic) |>
+  slice_max(beta, n = 5, with_ties = FALSE) |>
+  ungroup() |>
+  arrange(topic, -beta)
+
+top_terms |>
+  mutate(term = reorder_within(term, beta, topic)) |>
+  group_by(topic, term) |>    
+  arrange(desc(beta)) |>  
+  ungroup() |>
+  ggplot(aes(beta, term, fill = as.factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  scale_y_reordered() +
+  labs(title = "Top 5 terms in each LDA topic",
+       x = expression(beta), y = NULL) +
+  facet_wrap(~ topic, ncol = 4, scales = "free")
+```
+
+### 4b. Exploring Gamma Values
+
+Now that we have a sense of the most common words associated with each topic, let's take a look at the topic prevalence in our MOOC-Ed discussion forum corpus, including the words that contribute to each topic we examined above.
+
+Also, hidden within our `forums_lda` topic model object we created are per-document-per-topic probabilities, called γ ("gamma"). This provides the probabilities that each document is generated from each topic, that gamma matrix. We can combine our beta and gamma values to understand the topic prevalence in our corpus, and which words contribute to each topic.
+
+To do this, we're going to again borrow some code from the Silge (2018) post, [Training, evaluating, and interpreting topic models](https://juliasilge.com/blog/evaluating-stm/).
+
+First, let's create two tidy data frames for our beta and gamma values
+
+```{r beta_gamma}
+td_beta <- tidy(forums_lda)
+
+td_gamma <- tidy(forums_lda, matrix = "gamma")
+
+td_beta
+td_gamma
+
+```
+
+Next, we'll adopt Julia's code wholesale to create a filtered data frame of our `top_terms`, join this to a new data frame for `gamma-terms` and create a nice clean table using the `kabel()` function `knitr` package:
+
+```{r prevalence_table}
+top_terms <- td_beta |>
+  arrange(beta) |>
+  group_by(topic) |>
+  top_n(7, beta) |>
+  arrange(-beta) |>
+  select(topic, term) |>
+  summarise(terms = list(term)) |>
+  mutate(terms = map(terms, paste, collapse = ", ")) |> 
+  unnest()
+
+gamma_terms <- td_gamma |>
+  group_by(topic) |>
+  summarise(gamma = mean(gamma)) |>
+  arrange(desc(gamma)) |>
+  left_join(top_terms, by = "topic") |>
+  mutate(topic = paste0("Topic ", topic),
+         topic = reorder(topic, gamma))
+
+gamma_terms |>
+  select(topic, gamma, terms) |>
+  kable(digits = 3, 
+        col.names = c("Topic", "Expected topic proportion", "Top 7 terms"))
+```
+
+And let's also compare this to the most prevalent topics and terms from our `forums_stm` model that we created using the `plot()` function:
+
+```{r plot_stm}
+plot(forums_stm, n = 7)
+```
+
+### 4c. Reading the Tea Leaves
+
+Recognizing that topic modeling is best used as a "tool for reading" and provides only an incomplete answer to our overarching, **"How do we quantify what a corpus is about?"**, the results do suggest some potential topics that have emerged, as well as some areas worth following up on.
+
+Specifically, looking at some of the common clusters of words for the more prevalent topics suggest that some key topics or "latent themes" (renamed in bold) might include:
+
+-   **Teaching Statistics:** Unsurprising, given the course title, the topics most prevalent in both the `forums_stm` and `forums_lda` models contains the terms "teach", "students", "statistics". This could be an "overarching theme" but more likely may simply just be residue from the course title being sprinkled throughout the forums and deserves some follow up. Topics 8 from the LDA model may overlap with this topic as well.
+-   **Course Utility:** The second most prevalent Topics (13 and 2) in the `lda` and `stm` models respectively, seem to potentially be about the usefulness of course "resources" like lessons, tools, videos, and activities. I'm wagering this might be a forum dedicated to course feedback. Topic 15 from the STM model also suggest this may be a broader theme.
+-   **Using Real-World Data:** Topics 18 & 12 from the LDA model particularly intrigued me and I'm wagering this is pretty positive sentiment among participants about the value and benefit of having students collect and analyze real data sets (e.g. Census data in Topic 1) and work on projects relevant to their real life. Will definitely follow up on this one.
+-   **Technology Use:** Several topics (6 & 11 from LDA and 8 & 19 from STM) appear to be about student use of technology and software like calculators and Excel for teaching statistics and using simulations. Topic 16 from LDA also suggest the use of the Common Online Data Analysis Platform ([CODAP](https://codap.concord.org)).
+-   **Student Struggle & Engagement:** Topic 15 from LDA and Topic 16 from STM also intrigue me and appear to be two opposite sides of perhaps the same coin. The former includes "struggle" and "reading" which suggests perhaps a barrier to teaching statistics while Topic 16 contains top stems like "engage", "activ", and "think" and may suggest participants anticipate activities may engage students.
+
+To serve as a check on my tea leaf reading, I'm going to follow Bail's recommendation to examine some of these topics qualitatively. The `stm` package has another useful (though exceptionally fussy) function called `findThoughts` which extracts passages from documents within the corpus associate with topics that you specify.
+
+The first line of code may not be necessary for your independent analysis, but because the `textProcessor()` function removed several documents during processing, the `findthoughts()` function can't properly index the processed docs. This [line of code found on stackoverflow](https://stackoverflow.com/questions/43492667/r-stm-number-of-provided-texts-and-number-of-documents-modeled-do-not-match) removes documents from original `ts_forum_data` source that were removed during processing so there is a one-to-one correspondence with `forums_stm` and so you can use the function to find posts associated with a given topic.
+
+Let's slightly reduce our original data set to match our STM model, pass both to the `findThoughts()` function, and set our arguments to return `n =10` posts from `topics = 2` (i.e. Topic 2) that have at least 50% or `thresh = 0.5` as a minimum threshold for the estimated topic proportion.
+
+```{r findThoughts_2}
+
+ts_forum_data_reduced <-ts_forum_data$post_content[-temp$docs.removed]
+
+findThoughts(forums_stm,
+             texts = ts_forum_data_reduced,
+             topics = 2, 
+             n = 10,
+             thresh = 0.5)
+```
+
+Duplicate posts aside, this **Course Utility** topic returns posts there were expected based on my interpretation of the key terms for Topic 2. It looks like I may have read those tea leaves correctly!
+
+Now let's take a look at Topic 16 that we thought might be related to student engagement:
+
+```{r findThoughts_16}
+
+findThoughts(forums_stm,
+             texts = ts_forum_data_reduced,
+             topics = 16, 
+             n = 10,
+             thresh = 0.5)
+```
+
+It looks like my tea reading was a partially correct for Topic 16, though the results seem to be about a specific "Pepsi challenge" activity conducted with students.
+
+Finally, let's look at posts from Topic 3 which we though might be an overarching theme about teaching statistics:
+
+```{r findThoughts_3}
+
+ts_forum_data_reduced <-ts_forum_data$post_content[-temp$docs.removed]
+
+findThoughts(forums_stm,
+             texts = ts_forum_data_reduced,
+             topics = 3, 
+             n = 10,
+             thresh = 0.5)
+```
+
+Looking at just the 10 posts returned, perhaps a better name for this topic would be **Course Reflections on Teaching Statistics**.
+
+#### Key Takeaways
+
+In addition to some useful R packages and functions for the actual process of topic modeling, hopefully there are two main lessons I'm hoping you take away from this case study:
+
+1.  **Topic modeling requires a lot of decisions.** Beyond deciding on a value for K, there are a number of key decisions that you have to make that can dramatically affect your results. For example, to stem or not to stem? What qualifies as a document? What flavor of topic modeling is best suited to your data and research questions? How many iterations should you run?
+2.  **Topic modeling is as much art as (data) science.** As Bail (2018) noted, the term "topic" is somewhat ambitious, and topic models do not produce highly nuanced classification of texts. Once you've fit your model, interpreting your model requires some mental gymnastics and ideally some knowledge of the context from which the data came to help with interpretation of your topics. Moreover, the quantitative approaches for making the decisions highlighted above are imperfect and a good deal of human judgment required.
+
+#### **👉 Your Turn ⤵**
+
+Using the STM model you fit in Section 3 with a different value for K, use the approaches demonstrated in Section 4 to explore and interpret your topics and terms and answer the question below.
+
+```{r}
+# YOUR CODE HERE
+
+
+
+```
+
+## 5. COMMUNICATE
+
+Recall that the final(ish) step in our workflow/process is sharing the results of analysis with wider audience. Krumm et al. (2018) outlined the following 3-step process for communicating with education stakeholders what you have learned through analysis:
+
+1.  **Select**. Communicating what one has learned involves selecting among those analyses that are most important and most useful to an intended audience, as well as selecting a form for displaying that information, such as a graph or table in static or interactive form, i.e. a "data product."
+2.  **Polish**. After creating initial versions of data products, research teams often spend time refining or polishing them, by adding or editing titles, labels, and notations and by working with colors and shapes to highlight key points.
+3.  **Narrate**. Writing a narrative to accompany the data products involves, at a minimum, pairing a data product with its related research question, describing how best to interpret the data product, and explaining the ways in which the data product helps answer the research question.
+
+In this case study, we focused applying some fairly standard topic modeling approaches to help us understand topics that emerged in online discussion forums as part of a online course for statistics educators. Specifically, we made our very first attempt at fitting both LDA and STM topic models to identify the key words .
+
+For this case study, let's focus on returning to our research question and communicating our findings to the MOOC-Ed team:
+
+> What topics emerged in the discussion forums?
+
+#### **👉 Your Turn** **⤵**
+
+Imagine that your are part of the MOOC-Ed research team responsible for communicating your work to the instructional developers and course facilitators on the team. Based on the analyses conducted in Sections 3 & 4, write a brief summary for three key findings from our topic modeling that you think would be interesting and potentially actionable for the team.
+
+1.  KEY FINDING
+
+2.  KEY FINDING
+
+3.  KEY FINDING
+
+### Congratulations!
+
+You've completed the Unit 3 Case Study: Topic Modeling in MOOC-Eds. **To "turn in" your work, you can click the "Render" icon in the menu bar above.** This will create a HTML report in your Files pane that serves as a record of your completed assignment and that can be opened in a browser or shared on the web.
+
+### References
