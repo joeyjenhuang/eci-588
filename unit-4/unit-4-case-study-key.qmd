@@ -76,9 +76,10 @@ The following highlights key findings related to the discourse and interactions 
 
 ### 1b. Guiding Questions
 
-For this case study, we are interested in unpacking how participants involved in engineering virtual internships, such as those provided through the RescuShell platform, collaboratively engage in epistemic interactions that shape their learning experiences. Our specific research question for this case study is:
+For this case study, we are interested in unpacking how participants involved in engineering virtual internships, such as those provided through the RescuShell platform, collaboratively engage in epistemic interactions that shape their learning experiences. Our specific research questions for this case study are:
 
-> What are the patterns of epistemic connections formed by learners as they collaboratively engage in engineering problem-solving tasks within digital internship environments?
+1.  What are the patterns of epistemic connections formed by learners as they collaboratively engage in engineering problem-solving tasks within digital internship environments?
+2.  Is there a difference in learners' epistemic frames based on the condition to which they were assigned?
 
 Previous studies on ENA within engineering education have identified critical epistemic connections associated with deep learning processes. One of the central questions researchers aimed to address was:
 
@@ -119,13 +120,13 @@ library(rENA)
 
 ## 2. WRANGLE
 
-As noted previously, data wrangling involves some combination of cleaning, reshaping, transforming, and merging data [@wickham2023r]. This week we'll revisit tidying and tokenizing text using the {tidytext} package, but are also introduced to the the {stm} package. This package makes use of {tm} text mining package to preprocess text (e.g., removing punctuation, stop words, etc.) and will also be our first introduction to word stemming.
+As noted previously, data wrangling involves some combination of cleaning, reshaping, transforming, and merging data [@wickham2023r]. In Section 2, we prepare our dataset for Epistemic Network Analysis (ENA). This process, commonly referred to as data wrangling, involves importing, cleaning, and organizing the data, as well as specifying key parameters required to construct our ENA model. Specifically, we’ll focus on the following key steps:
 
-a.  **Import Data**. We'll be working with .csv files this week and the `read_csv()` function and will revisit the argument for changing column types.
-b.  **Cast a DTM**. We'll also revisit the {tidytext} package to "tidy" and tokenize our forum data and introduce the `cast_dtm()` function to create the document term matrix (dtm) need for topic modeling.
-c.  **To Stem or not to STEM?** We conclude our data wrangling by also introducing the `textProcessor()` function for preprocessing and discuss the pros and cons of word stemming.
+a.  **Import RescuShell Data**. We begin by importing our dataset from RescuShell, an online simulation where students collaboratively address engineering design problems. We’ll inspect and understand the structure of our imported data, including qualitative codes assigned to the text data from online chats.
+b.  **Specify ENA Model Parameters**. Next, we outline and set critical parameters needed for the ENA model. This includes specifying our units of analysis, qualitative codes representing conceptual nodes, conversational boundaries, window size to capture interactions, group comparisons, and relevant metadata.
+c.  **Construct an ENA Model**. Finally, we use the prepared parameters to accumulate the data and create a structured ENA model object, laying the foundation for visual and numerical exploration of networked discourse patterns in Section 3.
 
-### 2a. Import Forum Data
+### 2a. Import RescuShell Data
 
 To get started, we need to import, or "read", our data into R. The function used to import your data will depend on the file format of the data you are trying to import. First, however, check your Files tab in RStudio to verify that there is indeed file named `rescushell-data.csv` in your `data` folder.
 
@@ -152,51 +153,28 @@ In this case study, we are exploring the use of Epistemic Network Analysis (ENA)
 
 In the table below, a short description is provided for each variable based on the dataset provided. The first one has been completed for you:
 
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| Variable Name                  | Short Description                                                                         |
-+================================+===========================================================================================+
-| Unnamed: 0                     | Numeric index or row identifier within the dataset.                                       |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| UserName                       | Unique identifier (username) for each participant.                                        |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| Condition                      | Experimental condition or group assignment of the participant (e.g., control, treatment). |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| CONFIDENCE.Pre                 | Participant's self-reported confidence level before the intervention/activity.            |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| CONFIDENCE.Post                | Participant's self-reported confidence level after the intervention/activity.             |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| CONFIDENCE.Change              | Change in participant's confidence level (post minus pre).                                |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| C.Level.Pre                    | Participant's initial competency or skill level before the activity.                      |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| NewC.Change                    | Newly measured change in competency level after the activity.                             |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| C.Change                       | Overall change in competency or skill level.                                              |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| Timestamp                      | Date and time when the interaction or activity was recorded.                              |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| ActivityNumber                 | Numeric identifier for specific activities within the RescuShell environment.             |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| GroupName                      | Identifier for the participant's assigned group or team.                                  |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| GameHalf                       | Indicator of the specific half or stage of the game/activity.                             |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| GameDay                        | Specific day or session within the RescuShell activity or game sequence.                  |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| text                           | Original text content of the participant's chat or discussion entry.                      |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| Data                           | Code indicating discussions involving data interpretation or usage.                       |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| Technical.Constraints          | Code indicating discussions about technical limitations or constraints of a design.       |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| Performance.Parameters         | Code indicating discussions about performance requirements or parameters of a design.     |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| Client.and.Consultant.Requests | Code indicating discussions about client or consultant requests and interactions.         |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| Design.Reasoning               | Code indicating discussions related to reasoning behind design decisions.                 |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| Collaboration                  | Code indicating discussions explicitly related to collaboration and teamwork processes.   |
-+--------------------------------+-------------------------------------------------------------------------------------------+
+| Variable Name | Short Description |
+|--------------------|----------------------------------------------------|
+| UserName | Unique identifier (username) for each participant. |
+| Condition | Group assignment of the participants representing novice users and relative expert users. |
+| CONFIDENCE.Pre | Participant's self-reported confidence level before the intervention/activity. |
+| CONFIDENCE.Post | Participant's self-reported confidence level after the intervention/activity. |
+| CONFIDENCE.Change | Change in participant's confidence level (post minus pre). |
+| C.Level.Pre | Participant's initial competency or skill level before the activity. |
+| NewC.Change | Newly measured change in competency level after the activity. |
+| C.Change | Overall change in competency or skill level. |
+| Timestamp | Date and time when the interaction or activity was recorded. |
+| ActivityNumber | Numeric identifier for specific activities within the RescuShell environment. |
+| GroupName | Identifier for the participant's assigned group or team. |
+| GameHalf | Indicator of the specific half or stage of the game/activity. |
+| GameDay | Specific day or session within the RescuShell activity or game sequence. |
+| text | Original text content of the participant's chat or discussion entry. |
+| Data | Code indicating discussions involving data interpretation or usage. |
+| Technical.Constraints | Code indicating discussions about technical limitations or constraints of a design. |
+| Performance.Parameters | Code indicating discussions about performance requirements or parameters of a design. |
+| Client.and.Consultant.Requests | Code indicating discussions about client or consultant requests and interactions. |
+| Design.Reasoning | Code indicating discussions related to reasoning behind design decisions. |
+| Collaboration | Code indicating discussions explicitly related to collaboration and teamwork processes. |
 
 ### 2b. Specify ENA Model Parameters
 
@@ -208,7 +186,13 @@ The following sections demonstrate how to set each parameter and explain how dif
 
 In ENA, ***units*** can be individuals, ideas, organizations, or any other entity whose structure of connections you want to model. To set the units parameter, specify which column(s) in the data contain the variables that identify unique units.
 
-For this example, choose the `Condition` column and the `UserName` column to define the units. The `Condition` column has two unique values: `FirstGame`, and `SecondGame`, representing novice users and relative expert users, respectively, as some students participated in *RescuShell* after having already completed a different engineering virtual internship. The `UserName` column includes unique user names for all students (*n*=48). This way of defining the units means that ENA will construct a network for each student in each condition.
+For this example, we'll use the `Condition` column and the `UserName` column to define the units.
+
+::: callout-important
+**Learner Conditions**. The `Condition` column has two unique values: FirstGame, and SecondGame, representing **novice users and relative expert users**, respectively, as some students participated in RescuShell after having already completed a different engineering virtual internship.
+:::
+
+The `UserName` column includes unique user names for all students (*n*=48). This way of defining the units means that ENA will construct a network for each student in each condition.
 
 ```{r}
 unitCols <- c("Condition", "UserName")
@@ -335,7 +319,7 @@ metaCols = c("CONFIDENCE.Change","CONFIDENCE.Pre","CONFIDENCE.Post","C.Change") 
 
 We will use this data later to demonstrate a simple linear regression analysis that can be done using ENA outputs as predictors.
 
-### 2c. Construct ENA Model 
+### 2c. Construct an ENA Model 
 
 Now that all the essential parameters have been specified, the ENA model can be constructed.
 
@@ -363,43 +347,25 @@ set.ena =
 )
 ```
 
-```{r}
-set.ena$connection.counts
+This combined visual and numeric approach enables a comprehensive understanding of discourse patterns within our ENA framework.
 
-```
+Now that we have constructed an ENA Model object, we can begin to descriptively explore through visual and numerical summaries the data stored in the `set.ena` model.
 
-```{r}
-
-accum.ena <- ena.accumulate.data(
-  text_data    = RS.data %>% pull(text),
-  units        = data %>% select(all_of(unitCols)),
-  conversation = data %>% select(all_of(conversationCols)),
-  metadata     = data %>% select(all_of(metaCols)),
-  codes        = data %>% select(all_of(codeCols)),
-  window.size.back = 7
-)
-
-set.ena <- ena.make.set(
-  enadata       = accum.ena,
-  rotation.by   = ena.rotate.by.mean,
-  rotation.params = data %>%
-    pull(Condition) %>%
-    { list(. == "FirstGame", . == "SecondGame") }
-)
-```
-
-## 3. EXPLORE
-
-Now that we have constructed an ENA Model object, we can begin explore what is stored in the `set.ena` object by typing `set$` and selecting items from the drop down list.
-
-First, let's use the `names()` function to first determine what items and data summaries are stored in the `set.ena` object:
+First, let's use the `names()` function to first determine what types of items and data are stored in the `set.ena` model:
 
 ```{r}
-
 names(set.ena)
 ```
 
-Now let's take a look at some of these items that are often of interest.
+Now let's explore some of these items that are of most interest!
+
+## 3. EXPLORE
+
+In Section 3, we delve into descriptive exploration of our ENA model, visually and numerically summarizing the interactions in our data set. Specifically, we’ll investigate two primary methods for understanding and interpreting ENA model outputs:
+
+a.  **Visual Summaries**. We start by using visualization functions from the {rENA} package to illustrate networks of connections. We’ll plot mean networks for different participant conditions, visualize subtracted networks to pinpoint differences between groups, and interpret how the strengths and patterns of connections differ visually across conditions.
+
+b.  **Numerical Summaries**. Next, we shift from visualizations to numerical summaries, examining key quantitative aspects of the ENA outputs. We’ll explore summary statistics like connection counts, normalized line weights (relative connection frequencies), and ENA points representing individual or group epistemic network positions, allowing us to understand the underlying numeric properties that drive the visualizations.
 
 ### 3a. Visual Summary of Key Model Outputs
 
@@ -664,11 +630,11 @@ class(p) <- c("plotly", "enaplot", "html-fill-item-overflow-hidden", "html-fill-
 
 ### 3a. Descriptive Summary of Key Model Outputs
 
-We can also explore descriptive summaries stored in the `set.ena` object and used to constructiont the visualizations above by simply typing `set$` and selecting items from the drop down list.
+We can also explore descriptive summaries of data stored in the `set.ena` model by simply extracting the summary data using the handy `$` dollar sign operator.
 
 #### Connection counts
 
-For each unit, ENA creates a cumulative adjacency vector that contains the sums of all unique code co-occurrences for that unit across all stanza windows. **Connection counts** are the frequencies of unique connections a unit made among all possible code pairs.
+For each unit, in our case individual study participants, ENA creates a cumulative adjacency vector that contains the sums of all unique code co-occurrences for that unit across all stanza windows. These **connection counts** are the frequencies of unique connections a unit made among all possible code pairs.
 
 To access ENA adjacency vectors, let's use `$` operator to access `connection.counts` from our `set.ena` object:
 
@@ -680,11 +646,17 @@ This data table shows summaries of connection counts for the 48 units (i.e., the
 
 In the first row, we can see that among `steven z`'s conversations, the codes `Data` and `Technical.Constraints` occurred together 22 times, whereas for `brandon l`'s conversations, `Data` and `Technical.Constraints` occurred together 98 times!
 
+::: callout-tip
+**The \$ Operator**. In R, the `$` operator is simply a shortcut for “extract the element named … from this object.” So in `set.ena$connection.counts`, for example, we're pulling out the component named `connection.counts` from the `set.ena` object.
+
+In general, whenever you have a list, data frame, or environment, you can write `object$elementName` to retrieve the item (e.g., a column, sub‑list, etc.) whose name exactly matches elementName.
+:::
+
 #### **👉 Your Turn ⤵**
 
 We can also take these data summaries a step further by using the `skim()` function introduced in previous units to get summary statistics for all code pairs collectively.
 
-Use the code chunk below to load the {skimr} library and `skim()` the `set.ena$connection.counts` to get a descriptive summary:
+Use the code chunk below to load the {skimr} library and `skim()` the `set.ena$connection.counts` to get a descriptive summary of connection counts for each participant:
 
 ```{r}
 #YOUR CODE HERE
@@ -710,17 +682,24 @@ Take a closer look at the table output above and answer the following questions:
 
 #### Line weights
 
-To compare networks in terms of their *relative* patterns of association, researchers can spherically normalize the cumulative adjacency vectors by diving each one by its length. The resulting normalized vectors represent each unit’s relative frequencies of code co-occurrence. In other words, the sphere normalization controls for the fact that different units might have different amounts of interaction or different numbers of activities.
+These raw connection counts can also be rerpresented as **line weights**, or normalized relative frequencies (i.e., decimal values between 0 and 1) of code co-occurrence for each unit by dividing each code‑pair count by the total number of connections for that unit or individuals.
 
-Notice that in `set.ena$connection.counts,` the value for each unique code co-occurrence is an integer equal or greater than 0, because they represent the raw connection counts between each unique pair of codes. In ``` set.``ena``$line.weights ```, those raw counts are normalized, and therefore the values are rational numbers between 0 and 1.
+Why normalize? Because some participants might talk a lot (producing high raw counts) while others talk less. By converting counts into proportions, we compare patterns of emphasis (which code pairs are relatively important) instead of comparing raw activity levels.
 
 #### **👉 Your Turn ⤵**
 
-To access the normalized adjacency vectors, use `set.ena$line.weights`.
+Similar to how we extracted the conneciton counts data from our `set.ena` object above, use the `$` operator To access the normalized adjacency vectors, use `set.ena$line.weights`.
 
 ```{r}
 set.ena$line.weights
 ```
+
+#### ❓Questions
+
+Take a closer look at the table output above and write down two observations that stand out to you:
+
+1.  YOUR FIRST OBSERVATION HERE
+2.  YOUR SECOND OBSERVATION HERE
 
 #### ENA points
 
@@ -730,513 +709,185 @@ By default, `rENA`visualizes ENA points on an x-y coordinate plane defined by t
 
 To access these points, use `set.ena$points` .
 
-```         
+```{r}
 set.ena$points
 ```
 
-|     |
-|-----|
-|     |
+ENA points are summary statistics that researchers can use to conduct statistical tests, and they can also be used in subsequent analyses. For example, statistical differences between groups in the data can be tested using ENA dimension scores, and those scores can also be used in regression analyses to predict outcome variables, which we will demonstrate later.
 
-+-----------------------+-----------+-------------+-------------------+---+
-| ENA_UNIT              | Condition | UserName    | CONFIDENCE.Change |   |
-|                       |           |             |                   |   |
-| \<chr\>               | \<chr\>   | \<chr\>     | \<chr\>           |   |
-+:======================+:==========+:============+:==================+===+
-| FirstGame.steven z    | FirstGame | steven z    | 1                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.akash v     | FirstGame | akash v     | 2                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.alexander b | FirstGame | alexander b | 1                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.brandon l   | FirstGame | brandon l   | 1                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.christian x | FirstGame | christian x | 0                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.jordan l    | FirstGame | jordan l    | 2                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.arden f     | FirstGame | arden f     | 1                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.margaret n  | FirstGame | margaret n  | 3                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.connor f    | FirstGame | connor f    | 0                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.jimmy i     | FirstGame | jimmy i     | 2                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
+## 4. MODEL
 
-1-10 of 48 rows \| 1-4 of 22 columns
+Recall that our specific research questions for this case study are:
 
-ENA points are thus summary statistics that researchers can use to conduct statistical tests, and they can also be used in subsequent analyses. For example, statistical differences between groups in the data can be tested using ENA dimension scores, and those scores can also be used in regression analyses to predict outcome variables, which we will demonstrate later.
+1.  What are the patterns of epistemic connections formed by learners as they collaboratively engage in engineering problem-solving tasks within digital internship environments?
+2.  Is there a difference in learners' epistemic frames based on the condition to which they were assigned?
 
-#### 3.4.4 Rotation matrix
+In the previous section, we visually explored learners in our two conditions and created the subtracted network shown below, which seems to suggest that the epistemic frames of students in the two conditions seem to differ from each other.
 
-The rotation matrix used during the dimensional reduction can be accessed through `set.ena$rotation`. This is mostly useful when you want to construct an ENA metric space using one dataset and then project ENA points from different data into that space, as in section 5.1.
+![](img/subtracted-plot.png){fig-align="center" width="100%"}
 
-```         
-set.ena$rotation.matrix
-```
-
-|     |
-|-----|
-|     |
-
-+---------------------------------------------------------+---------------+---+
-| codes                                                   | MR1           |   |
-|                                                         |               |   |
-| \<chr\>                                                 | \<dbl\>       |   |
-+:========================================================+==============:+===+
-| Data & Technical.Constraints                            | -0.2971401126 |   |
-+---------------------------------------------------------+---------------+---+
-| Data & Performance.Parameters                           | 0.1467451479  |   |
-+---------------------------------------------------------+---------------+---+
-| Technical.Constraints & Performance.Parameters          | 0.0062512946  |   |
-+---------------------------------------------------------+---------------+---+
-| Data & Client.and.Consultant.Requests                   | -0.0066785510 |   |
-+---------------------------------------------------------+---------------+---+
-| Technical.Constraints & Client.and.Consultant.Requests  | -0.2274653715 |   |
-+---------------------------------------------------------+---------------+---+
-| Performance.Parameters & Client.and.Consultant.Requests | 0.0395312676  |   |
-+---------------------------------------------------------+---------------+---+
-| Data & Design.Reasoning                                 | 0.1692691629  |   |
-+---------------------------------------------------------+---------------+---+
-| Technical.Constraints & Design.Reasoning                | 0.0314608661  |   |
-+---------------------------------------------------------+---------------+---+
-| Performance.Parameters & Design.Reasoning               | 0.4197206428  |   |
-+---------------------------------------------------------+---------------+---+
-| Client.and.Consultant.Requests & Design.Reasoning       | 0.0003563438  |   |
-+---------------------------------------------------------+---------------+---+
-
-1-10 of 15 rows \| 1-2 of 16 columns
-
-#### 3.4.5 Metadata
-
-`set$meta.data` returns a data frame that includes all the columns of the ENA set except for the columns representing code co-occurrences.
-
-```         
-set.ena$meta.data
-```
-
-|     |
-|-----|
-|     |
-
-+-----------------------+-----------+-------------+-------------------+---+
-| ENA_UNIT              | Condition | UserName    | CONFIDENCE.Change |   |
-|                       |           |             |                   |   |
-| \<chr\>               | \<chr\>   | \<chr\>     | \<chr\>           |   |
-+:======================+:==========+:============+:==================+===+
-| FirstGame.steven z    | FirstGame | steven z    | 1                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.akash v     | FirstGame | akash v     | 2                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.alexander b | FirstGame | alexander b | 1                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.brandon l   | FirstGame | brandon l   | 1                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.christian x | FirstGame | christian x | 0                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.jordan l    | FirstGame | jordan l    | 2                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.arden f     | FirstGame | arden f     | 1                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.margaret n  | FirstGame | margaret n  | 3                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.connor f    | FirstGame | connor f    | 0                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-| FirstGame.jimmy i     | FirstGame | jimmy i     | 2                 |   |
-+-----------------------+-----------+-------------+-------------------+---+
-
-1-10 of 48 rows \| 1-4 of 7 columns
-
-### 3.5 ENA vis
-
-## 4. Model
+In this section...
 
 ### 4a. Compare Groups Statistically
 
-In addition to visual comparison of networks, ENA points can be analyzed statistically. For example, here we might test whether the patterns of association in one condition are significantly different from those in the other condition.
+In addition to visual comparison of networks, ENA points can be analyzed statistically. For example, here we will test whether the patterns of association (e.g., connections between our qualitatively coded data) in one condition are significantly different from those in the other condition.
 
-To demonstrate both parametric and non-parametric approaches to this question, the examples below use a Student’s *t* test and a Mann-Whitney *U* test to test for differences between the `FirstGame` and `SecondGame` condition. For more on differences between parametric and non-parametric tests, see Kaur & Kumar (2015).
+To demonstrate both parametric and non-parametric approaches to this question, the examples below use a Student’s *t* test and a Mann-Whitney *U* test to test for differences between the `FirstGame` and `SecondGame` condition.
 
-First, install the `lsr` package to enable calculation of effect size (Cohen’s *d*) for the *t* test.
+#### Load the lsr Package
+
+First, we need to load the {lsr} package to enable calculation of effect size (Cohen’s *d*) for the *t* test.
 
 ```{r}
 library(lsr)
 ```
 
-```         
-# install.packages('lsr')
+The {lsr} package (“**Learning Statistics with R**”) is a CRAN‑hosted toolbox created to support teaching and learning introductory statistics in R (it accompanies Danielle Navarro’s excellent textbook [Learning Statistics with R)](https://learningstatisticswithr.com). It provides easy‑to‑use wrappers for common descriptive and inferential tasks—so you can run t‑tests, ANOVAs, compute Cohen’s d, confidence intervals, contingency tables, and simulate sampling distributions with just one function call (e.g. ttest(), anova(), cohen.d(), bootstrapCI()).
+
+#### Extract ENA Points
+
+ENA represents each discussion unit as a point in a 2‑D space summarizing its overall network structure.
+
+We'll need to extract these coordinates, so we can run independent‑samples t‑tests comparing mean x‑positions (Dimension 1) and mean y‑positions (Dimension 2) between FirstGame vs. SecondGame.
+
+Run the following code to subset the mean x‑positions (Dimension 1) and mean y‑positions (Dimension 2) for each unit based on their conditions.
+
+```{r}
+ena_first_points_d1 <- as.matrix(set.ena$points$Condition$FirstGame)[,1]
+ena_second_points_d1 <- as.matrix(set.ena$points$Condition$SecondGame)[,1]
+
+ena_first_points_d2 <- as.matrix(set.ena$points$Condition$FirstGame)[,2]
+ena_second_points_d2 <- as.matrix(set.ena$points$Condition$SecondGame)[,2]
 ```
 
-Then, subset the points to test for differences between the two conditions.
+Again, these four lines of code are simply pulling out the 2‑dimensional ENA coordinate scores (i.e., “points”) for each condition so we can statistically compare them.
 
-```         
-ena_first_points_d1 = as.matrix(set.ena$points$Condition$FirstGame)[,1]
-ena_second_points_d1 = as.matrix(set.ena$points$Condition$SecondGame)[,1]
+#### Conduct *t* test
 
-ena_first_points_d2 = as.matrix(set.ena$points$Condition$FirstGame)[,2]
-ena_second_points_d2 = as.matrix(set.ena$points$Condition$SecondGame)[,2]
-```
+Now that we have extracted these points, we can run a basic t‑tests to quantify whether the average network structure differs meaningfully between participants in the FirstGame and SecondGame conditions.
 
-Conduct the *t* test on the first and second dimensions.
+Run the following code to conduct the *t* test on the first and second dimensions that we extract for each group:
 
-```         
-# parametric tests
-t_test_d1 = t.test(ena_first_points_d1, ena_second_points_d1)
+```{r}
+t_test_d1 <- t.test(ena_first_points_d1, ena_second_points_d1)
+
 t_test_d1
 ```
 
-```         
+A two-sample *t* test assuming unequal variance shows that the `FirstGame` (mean = -0.09, SD = 0.11, N = 26) condition is **statistically significantly** along the *x* axis, different for alpha=0.05 from the `SecondGame` condition (mean = 0.11, SD = 0.10, N=22; t(45.31) = -6.52, *p* = 0.00, Cohen’s *d*=1.88).
 
-    Welch Two Sample t-test
+However, the *t* test shows that the `FirstGame` condition (mean=0.11, SD=0.13, N=26) **is not statistically significantly along the *y* axis**, different for alpha=0.05 from the `SecondGame` condition (mean=0.00, SD=1.3, N=22; t(43.17)=0, *p*=1.00).
 
-data:  ena_first_points_d1 and ena_second_points_d1
-t = -6.5183, df = 45.309, p-value = 5.144e-08
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
- -0.2687818 -0.1419056
-sample estimates:
-  mean of x   mean of y 
--0.09411588  0.11122786 
-```
+These findings are consistent with our visual summary and suggest that learners’ networks shifted significantly along ENA’s principal semantic axis (captured by Dimension 1), consistent with the thicker, stronger connections seen in the SecondGame network plot for Design.Reasoning & Performance.Parameters, while the secondary pattern of co‑occurrences (Dimension 2) along the y axis stayed stable, e.g., those connections that were "subtracted" because they were similar across both conditions.
 
-```         
-t_test_d2 = t.test(ena_first_points_d2, ena_second_points_d2)
-t_test_d2
-```
+#### Conduct non-parametric test
 
-```         
+The Mann-Whitney *U* test is a non-parametric alternative to the independent two-sample *t* test. This test is valuable anytime your two groups violate one or more t‑test assumptions, most commonly non‑normality, unequal variances, or when your outcome is only measured on an ordinal scale.
 
-    Welch Two Sample t-test
+First, let's load the `rcompanion` package that we'll use to calculate the effect size (*r*) for a Mann-Whitney *U* test.
 
-data:  ena_first_points_d2 and ena_second_points_d2
-t = 1.9334e-16, df = 43.175, p-value = 1
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
- -0.07768526  0.07768526
-sample estimates:
-    mean of x     mean of y 
- 1.935145e-19 -7.254914e-18 
-```
-
-Compute any other statistics that may be of interest. A few examples are given below.
-
-```         
-mean(ena_first_points_d1)
-```
-
-```         
-[1] -0.09411588
-```
-
-```         
-mean(ena_second_points_d1)
-```
-
-```         
-[1] 0.1112279
-```
-
-```         
-mean(ena_first_points_d2)
-```
-
-```         
-[1] 1.935145e-19
-```
-
-```         
-mean(ena_second_points_d2)
-```
-
-```         
-[1] -7.254914e-18
-```
-
-```         
-sd(ena_first_points_d1)
-```
-
-```         
-[1] 0.1115173
-```
-
-```         
-sd(ena_second_points_d1)
-```
-
-```         
-[1] 0.1063515
-```
-
-```         
-sd(ena_first_points_d2)
-```
-
-```         
-[1] 0.1267104
-```
-
-```         
-sd(ena_second_points_d2)
-```
-
-```         
-[1] 0.1380851
-```
-
-```         
-length(ena_first_points_d1)
-```
-
-```         
-[1] 26
-```
-
-```         
-length(ena_second_points_d1)
-```
-
-```         
-[1] 22
-```
-
-```         
-length(ena_first_points_d2)
-```
-
-```         
-[1] 26
-```
-
-```         
-length(ena_second_points_d2)
-```
-
-```         
-[1] 22
-```
-
-```         
-cohensD(ena_first_points_d1, ena_second_points_d1)
-```
-
-```         
-[1] 1.880622
-```
-
-```         
-cohensD(ena_first_points_d2, ena_second_points_d2)
-```
-
-```         
-[1] 5.641688e-17
-```
-
-Here, along the *x* axis (MR1), a two-sample *t* test assuming unequal variance shows that the `FirstGame` (mean=-0.09, SD=0.11, N=26) condition is statistically significantly different for alpha=0.05 from the `SecondGame` condition (mean=0.11, SD=0.10, N=22; t(45.31)=-6.52, *p*=0.00, Cohen’s *d*=1.88). Along the *y* axis (SVD2), a two-sample *t* test assuming unequal variance shows that the `FirstGame` condition (mean=0.11, SD=0.13, N=26) is not statistically significantly different for alpha=0.05 from the `SecondGame` condition (mean=0.00, SD=1.3, N=22; t(43.17)=0, *p*=1.00).
-
-The Mann-Whitney *U* test is a non-parametric alternative to the independent two-sample *t* test.
-
-First, install the `rcompanion` package to calculate the effect size (*r*) for a Mann-Whitney *U* test.
-
-```         
-# install.packages('rcompanion')
+```{r}
 library(rcompanion)
 ```
 
-Then, conduct a Mann-Whitney *U* test on the first and second dimensions.
+The rcompanion package is a collection of utility functions designed to make common statistical tasks in R easier, especially descriptive summaries, assumption checks, nonparametric tests, and effect‑size calculations. Originally built to accompany the textbook [A Companion to Applied Regression](https://www.john-fox.ca/Companion/), it’s now widely used for general data exploration and reporting.
 
-```         
+Run the following code to conduct a Mann-Whitney *U* test on the first and second dimensions and print:
+
+```{r}
 # non parametric tests
-w_test_d1 = wilcox.test(ena_first_points_d1, ena_second_points_d1)
-w_test_d2 = wilcox.test(ena_first_points_d2, ena_second_points_d2)
+w_test_d1 <- wilcox.test(ena_first_points_d1, ena_second_points_d1)
+
+w_test_d2 <- wilcox.test(ena_first_points_d2, ena_second_points_d2)
 
 w_test_d1
-```
 
-```         
-
-    Wilcoxon rank sum exact test
-
-data:  ena_first_points_d1 and ena_second_points_d1
-W = 50, p-value = 8.788e-08
-alternative hypothesis: true location shift is not equal to 0
-```
-
-```         
 w_test_d2
+
 ```
 
-```         
+Here we see that a Mann-Whitney *U* test shows that the `FirstGame` condition (Mdn = -0.08, N = 26) was **statistically significantly different along the *x* axis**, for alpha=0.05 from the `SecondGame`condition (Mdn=-0.007, N=22; *U*=50, *p*=0.00, *r*=0.86).
 
-    Wilcoxon rank sum exact test
+It also shows that the `FirstGame` condition (Mdn=0.13, N=26) is ***not*** **statistically significantly different along the *y* axis** (SVD2), for alpha=0.05 from the `SecondGame` condition (Mdn=0.00, N=22; U=287, *p*=0.99). The absolute value of `r` value in Mann-Whitney U test varies from 0 to close to 1.
 
-data:  ena_first_points_d2 and ena_second_points_d2
-W = 287, p-value = 0.9918
-alternative hypothesis: true location shift is not equal to 0
-```
+Again, these findings are consistent with our visual summary as well as our previous *t* test and provide strong evidence that that learners’ networks differed significantly along ENA’s x-axis but not along the y axis.
 
-Compute any other statistics that may be of interest. A few examples are given below.
-
-```         
-median(ena_first_points_d1)
-```
-
-```         
-[1] -0.08464154
-```
-
-```         
-median(ena_second_points_d1)
-```
-
-```         
-[1] 0.1300029
-```
-
-```         
-median(ena_first_points_d2)
-```
-
-```         
-[1] -0.007252397
-```
-
-```         
-median(ena_second_points_d2)
-```
-
-```         
-[1] 0.0003031848
-```
-
-```         
-length(ena_first_points_d1)
-```
-
-```         
-[1] 26
-```
-
-```         
-length(ena_second_points_d1)
-```
-
-```         
-[1] 22
-```
-
-```         
-length(ena_first_points_d2)
-```
-
-```         
-[1] 26
-```
-
-```         
-length(ena_second_points_d2)
-```
-
-```         
-[1] 22
-```
-
-```         
+```{r}
 abs(wilcoxonR(ena_first_points_d1, ena_second_points_d1))
-```
 
-```         
-    r 
-0.863 
-```
-
-```         
 abs(wilcoxonR(ena_first_points_d2, ena_second_points_d2))
 ```
 
-```         
-    r 
-0.863 
-```
+The interpretation values for r commonly in published literature is: `0.10 - < 0.3` (small effect), `0.30 - < 0.5` (moderate effect) and `>= 0.5` (large effect).
 
-Here, along the *x* axis (MR1), a Mann-Whitney *U* test shows that the `FirstGame` condition (Mdn=-0.08, N=26) was statistically significantly different for alpha=0.05 from the `SecondGame`condition (Mdn=-0.007, N=22; *U*=50, *p*=0.00, *r*=0.86). Along the *y* axis (SVD2), a Mann-Whitney *U* test shows that the `FirstGame` condition (Mdn=0.13, N=26) is not statistically significantly different for alpha=0.05 from the `SecondGame` condition (Mdn=0.00, N=22; U=287, *p*=0.99). The absolute value of `r` value in Mann-Whitney U test varies from 0 to close to 1. The interpretation values for r commonly in published literature is: `0.10 - < 0.3` (small effect), `0.30 - < 0.5` (moderate effect) and `>= 0.5` (large effect).
+Collectively, these findings suggest that prior participation in the virtual internship produced a large, measurable shift in students’ core engineering‑design thinking (as captured by ENA’s first semantic dimension).
 
-### 3.7 Model evaluation
+### 4b. Model evaluation
 
 In this section, we introduce three ways users can evaluate the quality of their ENA models.
 
-#### 3.7.1 Variance explained
+#### Variance explained
 
 Briefly, variance explained (also called explained variation) refers to the proportion of the total variance in a dataset that is accounted for by a statistical model or set of predictors.
 
 In ENA, to represent high-dimensional vectors in a two-dimensional space, ENA uses either singular value decomposition or means rotation combined with SVD. For each of the reduced dimensions, the variance in patterns of association among units explained by that dimension can be computed.
 
-```         
+```{r}
 set.ena$model$variance
-```
-
-```         
-        MR1        SVD2        SVD3        SVD4        SVD5        SVD6 
-0.320460221 0.244500582 0.152894192 0.093518444 0.060221209 0.034883009 
-       SVD7        SVD8        SVD9       SVD10       SVD11       SVD12 
-0.027680609 0.017549851 0.013516258 0.009812554 0.008089549 0.005764568 
-      SVD13       SVD14       SVD15 
-0.004938552 0.003474931 0.002695469 
 ```
 
 Here, the first dimension is MR1 and the second dimension is SVD2. The MR1 dimension has the highest variance explained at 32%.
 
 As with any statstical model, greater explained variance does not necessarily indicate a better model, as it may be due to overfitting, but it provides one indicator of model quality.
 
-#### 3.7.2 Goodness of fit
+#### Goodness of fit
 
 Briefly, a model’s goodness of fit refers to how well a model fits or represents the data. A model with a high goodness of fit indicates that it accurately represents the data and can make reliable predictions.
 
 In ENA, a good fit means that the positions of the nodes in the space—and thus the network visualizations—are consistent with the mathematical properties of the model. In other words, we can confidently rely on the network visualizations to interpret the ENA model. The process that ENA uses to achieve high goodness of fit is called co-registration. The mathematical details of co-registration are beyond the scope of this chapter and can be found in Bowman et al., (2022).
 
-To test a model’s goodness of fit, use `ena.correlations`. The closer the value is to 1, the higher the model’s goodness of fit is. Most ENA models have a goodness of fit that is well above 0.90.
+To test a model’s goodness of fit, we use `ena.correlations`. The closer the value is to 1, the higher the model’s goodness of fit is. Most ENA models have a goodness of fit that is well above 0.90.
 
-```         
+```{r}
 ena.correlations(set.ena)
 ```
 
-|     |
-|-----|
-|     |
+The two rows of output from  `ena.correlations(set.ena)` report how strongly the FirstGame and SecondGame networks mirror each other along ENA’s two semantic dimensions using both **Pearson (linear) and Spearman (rank‑order) correlations**.
 
-+---------------+---------------+
-| pearson       | spearman      |
-|               |               |
-| \<list\>      | \<list\>      |
-+==============:+==============:+
-| \<dbl \[1\]\> | \<dbl \[1\]\> |
-+---------------+---------------+
-| \<dbl \[1\]\> | \<dbl \[1\]\> |
-+---------------+---------------+
+| Dimension | Pearson r | Spearman ρ |
+|-----------|-----------|------------|
+| 1         | 0.9938    | 0.9941     |
+| 2         | 0.9850    | 0.9851     |
 
-2 rows
+Dimension 1 shows extremely high similarity in the pattern of code co‑occurrence weights along ENA’s primary x-axis. Although the mean positions shifted (we saw a significant t‑test difference), the relative ordering and proportional strengths of all connections stayed nearly identical.
 
-#### 3.7.3 Close the interpretative loop
+We also see equally very high correspondence on ENA’s secondary axis, indicating the same stable pattern of peripheral connections between codes across both conditions.
 
-Another approach to evaluate an ENA model is to confirm the alignment between quantitative model (in our case, our ENA model) and the original qualitative data. In other words, we can return to the original data to confirm that quantitative findings give a fair representation of the data. This approach is an example of what’s called as closing the interpretative loop in Quantitative Ethnography field (Shaffer, 2017).
+Because all correlation metrics are \> 0.98 for both dimensions, we conclude that **the overall structure of how codes co‑occur remained virtually unchanged** from FirstGame to SecondGame—even as the entire network “moved” along the primary dimension, suggesting the model is a good fit to the data.
+
+#### Close the interpretative loop
+
+Another approach to evaluate an ENA model is to confirm the alignment between quantitative model (in our case, our ENA model) and the original qualitative data. In other words, we can return to the original data to confirm that quantitative findings give a fair representation of the data. This approach is an example of what’s called as "closing the interpretative loop" in Quantitative Ethnography field [@shaffer2017quantitative].
 
 For example, based on our visual analysis of the network of `SecondGame.samuel o` in previous section, we are interested in what the lines are in the original data that contributed to the connection between `Design.Reasoning` and `Performance.Parameters`.
 
 Let’s first review what `SecondGame.samuel o` ENA network looks like.
 
-```         
+```{r}
 ena.plot(set.ena, title = "Individual network: `SecondGame`.samuel o") |> 
           ena.plot.network(network = as.matrix(set.ena$line.weights$ENA_UNIT$`SecondGame.samuel o`), colors = c("blue")) |>
           ena.plot.points(points = as.matrix(set.ena$points$ENA_UNIT$`SecondGame.samuel o`), colors = c("blue"))
 ```
 
+```         
+```
+
 To do so, we use `view()` function and specify required parameters as below.
 
-This is going to activate a window shows up in your `Viewer` panel. If it is too small to read, you can click on the “Show in new window” button to view it in your browser for better readability. (Note: the html page produced by the view() function will show separately from the html file knitted from RMD file)
+This is going to activate a window shows up in your `Viewer` panel. If it is too small to read, you can click on the “Show in new window” button to view it in your browser for better readability. (Note: the html page produced by the `view()` function will show separately from the html file knitted from RMD file).
 
-```         
-view(accum.ena, 
+```{r, eval=FALSE}
+rENA::view(accum.ena, 
      id_col = "ENA_UNIT", # do not need to change this
      wh = c("SecondGame.samuel o"), # the unit we are interested in
      units.by = c("Condition", "UserName"), # consistent with in 3.3.1 
@@ -1251,54 +902,35 @@ For example, line 2477 Samuel shared his `Design.Reasoning` about “mindful o
 
 This is a qualitative example of a connection made between `Performance.Parameters` and `Design.Reasoning.`
 
-### 3.8 Using ENA model outputs in other analyses
+### Using ENA model outputs in other analyses
 
 It is often useful to use the outputs of ENA models in subsequent analyses. The most commonly used outputs are the ENA points, i.e., `set$points`. For example, we can use a linear regression analysis to test whether ENA points on the first two dimensions are predictive of an outcome variable, in this case, change in confidence in engineering skills.
 
-```         
-regression_data = set.ena$points
+First we'll need to create a new data frame called `regression_data` by copying the ENA point coordinates, then change the `CONFIDENCE.Change` column from a factor into numeric format so we can use it in regression models:
+
+```{r}
+regression_data <- set.ena$points
+
 regression_data$CONFIDENCE.Change = as.numeric(regression_data$CONFIDENCE.Change)
 ```
 
-```         
-Warning: NAs introduced by coercion
-```
+Now we can fit a linear regression predicting students’ confidence change from their ENA first (MR1) and second (SVD2) dimension scores while controlling for their experimental condition, and omitting any missing cases.
 
-```         
-condition_regression = lm(CONFIDENCE.Change ~ MR1 + SVD2 + Condition, 
+Run the following code to fit our model and save as `condition_regression` and print the full model summary:
+
+```{r}
+condition_regression <- lm(CONFIDENCE.Change ~ MR1 + SVD2 + Condition, 
                           data = regression_data, 
                           na.action = na.omit)
+
 summary(condition_regression)
 ```
 
-```         
+The results of this regression analysis show that **ENA points are not a significant predictor of the students’ pre-post change in confidence** (MR1: *t*=-0.53, *p*=0.60; SVD2: *t*=0.46, *p*=0.65; Condition: *t*=-1.36, *p*=0.18).
 
-Call:
-lm(formula = CONFIDENCE.Change ~ MR1 + SVD2 + Condition, data = regression_data, 
-    na.action = na.omit)
+**The overall model was also not significant** (F(3, 43)=2.01, *p*=0.13) with an adjusted r-squared value of 0.06.
 
-Residuals:
-     Min       1Q   Median       3Q      Max 
--1.18092 -0.24324 -0.08171  0.30716  1.88404 
-
-Coefficients:
-                    Estimate Std. Error t value Pr(>|t|)    
-(Intercept)           1.1111     0.1490   7.457 2.82e-09 ***
-MR1                  -0.4540     0.8616  -0.527    0.601    
-SVD2                  0.3268     0.7154   0.457    0.650    
-ConditionSecondGame  -0.3484     0.2566  -1.358    0.182    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.6374 on 43 degrees of freedom
-  (1 observation deleted due to missingness)
-Multiple R-squared:  0.1228,    Adjusted R-squared:  0.0616 
-F-statistic: 2.007 on 3 and 43 DF,  p-value: 0.1273
-```
-
-The results of this regression analysis show that ENA points are not a significant predictor of the students’ pre-post change in confidence (MR1: *t*=-0.53, *p*=0.60; SVD2: *t*=0.46, *p*=0.65; Condition: *t*=-1.36, *p*=0.18). The overall model was also not significant (F(3, 43)=2.01, *p*=0.13) with an adjusted r-squared value of 0.06.
-
-Recall that the dataset we are using is a small subset of the full `RS.data`, and thus results that are significant for the whole dataset may not be for this sample.
+Recall that the dataset we are using is a small subset of the full, and thus results that are significant for the whole dataset may not be for this sample.
 
 ## 5. COMMUNICATE
 
@@ -1310,13 +942,14 @@ Recall that the final(ish) step in our workflow/process is sharing the results o
 
 In this case study, we focused applying some fairly standard topic modeling approaches to help us understand topics that emerged in online discussion forums as part of a online course for statistics educators. Specifically, we made our very first attempt at fitting both LDA and STM topic models to identify the key words .
 
-For this case study, let's focus on returning to our research question and communicating our findings to the MOOC-Ed team:
+For this case study, let's focus on returning to our research question:
 
-> What topics emerged in the discussion forums?
+1.  What are the patterns of epistemic connections formed by learners as they collaboratively engage in engineering problem-solving tasks within digital internship environments?
+2.  Is there a difference in learners' epistemic frames based on the condition to which they were assigned?
 
 #### **👉 Your Turn** **⤵**
 
-Imagine that your are part of the MOOC-Ed research team responsible for communicating your work to the instructional developers and course facilitators on the team. Based on the analyses conducted in Sections 3 & 4, write a brief summary for three key findings from our topic modeling that you think would be interesting and potentially actionable for the team.
+Imagine that your are part of the RescuShell research team responsible for communicating your work to a broader audience. Based on the analyses conducted in Sections 3 & 4, write a brief summary for three key findings from our epistemic network analyses that you think would be interesting and potentially actionable.
 
 1.  KEY FINDING
 
@@ -1326,6 +959,6 @@ Imagine that your are part of the MOOC-Ed research team responsible for communic
 
 ### Congratulations!
 
-You've completed the Unit 3 Case Study: Topic Modeling in MOOC-Eds. **To "turn in" your work, you can click the "Render" icon in the menu bar above.** This will create a HTML report in your Files pane that serves as a record of your completed assignment and that can be opened in a browser or shared on the web.
+You've completed the Unit 4 Case Study: Intro to ENA. **To "turn in" your work, you can click the "Render" icon in the menu bar above.** This will create a HTML report in your Files pane that serves as a record of your completed assignment and that can be opened in a browser or shared on the web.
 
 ### References
