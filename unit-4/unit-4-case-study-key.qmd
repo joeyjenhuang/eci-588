@@ -286,10 +286,6 @@ The ENA package also enables use of an **infinite stanza window**, which assumes
 The infinite stanza window is less commonly used in ENA, but is specified as follows:
 
 ```{r}
-
-```
-
-```         
 window.size.back = "INF"
 ```
 
