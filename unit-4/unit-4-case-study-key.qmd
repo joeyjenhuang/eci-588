@@ -339,7 +339,7 @@ We will use this data later to demonstrate a simple linear regression analysis t
 
 Now that all the essential parameters have been specified, the ENA model can be constructed.
 
-To build an ENA model, we need two functions `ena.accumulate.data` and `ena.make.set`, and we recommend that you store the output in an object (in this case, **set.ena**).
+To build an ENA model, we need two functions `ena.accumulate.data` and `ena.make.set`, and we recommend that you store the output in an object (in this case, **`set.ena`**).
 
 ```{r}
 accum.ena <- 
@@ -390,9 +390,9 @@ set.ena <- ena.make.set(
 
 ## 3. EXPLORE
 
-Now that we have constructed an ENA Model, we can begin explore what is stored in the `set.ena` object by typing `set$` and selecting items from the drop down list.
+Now that we have constructed an ENA Model object, we can begin explore what is stored in the `set.ena` object by typing `set$` and selecting items from the drop down list.
 
-First, let's use the `names()` function to first determine what items are stored in the `set.ena` object:
+First, let's use the `names()` function to first determine what items and data summaries are stored in the `set.ena` object:
 
 ```{r}
 
@@ -403,11 +403,11 @@ Now let's take a look at some of these items that are often of interest.
 
 ### 3a. Visual Summary of Key Model Outputs
 
-Once an ENA set is constructed, it can be visualized, which facilitates interpretation of the model. Here, we will look at the two conditions, `FirstGame` (novices) and `SecondGame` (relative experts), by plotting their mean networks.
+Once an ENA set is constructed, it can be visualized as a network graph, which helps to facilitates interpretation of the model. Here, we will look at the two conditions, `FirstGame` (novices) and `SecondGame` (relative experts), by plotting their mean networks.
 
 #### Plot a Mean Network
 
-To plot a network, use the `ena.plot.network` function. This function requires the `network`parameter (a character vector of line weights), and the line weights come from `set$line.weights`.
+To plot a network, use the `ena.plot.network` function. This function requires the `network`parameter (a character vector of line weights), and the line weights come from `set$line.weights`.
 
 First, run the following code to subset line weights for each of the two groups:
 
@@ -472,30 +472,6 @@ As you can see from the two network visualizations above, their node positions a
 
 Because of the fixed node positions, ENA can construct a subtracted network, which enables the identification of the most salient differences between two networks. To do this, ENA subtracts the weight of each connection in one network from the corresponding weighted connection in another network, then visualizes the differences in connection strengths. Each edge is color-coded to indicate which of the two networks contains the stronger connection, and the thickness and saturation of the edges corresponds to the magnitude of the difference.
 
-#### ❓Questions
-
-Use the two graphs above to answer the following questions and aid in their interpretation:
-
-1.  **Overall Density**: How does the overall thickness and number of lines differ between the two plots? What might an increase (or decrease) in network density from FirstGame to SecondGame tell us about how students’ conceptual connections evolved?
-
-    -   YOUR RESPONSE HERE
-
-2.  **Key Hubs**: Which code appears as the strongest “hub” (i.e., connected to more codes) in each plot? Did the centrality of that code change between FirstGame and SecondGame? What might that suggest
-
-    -   YOUR RESPONSE HERE
-
-3.  **Emerging Connections**: Are there any code‑pair links that are very faint (or absent) in FirstGame but noticeably stronger in SecondGame? What might this reflect?
-
-    -   YOUR RESPONSE HERE
-
-4.  **Peripheral Codes**: How does the position and edge thickness of the “Collaboration” node change between conditions? What might its relative isolation (or growth) indicate about the role of collaboration in each game?
-
-    -   YOUR RESPONSE HERE
-
-5.  **Interpretive Meaning**: How might you explain the educational significance of a thicker edge versus a thinner edge in these plots?
-
-    -   YOUR RESPONSE HERE
-
 Now let's plot a subtracted network, which combines the two graphs and helps to highlight where they differ.
 
 First we need to calculate the subtracted network line weights by subtracting one group’s line weights from the other. (Because ENA computes the absolute values of the differences in edge weights, the order of the two networks in the subtraction doesn’t matter.)
@@ -514,9 +490,45 @@ ena.plot(set.ena, title = "Subtracted: `FirstGame` (red) - `SecondGame` (blue)")
 
 Here, the subtracted network shows that on average, students in the `FirstGame` condition (red) made more connections with `Technical.Constraints` and `Collaboration` than students in the `SecondGame` condition (blue), while students in the `SecondGame` condition made more connections with `Design.Reasoning` and `Performance.Parameters` than students in the `FirstGame` condition. This is because students with more experience of engineering design practices did not need to spend as much time and effort managing the collaborative process and learning about the basic technical elements of the problem space, and instead spent relatively more time focusing on more complex analysis and design reasoning tasks.
 
-Note that this subtracted network shows no connection between `Technical.Constraints` and `Design.Reasoning`, simply because the strength of this connection was similar in both conditions. Thus, subtraction networks should always be visualized along with with the two networks being subtracted.
+::: callout-note
+**Note:** This subtracted network shows no connection between `Technical.Constraints` and `Design.Reasoning`, simply because the strength of this connection was similar in both conditions. Thus, subtraction networks should always be visualized along with with the two networks being subtracted.
+:::
 
-#### 3.5.2 Plot a mean network and its points
+And instead subtracting to highlight the differences between groups, we could also simply plot all nodes and edges on the same graph to illustrate the most frequent codes and their connections for all participants in the study.
+
+To do so, we simply pipe two calls to `ena.plot.network()` onto a single base plot like so:
+
+```{r}
+ena.plot(set.ena, title = "All Participants") |>
+    ena.plot.network(network = first.game.mean)   |>
+    ena.plot.network(network = second.game.mean)
+```
+
+#### ❓Questions
+
+Use the graphs above to answer the following questions and aid in their interpretation:
+
+1.  **Overall Density**: How does the overall thickness and number of lines differ between the two conditions? What might an increase (or decrease) in network density from FirstGame to SecondGame tell us about how students’ conceptual connections evolved?
+
+    -   YOUR RESPONSE HERE
+
+2.  **Key Hubs**: Which code appears as the strongest “hub” (i.e., connected to more codes)? Did the centrality of that code change between FirstGame and SecondGame? What might that suggest
+
+    -   YOUR RESPONSE HERE
+
+3.  **Emerging Connections**: Are there any code‑pair links that are very faint (or absent) in FirstGame but noticeably stronger in SecondGame? What might this reflect?
+
+    -   YOUR RESPONSE HERE
+
+4.  **Peripheral Codes**: How does the position and edge thickness of the “Collaboration” node change between conditions? What might its relative isolation (or growth) indicate about the role of collaboration in each game?
+
+    -   YOUR RESPONSE HERE
+
+5.  **Interpretive Meaning**: How might you explain the educational significance of a thicker edge versus a thinner edge in these plots, and larger plot points and smaller plot points?
+
+    -   YOUR RESPONSE HERE
+
+#### Plot a mean network and its points
 
 The ENA point or points associated with a network or mean network can also be visualized. Recall from our readings that each individual epistemic network frame can be collapsed to a single point on our graph.
 
@@ -587,7 +599,7 @@ ena.plot(set.ena, title = "Subtracted mean network: `FirstGame` (red) - `SecondG
 
 Note that the majority of the red points (`FirstGame`) are located on the left side of the space, and the blue points (`SecondGame`) are mostly located on the right side of the space. This is consistent with the line weights distribution in the mean network: the `FirstGame` units make relatively more connections with nodes on the left side of the space, while the `SecondGame` units make relatively more connections with nodes on the right side of the space. The positions of the nodes enable interpretation of the dimensions, and thus interpretation of the locations of the ENA points.
 
-#### 3.5.3 Plot an individual unit network and its point
+#### Plot an individual unit network and its point
 
 Plotting the network and ENA point for a single unit uses the same approach. First, subset the line weights and point for a given unit:
 
@@ -604,9 +616,12 @@ ena.plot(set.ena, title = "Individual network: `FirstGame`.steven z") |>
           ena.plot.points(points = unit.A.point, colors = c("red"))
 ```
 
-Following the exact same procedure, we can, for example, choose a unit from the other condition to plot and also construct a subtracted plot for those two units.
+#### **👉 Your Turn ⤵**
+
+Follow the exact same procedure to choose a unit from the other condition to plot and also construct a subtracted plot for those two units.
 
 ```{r}
+# YOUR CODE HERE
 unit.B.line.weights = as.matrix(set.ena$line.weights$ENA_UNIT$`SecondGame.samuel o`) # subset line weights
 unit.B.point = as.matrix(set.ena$points$ENA_UNIT$`SecondGame.samuel o`) # subset ENA point
 
@@ -649,32 +664,191 @@ class(p) <- c("plotly", "enaplot", "html-fill-item-overflow-hidden", "html-fill-
 
 ### 3a. Descriptive Summary of Key Model Outputs
 
-Now that we have constructed an ENA Model, we can begin explore what is stored in the `set.ena` object by typing `set$` and selecting items from the drop down list.
-
-First, let's use the `names()` function to first determine what items are stored in the `set.ena` object:
-
-```{r}
-
-names(set.ena)
-```
-
-Now let's take a look at some of these items that are often of interest.
+We can also explore descriptive summaries stored in the `set.ena` object and used to constructiont the visualizations above by simply typing `set$` and selecting items from the drop down list.
 
 #### Connection counts
 
-Connection counts are the frequencies of unique connections a unit made. For each unit, ENA creates a cumulative adjacency vector that contains the sums of all unique code co-occurrences for that unit across all stanza windows.
+For each unit, ENA creates a cumulative adjacency vector that contains the sums of all unique code co-occurrences for that unit across all stanza windows. **Connection counts** are the frequencies of unique connections a unit made among all possible code pairs.
 
-To access ENA adjacency vectors, let's use `set.ena$connection.counts`:
+To access ENA adjacency vectors, let's use `$` operator to access `connection.counts` from our `set.ena` object:
 
 ```{r}
 set.ena$connection.counts
 ```
 
-This data table show that there are 48 units in the ENA model, so there are 48 adjacency vectors. Each term in an ENA adjacency vector represents a unique co-occurrence of codes. Thus with six codes, each vector has 15 terms (*n* choose two). This is because ENA models are undirected and do not model co-occurrences of the same code.
+This data table shows summaries of connection counts for the 48 units (i.e., the 48 study participants and whether this was their first or second game) that are stored in the ENA model. Each term, or column in this table, represents a unique co-occurrence of codes.
+
+In the first row, we can see that among `steven z`'s conversations, the codes `Data` and `Technical.Constraints` occurred together 22 times, whereas for `brandon l`'s conversations, `Data` and `Technical.Constraints` occurred together 98 times!
+
+#### **👉 Your Turn ⤵**
+
+We can also take these data summaries a step further by using the `skim()` function introduced in previous units to get summary statistics for all code pairs collectively.
+
+Use the code chunk below to load the {skimr} library and `skim()` the `set.ena$connection.counts` to get a descriptive summary:
+
+```{r}
+#YOUR CODE HERE
+
+library(skimr)
+
+set.ena$connection.counts |>
+  skimr::skim()
+```
 
 #### ❓Questions
 
-Take a closer look at the table output above and
+Take a closer look at the table output above and answer the following questions:
+
+1.  Which code pair has the **highest mean** co‑occurrence count? What is that mean value?
+    -   YOUR RESPONSE HERE
+2.  Which code pair has the **lowest mean** co‑occurrence count?
+    -   YOUR RESPONSE HERE
+3.  Which code pair reaches the **highest maximum value** (p100)? How many times does that relationship appear in its strongest instance?
+    -   YOUR RESPONSE HERE
+4.  Name all code pairs whose **minimum (p0) value is zero**. What does a zero minimum indicate about those relationships?
+    -   YOUR RESPONSE HERE
+
+#### Line weights
+
+To compare networks in terms of their *relative* patterns of association, researchers can spherically normalize the cumulative adjacency vectors by diving each one by its length. The resulting normalized vectors represent each unit’s relative frequencies of code co-occurrence. In other words, the sphere normalization controls for the fact that different units might have different amounts of interaction or different numbers of activities.
+
+Notice that in `set.ena$connection.counts,` the value for each unique code co-occurrence is an integer equal or greater than 0, because they represent the raw connection counts between each unique pair of codes. In ``` set.``ena``$line.weights ```, those raw counts are normalized, and therefore the values are rational numbers between 0 and 1.
+
+#### **👉 Your Turn ⤵**
+
+To access the normalized adjacency vectors, use `set.ena$line.weights`.
+
+```{r}
+set.ena$line.weights
+```
+
+#### ENA points
+
+As the product of a dimensional reduction, for each unit, ENA produces an ENA point in a two-dimensional space. Since there are 48 units, ENA produces 48 ENA points.
+
+By default, `rENA`visualizes ENA points on an x-y coordinate plane defined by the first two dimensions of the dimensional reduction: for a means rotation, MR1 and SVD2, and for an SVD, SVD1 and SVD2.
+
+To access these points, use `set.ena$points` .
+
+```         
+set.ena$points
+```
+
+|     |
+|-----|
+|     |
+
++-----------------------+-----------+-------------+-------------------+---+
+| ENA_UNIT              | Condition | UserName    | CONFIDENCE.Change |   |
+|                       |           |             |                   |   |
+| \<chr\>               | \<chr\>   | \<chr\>     | \<chr\>           |   |
++:======================+:==========+:============+:==================+===+
+| FirstGame.steven z    | FirstGame | steven z    | 1                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.akash v     | FirstGame | akash v     | 2                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.alexander b | FirstGame | alexander b | 1                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.brandon l   | FirstGame | brandon l   | 1                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.christian x | FirstGame | christian x | 0                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.jordan l    | FirstGame | jordan l    | 2                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.arden f     | FirstGame | arden f     | 1                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.margaret n  | FirstGame | margaret n  | 3                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.connor f    | FirstGame | connor f    | 0                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.jimmy i     | FirstGame | jimmy i     | 2                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+
+1-10 of 48 rows \| 1-4 of 22 columns
+
+ENA points are thus summary statistics that researchers can use to conduct statistical tests, and they can also be used in subsequent analyses. For example, statistical differences between groups in the data can be tested using ENA dimension scores, and those scores can also be used in regression analyses to predict outcome variables, which we will demonstrate later.
+
+#### 3.4.4 Rotation matrix
+
+The rotation matrix used during the dimensional reduction can be accessed through `set.ena$rotation`. This is mostly useful when you want to construct an ENA metric space using one dataset and then project ENA points from different data into that space, as in section 5.1.
+
+```         
+set.ena$rotation.matrix
+```
+
+|     |
+|-----|
+|     |
+
++---------------------------------------------------------+---------------+---+
+| codes                                                   | MR1           |   |
+|                                                         |               |   |
+| \<chr\>                                                 | \<dbl\>       |   |
++:========================================================+==============:+===+
+| Data & Technical.Constraints                            | -0.2971401126 |   |
++---------------------------------------------------------+---------------+---+
+| Data & Performance.Parameters                           | 0.1467451479  |   |
++---------------------------------------------------------+---------------+---+
+| Technical.Constraints & Performance.Parameters          | 0.0062512946  |   |
++---------------------------------------------------------+---------------+---+
+| Data & Client.and.Consultant.Requests                   | -0.0066785510 |   |
++---------------------------------------------------------+---------------+---+
+| Technical.Constraints & Client.and.Consultant.Requests  | -0.2274653715 |   |
++---------------------------------------------------------+---------------+---+
+| Performance.Parameters & Client.and.Consultant.Requests | 0.0395312676  |   |
++---------------------------------------------------------+---------------+---+
+| Data & Design.Reasoning                                 | 0.1692691629  |   |
++---------------------------------------------------------+---------------+---+
+| Technical.Constraints & Design.Reasoning                | 0.0314608661  |   |
++---------------------------------------------------------+---------------+---+
+| Performance.Parameters & Design.Reasoning               | 0.4197206428  |   |
++---------------------------------------------------------+---------------+---+
+| Client.and.Consultant.Requests & Design.Reasoning       | 0.0003563438  |   |
++---------------------------------------------------------+---------------+---+
+
+1-10 of 15 rows \| 1-2 of 16 columns
+
+#### 3.4.5 Metadata
+
+`set$meta.data` returns a data frame that includes all the columns of the ENA set except for the columns representing code co-occurrences.
+
+```         
+set.ena$meta.data
+```
+
+|     |
+|-----|
+|     |
+
++-----------------------+-----------+-------------+-------------------+---+
+| ENA_UNIT              | Condition | UserName    | CONFIDENCE.Change |   |
+|                       |           |             |                   |   |
+| \<chr\>               | \<chr\>   | \<chr\>     | \<chr\>           |   |
++:======================+:==========+:============+:==================+===+
+| FirstGame.steven z    | FirstGame | steven z    | 1                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.akash v     | FirstGame | akash v     | 2                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.alexander b | FirstGame | alexander b | 1                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.brandon l   | FirstGame | brandon l   | 1                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.christian x | FirstGame | christian x | 0                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.jordan l    | FirstGame | jordan l    | 2                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.arden f     | FirstGame | arden f     | 1                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.margaret n  | FirstGame | margaret n  | 3                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.connor f    | FirstGame | connor f    | 0                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+| FirstGame.jimmy i     | FirstGame | jimmy i     | 2                 |   |
++-----------------------+-----------+-------------+-------------------+---+
+
+1-10 of 48 rows \| 1-4 of 7 columns
+
+### 3.5 ENA vis
 
 ## 4. Model
 
