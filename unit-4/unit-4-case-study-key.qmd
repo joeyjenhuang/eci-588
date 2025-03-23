@@ -1,5 +1,5 @@
 ---
-title: "Unit 4 Case Study: Intro to ENA"
+title: "Unit 4 Case Study: An ENA of Virtual Internship Conversations"
 subtitle: "ECI 588: Text Mining in Education"
 author: "Dr. Shaun Kellogg"
 date: today
