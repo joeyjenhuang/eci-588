@@ -180,12 +180,13 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="case-study-focus">Case Study Focus</h3>
 <p>This case study is adapted from a chapter by Tan et al. <span class="citation" data-cites="tan2024epistemic">Tan et al. (<a href="#ref-tan2024epistemic" role="doc-biblioref">2024</a>)</span> in the excellent book, Learning <a href="https://lamethods.org">Analytics Methods and Tutorials</a>. Our focus will be on applying ENA to investigate discourse patterns in a collaborative digital STEM learning environment. Specifically, we will examine how participants engage in problem-solving activities, make connections between STEM concepts, and collaboratively construct knowledge.By using ENA, researchers can systematically map the epistemic frames that occur when learners collaboratively tackle STEM-related problems, providing a quantitative yet qualitative-rich understanding of group learning dynamics. This analysis is particularly critical for understanding the nuances of learner interactions in digital environments, which often involve complex dialogues and exchanges that traditional qualitative methods might miss or oversimplify.</p>
 <p>Our ENA case study covers the following concepts and skills:</p>
-<ul>
-<li><p><strong>Prepare:</strong>&nbsp;Prior to analysis, we’ll briefly review the context of collaborative digital learning platforms used in STEM education research. This helps set the stage for understanding the types of interactions and data we will analyze with ENA.</p></li>
-<li><p><strong>Wrangle:</strong>&nbsp;In section 2, we detail the process of importing, cleaning, and coding text-based interaction data from digital STEM learning environments using the {tidytext} package. This preprocessing step is critical for accurately capturing relevant interactions for ENA.</p></li>
-<li><p><strong>Model:</strong>&nbsp;Next, we apply Epistemic Network Analysis using the {rENA} package, highlighting how to construct and visualize ENA models that represent the structure and dynamics of learner interactions.</p></li>
-<li><p><strong>Explore:</strong>&nbsp;Finally, we delve deeper into the ENA results by identifying and interpreting patterns within the visualized epistemic networks. This includes comparing network structures across different learner groups to uncover meaningful distinctions in collaborative learning processes.</p></li>
-</ul>
+<ol type="1">
+<li><p><strong>Prepare.</strong> In the Prepare phase, we familiarize ourselves with the context of our case study, which leverages data from virtual internships aimed at enhancing engineering design thinking. We define specific research questions guided by prior studies and set up our analytical environment by loading essential R packages needed for our analyses, including {tidyverse}, {tidytext}, and {rENA}.</p></li>
+<li><p><strong>Wragle.</strong> In the Wrangle phase, we carefully import, organize, and prepare our data for analysis. This involves importing text-based discourse data from the RescuShell internship, specifying critical parameters for the ENA model (such as units of analysis, qualitative coding schemes, conversational boundaries, window size for capturing interactions, and group definitions), and finally constructing an ENA model object that captures our data’s structure and interaction patterns.</p></li>
+<li><p><strong>Explore.</strong> In the Explore phase, we use both visual and numeric methods to deeply investigate and interpret our ENA model. We create visual summaries of key model outputs, plotting mean networks and identifying meaningful differences across groups. We also provide numeric summaries of connection counts, normalized line weights, and ENA points to further understand underlying quantitative patterns that shape our visualizations.</p></li>
+<li><p><strong>Model</strong> In the Model phase, we conduct rigorous statistical analyses to validate and interpret the patterns observed in the visual and numeric explorations. We perform comparative statistical tests (such as t-tests and Mann-Whitney U tests) to evaluate differences in epistemic network structures between novice and expert learner conditions. Additionally, we evaluate model quality through variance explained, goodness-of-fit statistics, and interpretive validation (closing the interpretative loop) to ensure robust and meaningful results.</p></li>
+<li><p><strong>Communication.</strong> Finally, in the Communicate phase, we synthesize and clearly articulate our key findings, selecting the most meaningful insights to share with broader audiences. We focus on translating complex analyses into actionable insights through polished data visualizations and narrative explanations that align closely with our original research questions.</p></li>
+</ol>
 </section>
 </section>
 <section id="prepare" class="level2">
@@ -369,8 +370,8 @@ dbl (12): ...1, CONFIDENCE.Pre, CONFIDENCE.Post, CONFIDENCE.Change, Activity...
 <p>In the table below, a short description is provided for each variable based on the dataset provided. The first one has been completed for you:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 27%">
-<col style="width: 72%">
+<col style="width: 29%">
+<col style="width: 70%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -577,7 +578,7 @@ Important
 </section>
 <section id="your-turn-3" class="level4">
 <h4 class="anchored" data-anchor-id="your-turn-3"><strong>👉 Your Turn ⤵</strong></h4>
-<p>Similar to how we specified <strong>units</strong> and <strong>codes</strong> above, use the code chunk below to created a character vector that specifies the <strong>conversation</strong> parameter using the <code>Condition</code>, <code>GroupName</code>, and <code>ActivityNumber</code> columns, and then verify that the conversations are correctly specified by subset and preview the unique values in the conversation columns.</p>
+<p>Similar to how we specified <strong>units</strong> and <strong>codes</strong> above, use the code chunk below to create a character vector that specifies the <strong>conversation</strong> parameter using the <code>Condition</code>, <code>GroupName</code>, and <code>ActivityNumber</code> columns, and then verify that the conversations are correctly specified by subset and preview the unique values in the conversation columns.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>conversationCols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Condition"</span>, <span class="st">"GroupName"</span>, <span class="st">"ActivityNumber"</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>

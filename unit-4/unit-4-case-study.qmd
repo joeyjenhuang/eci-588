@@ -117,7 +117,8 @@ The {rENA} package provides a comprehensive set of tools specifically designed f
 Use the code chunk below to load the {rENA} package:
 
 ```{r}
-library(rENA)
+# YOUR CODE HERE
+
 ```
 
 ## 2. WRANGLE
@@ -148,7 +149,7 @@ Use the code chunk below to inspect the data frame you just imported using a fun
 
 ```{r}
 # YOUR CODE HERE
-rescushell_data
+
 ```
 
 In this case study, we are exploring the use of Epistemic Network Analysis (ENA) to analyze collaborative discussions within the RescuShell virtual internship platform. One critical step in preparing data for analysis is creating a codebook, which serves as a reference document that defines each variable in a dataset, including its meaning, format, and potential values.
@@ -158,25 +159,25 @@ In the table below, a short description is provided for each variable based on t
 | Variable Name | Short Description |
 |---------------------|---------------------------------------------------|
 | UserName | Unique identifier (username) for each participant. |
-| Condition | Group assignment of the participants representing novice users and relative expert users. |
-| CONFIDENCE.Pre | Participant's self-reported confidence level before the intervention/activity. |
-| CONFIDENCE.Post | Participant's self-reported confidence level after the intervention/activity. |
-| CONFIDENCE.Change | Change in participant's confidence level (post minus pre). |
-| C.Level.Pre | Participant's initial competency or skill level before the activity. |
-| NewC.Change | Newly measured change in competency level after the activity. |
-| C.Change | Overall change in competency or skill level. |
-| Timestamp | Date and time when the interaction or activity was recorded. |
-| ActivityNumber | Numeric identifier for specific activities within the RescuShell environment. |
-| GroupName | Identifier for the participant's assigned group or team. |
-| GameHalf | Indicator of the specific half or stage of the game/activity. |
-| GameDay | Specific day or session within the RescuShell activity or game sequence. |
-| text | Original text content of the participant's chat or discussion entry. |
-| Data | Code indicating discussions involving data interpretation or usage. |
-| Technical.Constraints | Code indicating discussions about technical limitations or constraints of a design. |
-| Performance.Parameters | Code indicating discussions about performance requirements or parameters of a design. |
-| Client.and.Consultant.Requests | Code indicating discussions about client or consultant requests and interactions. |
-| Design.Reasoning | Code indicating discussions related to reasoning behind design decisions. |
-| Collaboration | Code indicating discussions explicitly related to collaboration and teamwork processes. |
+| Condition |  |
+| CONFIDENCE.Pre |  |
+| CONFIDENCE.Post |  |
+| CONFIDENCE.Change |  |
+| C.Level.Pre |  |
+| NewC.Change |  |
+| C.Change |  |
+| Timestamp |  |
+| ActivityNumber |  |
+| GroupName |  |
+| GameHalf |  |
+| GameDay |  |
+| text |  |
+| Data |  |
+| Technical.Constraints |  |
+| Performance.Parameters |  |
+| Client.and.Consultant.Requests |  |
+| Design.Reasoning |  |
+| Collaboration |  |
 
 ### 2b. Specify ENA Model Parameters
 
@@ -230,8 +231,8 @@ Use the code chunk below to verify that the codes are correctly specified, by us
 
 ```{r}
 #YOUR CODE HERE
-rescushell_data |>
-  select(all_of(codeCols))
+
+
 ```
 
 Your code should return a tibble containing only the six columns you listed in `codeCols` vector (in exactly that order) and all 3,824 rows from `rescushell_data`. In other words, you’ll see a preview of the data frame with just the columns:
@@ -263,10 +264,9 @@ For this case study, we'll choose the `Condition`, `GroupName`, and `ActivityNum
 Similar to how we specified **units** and **codes** above, use the code chunk below to create a character vector that specifies the **conversation** parameter using the `Condition`, `GroupName`, and `ActivityNumber` columns, and then verify that the conversations are correctly specified by subset and preview the unique values in the conversation columns.
 
 ```{r}
-conversationCols <- c("Condition", "GroupName", "ActivityNumber")
+# YOUR CODE HERE
 
-rescushell_data |>
-  select(all_of(conversationCols))
+
 ```
 
 Again, your code should return a tibble containing only the thre columns you listed in `conversationCols` vector (in exactly that order) and all 3,824 rows from `rescushell_data`.
@@ -428,8 +428,9 @@ Create an epistemic network for the `SecondGame` and set the color of of the ne
 
 ```{r}
 # YOUR CODE HERE
-ena.plot(set.ena, title = "SecondGame mean plot")  |>
-  ena.plot.network(network = second.game.mean, colors = c("blue"))
+
+
+
 ```
 
 As you can see from the two network visualizations above, their node positions are exactly same. All ENA networks from the same model have the same node positions, which are determined by an optimization routine that attempts to place the nodes such that the centroid of each unit’s network and the location of the ENA point in the reduced space are co-located.
@@ -535,16 +536,12 @@ Now do the same for the `SecondGame` condition.
 
 ```{r}
 # YOUR CODE HERE
-ena.plot(set.ena, title = " points (dots), mean point (square), and confidence interval (box)") |> 
-          ena.plot.points(points = second.game.points, colors = c("blue")) |> 
-          ena.plot.group(point = second.game.points, colors =c("blue"), 
-                         confidence.interval = "box")
 
-ena.plot(set.ena, title = "SecondGame mean network and its points") |> 
-          ena.plot.network(network = second.game.mean, colors = c("blue")) |>
-          ena.plot.points(points = second.game.points, colors = c("blue")) |> 
-          ena.plot.group(point = second.game.points, colors =c("blue"), 
-                         confidence.interval = "box")
+
+
+
+
+
 ```
 
 Finally, let's do the same for subtraction as well:
@@ -586,12 +583,10 @@ Follow the exact same procedure to choose a unit from the other condition to plo
 
 ```{r}
 # YOUR CODE HERE
-unit.B.line.weights = as.matrix(set.ena$line.weights$ENA_UNIT$`SecondGame.samuel o`) # subset line weights
-unit.B.point = as.matrix(set.ena$points$ENA_UNIT$`SecondGame.samuel o`) # subset ENA point
 
-ena.plot(set.ena, title = "Individual network: `SecondGame`.samuel o") |> 
-          ena.plot.network(network = unit.B.line.weights, colors = c("blue")) |>
-          ena.plot.points(points = unit.B.point, colors = c("blue"))
+
+
+
 ```
 
 To visually analyze the differences between the two individual networks, we can also plot their subtracted network.
@@ -659,10 +654,9 @@ Use the code chunk below to load the {skimr} library and `skim()` the `set.ena$c
 ```{r}
 #YOUR CODE HERE
 
-library(skimr)
 
-set.ena$connection.counts |>
-  skimr::skim()
+
+
 ```
 
 #### ❓Questions
@@ -689,7 +683,8 @@ Why normalize? Because some participants might talk a lot (producing high raw co
 Similar to how we extracted the conneciton counts data from our `set.ena` object above, use the `$` operator To access the normalized adjacency vectors, use `set.ena$line.weights`.
 
 ```{r}
-set.ena$line.weights
+# YOUR CODE HERE
+
 ```
 
 #### ❓Questions
