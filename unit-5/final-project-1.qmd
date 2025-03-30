@@ -1,0 +1,127 @@
+---
+title: "Final Project: Independent Analysis Planning"
+subtitle: "ECI 588: Text Mining in Education"
+author: "Dr. Shaun Kellogg"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+theme:
+  light: simplex
+  dark: cyborg
+editor: visual
+bibliography: lit/references.bib
+---
+
+## Overview
+
+Throughout this course, you conducted several analyses as part of the unit case studies and many of you have developed your own data products as part of independent analyses in each unit. For your final course project, and in lieu of a final exam, you'll be required to complete a more in-depth independent analysis and accompanying data product (e.g., slide show, dashboard, report, or mini "case study") to showcase the your text mining knowledge and skills acquired throughout the course. Your data product will bring together some of the data-intensive research workflow and text mining processes that we've learned this semester to help **answer a research question you have about a text-based dataset of your own choosing**.
+
+## Assignment
+
+Week 14 provides some space to plan and conceptualize your final course project. More details about the actual content and format of your data product are provided in Week 15, but in general, you will be expected to demonstrate you ability to prepare for analysis, wrangle and explore text as data, and clearly communicate useful insights.
+
+To help plan for your final project, your assignment this week is to:
+
+1.  create a forum post that addresses the questions below; and,
+
+2.  provide constructive feedback on proposed case studies for at least two of your peers.
+
+To assist you in addressing these questions, I've included some potential data sources you may be interested in using for your final project, as well as some example student data products from past courses.
+
+### Prepare
+
+Provide a brief description of your self-selected dataset including the context in which the date was collected and the answer the following questions:
+
+1.  Why are you interested in this data/context and what **research question(s)** are you hoping to answer with your analysis?
+
+2.  Who would most benefit from your analysis and why? How might your **target audience** use this information to take action?
+
+### Wrangle
+
+3.  What **text preprocessing** steps (e.g. tokenization, stemming, stop words, etc.) do you anticipate taking to clean and prepare your text for analysis and why are they necessary? Just as importantly what steps will you exclude and why?
+
+4.  Aside from your text, what other **variables/features** (e.g. dates, authors, chapter numbers, demographics, etc.) will you need to include to address your research questions? And what **data transformations/structures** (e.g., document-term matrices, tibbles, etc.) are required for the types of analyses you have planned?
+
+### Explore & Model (Analysis)
+
+1.  What **metrics** (e.g., counts, tf-idf values, sentiment values, phi coefficient, betas, etc.) will you calculate and examine? And at what stage of your analysis?
+
+2.  What text mining **techniques** (e.g., data visualization, sentiment analysis, topic modeling, etc.) will you leverage to analyze your data and how do you anticipate these techniques will help you address your research questions?
+
+### Communicate
+
+7.  What kinds or **tables and/or charts** (e.g. text networks, word clouds, etc?) might you include to help readers understand and interpret your findings?
+
+8.  What are some of the anticipated **limitations** of your analysis, as well as any potential **ethical/legal issues** that need to be taken into consideration?
+
+## Assessment
+
+This assignment accounts for one-fourth of your final project grade (**6 points total**):
+
+-   Responses that **adequately addresses the questions above** are worth a 1/2 point each (**4 points total**).
+
+-   In addition, you'll be expected to **provide constructive feedback to two of your peers**. Each response is worth 1 point each (**2 points total**).
+
+## Educational Text Datasets
+
+Below is a curated list of text-based public datasets that span K‑12 classrooms, higher education, online learning, and teacher development contexts. Each dataset includes a brief description, a source link, and the types of text data included. You are more than welcome to use any of the datasets listed below, or located a dataset of your own choosing.
+
+### TalkMoves Classroom Transcript Dataset (K‑12 Math)
+
+-   **Description:** [TalkMoves](aclanthology.org) is a collection of **567 transcripts of K‑12 mathematics lessons**, drawn from real classroom recordings​. Each transcript is segmented by speaker (teacher or student) and **annotated at the sentence/utterance level** for teacher and student “talk moves” (discursive moves based on accountable talk theory) as well as dialogue act labels​. This rich annotation highlights how teachers prompt discussion and how students respond, making it useful for **discourse analysis** or studying interaction patterns. The dataset is openly licensed (CC BY-NC-SA) and available for research use.
+
+-   **Source:** The dataset is described in Suresh et al. @suresh-etal-2022-talkmoves and is released via the authors’ repository​at. It can be accessed on GitHub at <https://github.com/SumnerLab/TalkMoves>.
+
+-   **Text Type:** Full **classroom discussion transcripts** (teacher and student utterances), with discourse move annotations.
+
+### NCTE Elementary Classroom Transcripts (K‑12 Math)
+
+-   **Description:** The [NCTE dataset](edworkingpapers.com) is the **largest public collection of U.S. classroom transcripts**to date​. It contains **1,660 anonymized transcripts** of 4th and 5th grade math lessons (45–60 minutes each) collected in the National Center for Teacher Effectiveness study. These transcripts include dialogue from **whole-class and small-group instruction**, and come with extensive **metadata**: turn-level codes for discourse moves, teacher effectiveness observation scores, teacher/student demographics, survey responses, and even student test score outcomes​. This makes it valuable for **topic modeling** of classroom talk, **qualitative discourse analysis**, or linking language patterns to educational outcomes. The data is fully anonymized and publicly shareable (with IRB clearance).
+
+-   **Source:** The dataset is provided in an EdWorkingPaper by Demszky & Hill @demszky2022ncte and is **accessible via a GitHub repository at** ​<https://github.com/ddemszky/classroom-transcript-analysis>.
+
+-   **Text Type:** **Elementary classroom transcripts** (teacher and student dialogue in math lessons), plus associated **survey and score data** for context.
+
+### ASAP Automated Essay Scoring Dataset (K‑12 Student Writing)
+
+-   **Description:** This dataset comes from the [Hewlett Foundation’s Automated Student Assessment Prize](https://hewlett.org/newsroom/hewlett-foundation-sponsors-prize-to-improve-automated-scoring-of-student-essays/). It includes **eight sets of student essays** written in response to different prompts, with each set containing several hundred to a few thousand essays​. The essays were written by students in **grades 7–10** and range from roughly 150 to 550 words each​. All essays were **hand-scored by human raters** (with multiple scores per essay), providing ground truth labels for writing quality. Each essay set has unique characteristics (some prompts are narrative, others are persuasive or source-based), which is useful for **topic modeling** (to see themes students write about) or **sentiment/affect analysis** in student writing. The dataset is popularly used for building and evaluating essay scoring models.
+
+-   **Source:** The ASAP dataset was originally released via a Kaggle competition (Hewlett Foundation, 2012) and is available for download​ at [paperswithcode.com](https://paperswithcode.com/dataset/asap#:~:text=There%20are%20eight%20essay%20sets,of%20your%20scoring%20engine%27s%20capabilities). Researchers often access it through the **Kaggle platform** at <https://www.kaggle.com/competitions/asap-aes/data> or here <https://www.kaggle.com/datasets/lburleigh/asap-2-0>.
+
+-   **Text Type:** **Student written essays** responding to prompts, with **human score annotations** for each essay.
+
+### CIMA Tutoring Dialogues Dataset (Online Learning/Tutoring)
+
+-   **Description:** [CIMA](https://aclanthology.org/2020.bea-1.5/#:~:text=One,concepts%20between%20exercises%20and%20multiple) is a **large open-access dialogue dataset for tutoring**, introduced by Stasaski et al. @stasaski-etal-2020-cima. It contains **one-on-one tutoring conversations** that were generated via a novel crowdsourcing method: crowdworkers role-played as students and tutors, producing extended tutoring dialogues​. The student role-players work through educational exercises and the tutor role-players respond with various instructional strategies (asking questions, giving hints, providing feedback, etc.). Notably, **multiple alternative tutor responses** were collected for the same student query, and students were exposed to overlapping concepts across exercises​. This dataset reflects some pedagogical dialogue norms (e.g. when to hint vs. when to question) and is ideal for **conversation analysis**, **tutoring strategy mining**, or training dialogue systems for education.
+
+-   **Source:** The CIMA dataset is **publicly available** under a Creative Commons license​ and accompanies the ACL BEA 2020 paper by Stasaski et al. @stasaski-etal-2020-cima, and the data (with annotations of tutor/student actions) can be obtained from the authors’ GitHub repository at [https://github.com/kstats/CIMA](#0).
+
+-   **Text Type:** **Simulated tutoring conversation logs** (dialogue between a tutor and a student in a text-based tutoring session), including annotations of tutor and student action types.
+
+### Teacher-Student Chatroom Corpus (TSCC) (Online ESL Tutoring)
+
+-   **Description:** The [TSCC](https://aclanthology.org/2022.nlp4call-1.3.pdf#:~:text=Caines%20et%20al,was%20to%20collate%20a%20dataset) is a corpus of **online English-as-a-second-language tutoring sessions** conducted via text chat. The first version (Caines et al. 2020) contained **102 chat dialogues** between two human tutors and eight ESL students​. These dialogues comprise about *13.5k conversational turns* and *133k words* in total​. The content is authentic (students and professional teachers in a live chatroom) and has been **anonymized and annotated** for research. An updated version TSCC v2 has expanded to 260 total lessons with annotations for dialogue acts, pedagogical strategies, and teacher self-evaluation codes​​. This corpus is well-suited for **discourse analysis** (especially tutor feedback, error correction, Q&A patterns) and for training or evaluating models on **dialogue in an educational context** (e.g. predicting student language proficiency or tutor responses).
+
+-   **Source:** The TSCC is **freely available for research use**​. Researchers can request the data (the 2020 release and the 2022 expanded release) from the authors a by visiting [forms.gle/pKc48WMhnySC8zDk9](https://docs.google.com/forms/d/e/1FAIpQLSfu9IkTLWw97cy8YPrKlhHijBOEYuKjJNiTpVX1UgASbha1AQ/viewform) to review the license and submit a data request. No special license fees or logins are required beyond agreeing to research use terms.
+
+-   **Text Type:** **Text-based tutoring session transcripts** (teacher–student chat logs for English language lessons), with **annotations for dialogue moves and error corrections**.
+
+### RateMyProfessors.com Reviews (Higher Ed Student Feedback)
+
+-   **Description:** This is a large-scale dataset of **student reviews of college instructors**, scraped from [RateMyProfessors.com](https://data.mendeley.com/datasets/fvtfjyvw7d/2#:~:text=a%20single%20professor%27s%20webpage,professor%27s%20teaching%20age%2C%20from%20the). It includes data for nearly **1 million professors** across many universities​ with each professor entry containing several attributes (department, school, overall rating scores, etc.) and **open-ended student comments**. The key text data here are the **comments that students wrote about their professors’ teaching**​. These comments often express student opinions, praise, criticisms, and suggestions, making the data rich for **sentiment analysis** (e.g., identifying positive vs. negative sentiment about teaching) and **topic modeling** (e.g., common themes in student praise or complaints). The dataset also includes numeric ratings (quality, difficulty, etc.), which can be used alongside the text for predictive modeling.
+
+-   **Source:** A compiled version of RateMyProfessors data (millions of reviews) has been published by researchers and is available on data repositories. For example, He et al. (2020) released [a 5GB dataset on **Mendeley Data**](https://data.mendeley.com/datasets/fvtfjyvw7d/2#:~:text=a%20single%20professor%27s%20webpage,professor%27s%20teaching%20age%2C%20from%20the)​ at which includes a combined CSV of professor info and reviews. Smaller samples and derived datasets are also on [Kaggle](https://www.kaggle.com/competitions/rate-my-professors/data) and [other platforms](https://morph.io/chrisguags/ratemyprofessors).
+
+-   **Text Type:** **Student evaluation comments** about instructors (short reviews in plain text), accompanied by **structured fields** like numerical ratings and tags.
+
+### Educator Online Q&A Forums (Teacher Development)
+
+-   **Description:** Teachers and educators often exchange knowledge in online forums. One example is the Stack Exchange network’s sites for educators, such as [*Mathematics Educators*](https://matheducators.stackexchange.com)or [*Computer Science Educators*](https://cseducators.stackexchange.com). These are **question-and-answer forums for teachers** to discuss pedagogy, curriculum, classroom management, and professional challenges. For instance, the Computer Science Educators Stack Exchange is described as “a question and answer site for those involved in the field of teaching Computer Science”​. The datasets from these sites consist of **community-generated questions, answers, and discussions**. They are useful for text analyses like **topic modeling** (to find common discussion topics in teacher communities) or **sentiment/opinion mining** (e.g., teachers’ attitudes toward certain educational technologies or policies). They can also support discourse analysis of how educators seek and share knowledge online.
+
+-   **Source:** Stack Exchange content is publicly licensed (Creative Commons) and available via data dumps or the Stack Exchange Data Explorer. Instructions for downloading the **Stack Exchange data dump** for the educator sites can be found here: <https://matheducators.stackexchange.com/help/data-dumps>.
+
+-   **Text Type:** **Question posts and answer posts** written by educators (with comment threads in some cases), i.e. **online discussion content among teachers** focused on teaching practice.
+
+## References
