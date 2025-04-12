@@ -51,9 +51,9 @@ Your data project should demonstrate your ability to use R to apply learning ana
 
 Your data product should demonstrate your ability to clearly and effectively communicate the most important and most useful findings. Specifically, your data product should:
 
-8.  Highlights **key finding and insights** in response to your research questions. 
+8.  Highlights **key finding and insights** in response to your research questions.
 
-9.  Suggests potential **action** that you and/or your target audience to better understand and improve the context in which your data product is intended to inform.  
+9.  Suggests potential **action** that you and/or your target audience to better understand and improve the context in which your data product is intended to inform.
 
 10. Discusses the **limitations** and any ethical/legal issues taken into consideration, including acknowledgments any reference materials used.
 
