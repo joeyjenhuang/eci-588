@@ -81,16 +81,16 @@ Your data product should demonstrate your ability to clearly and effectively com
 ### Case Studies
 
 4.  **Predicting Non-success in a College Science Course**\
-    *By Rebecca Lucas*\
+    *By Robert Lucas*\
     This case study applies text mining and predictive modeling to student responses from a college science course. The goal is to identify linguistic patterns that may signal academic struggle or risk of non-completion, offering insights for early intervention.\
     URL: <https://rpubs.com/rmlucas/845863>
 
 5.  **#BlackinSTEM and #DiversityinSTEM Twitter Analysis**\
-    *By Deijah Scales.*\
+    *By Deijah Scales*\
     This project analyzes Twitter discussions using the hashtags #BlackinSTEM and #DiversityinSTEM. It applies sentiment and topic analysis to highlight key themes, voices, and issues shared by users advocating for inclusion and equity in STEM fields.\
     URL: <https://rpubs.com/dsc21/845881>
 
 6.  **Reddit Vaccine Myths Sentiment Analysis**\
-    *by* Jessica Bethea\
+    *by Jessica Bethea*\
     This project analyzes sentiment within the r/VaccineMyths subreddit to understand how users discuss and perceive vaccines, particularly in the context of misinformation. By examining trends over time, the study explores whether user sentiment aligns with the subreddit’s goal of dispelling vaccine myths and identifies periods of heightened discussion.\
     URL: <https://rpubs.com/jmbethe2/983173>
