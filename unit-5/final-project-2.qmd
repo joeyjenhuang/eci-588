@@ -60,25 +60,3 @@ Your data product should demonstrate your ability to clearly and effectively com
 ## Assessment
 
 This assignment is worth 18 points total. You will receive 1 point (10 points total) for each of the project criteria adequately addressed by your data product, and 4 points (8 points total) for each post providing constructive feedback to at least two of your peers.
-
-## Example Student Projects
-
-### Slides
-
--   Academic Mental Health on Twitter: <https://jennhouchins.github.io/Sentiments/SentimentAnalysisinR.html#1>
-
--   North Carolina Goes Back to School: <https://cullerth.github.io/wk_7_indpndnt_analysis/wk_7_presentation.html#1>
-
-### Reports
-
--   Comparing Duke, UNC, and NC State Twitter Activity: A Text Mining Approach: <https://sorayaworldwide.github.io/DukeUNCNCStateTweets.html>
-
-### Case Studies
-
--   Reddit Vaccine Myths Sentiment Analysis: <https://rpubs.com/jmbethe2/983173>
-
--   BeAM Online Training: <https://rpubs.com/aengelke/984188>
-
--   Predicting Non-success in a College Science Course: <https://rpubs.com/rmlucas/845863>
-
--   #BlackinSTEM and #DiversityinSTEM Twitter Analysis: <https://rpubs.com/dsc21/845881>

@@ -11,11 +11,12 @@ theme:
   light: simplex
   dark: cyborg
 editor: visual
+bibliography: lit/references.bib
 ---
 
 ## Overview
 
-As part of your final projects for *ECI 586: Text Mining in Education*, you'll explore a research question of interest using text mining techniques applied to real-world datasets. This document showcases a selection of student data products—ranging from interactive slide presentations and analytical reports to in-depth case studies—highlighting how text data can reveal insights into learning, teaching, and academic communities. Additionally, a curated list of public educational text datasets is provided to support future projects, research, and exploration. These datasets span diverse educational contexts including K–12 classrooms, online tutoring sessions, and higher education settings, offering rich opportunities for text analysis, sentiment modeling, discourse research, and predictive modeling.
+As part of your final projects for *ECI 586: Text Mining in Education*, you'll explore a research question of interest using text mining techniques applied to real-world datasets. This document showcases a selection of student data products ranging from interactive slide presentations and analytical reports to in-depth case studies highlighting how text data can reveal insights into learning, teaching, and academic communities. Additionally, I've curated list of public educational text datasets that you are more than welcome to use for your final project. These datasets span diverse educational contexts including K–12 classrooms, online tutoring sessions, and higher education settings, offering rich opportunities for text analysis, sentiment modeling, discourse research, and predictive modeling.
 
 ## Student Data Products
 
@@ -50,6 +51,11 @@ As part of your final projects for *ECI 586: Text Mining in Education*, you'll e
     This project analyzes Twitter discussions using the hashtags #BlackinSTEM and #DiversityinSTEM. It applies sentiment and topic analysis to highlight key themes, voices, and issues shared by users advocating for inclusion and equity in STEM fields.\
     URL: <https://rpubs.com/dsc21/845881>
 
+6.  **Reddit Vaccine Myths Sentiment Analysis**\
+    *by* Jessica Bethea\
+    This project analyzes sentiment within the r/VaccineMyths subreddit to understand how users discuss and perceive vaccines, particularly in the context of misinformation. By examining trends over time, the study explores whether user sentiment aligns with the subreddit’s goal of dispelling vaccine myths and identifies periods of heightened discussion.\
+    URL: <https://rpubs.com/jmbethe2/983173>
+
 ## Educational Text Datasets
 
 Below is a curated list of text-based public datasets that span K‑12 classrooms, higher education, online learning, and teacher development contexts. Each dataset includes a brief description, a source link, and the types of text data included. You are more than welcome to use any of the datasets listed below, or located a dataset of your own choosing.
@@ -80,7 +86,7 @@ Below is a curated list of text-based public datasets that span K‑12 classroom
 
 ### CIMA Tutoring Dialogues Dataset (Online Learning/Tutoring)
 
--   **Description:** [CIMA](https://aclanthology.org/2020.bea-1.5/#:~:text=One,concepts%20between%20exercises%20and%20multiple) is a **large open-access dialogue dataset for tutoring**, introduced by Stasaski et al. @stasaski-etal-2020-cima. It contains **one-on-one tutoring conversations** that were generated via a novel crowdsourcing method: crowdworkers role-played as students and tutors, producing extended tutoring dialogues​. The student role-players work through educational exercises and the tutor role-players respond with various instructional strategies (asking questions, giving hints, providing feedback, etc.). Notably, **multiple alternative tutor responses** were collected for the same student query, and students were exposed to overlapping concepts across exercises​. This dataset reflects some pedagogical dialogue norms (e.g. when to hint vs. when to question) and is ideal for **conversation analysis**, **tutoring strategy mining**, or training dialogue systems for education.
+-   **Description:** [CIMA](https://aclanthology.org/2020.bea-1.5/#:~:text=One,concepts%20between%20exercises%20and%20multiple) is a **large open-access dialogue dataset for tutoring**, introduced by Stasaski et al. @stasaski-etal-2020-cima. It contains **one-on-one tutoring conversations** that were generated via a novel crowdsourcing method: crowdworkers role-played as students and tutors, producing extended tutoring dialogues​. The student role-players work through educational exercises and the tutor role-players respond with various instructional strategies (asking questions, giving hints, providing feedback, etc.). Notably, **multiple alternative tutor responses** were collected for the same student query, and students were exposed to overlapping concepts across exercises​. This dataset reflects some pedagogical dialogue norms (e.g. when to hint vs. when to question) and is ideal for **conversation analysis**, **tutoring strategy mining**, or training dialogue systems for education.
 
 -   **Source:** The CIMA dataset is **publicly available** under a Creative Commons license​ and accompanies the ACL BEA 2020 paper by Stasaski et al. @stasaski-etal-2020-cima, and the data (with annotations of tutor/student actions) can be obtained from the authors’ GitHub repository at [https://github.com/kstats/CIMA](#0).
 
@@ -104,8 +110,10 @@ Below is a curated list of text-based public datasets that span K‑12 classroom
 
 ### Educator Online Q&A Forums (Teacher Development)
 
--   **Description:** Teachers and educators often exchange knowledge in online forums. One example is the Stack Exchange network’s sites for educators, such as [*Mathematics Educators*](https://matheducators.stackexchange.com)or [*Computer Science Educators*](https://cseducators.stackexchange.com). These are **question-and-answer forums for teachers** to discuss pedagogy, curriculum, classroom management, and professional challenges. For instance, the Computer Science Educators Stack Exchange is described as “a question and answer site for those involved in the field of teaching Computer Science”​. The datasets from these sites consist of **community-generated questions, answers, and discussions**. They are useful for text analyses like **topic modeling** (to find common discussion topics in teacher communities) or **sentiment/opinion mining** (e.g., teachers’ attitudes toward certain educational technologies or policies). They can also support discourse analysis of how educators seek and share knowledge online.
+-   **Description:** Teachers and educators often exchange knowledge in online forums. One example is the Stack Exchange network’s sites for educators, such as [*Mathematics Educators*](https://matheducators.stackexchange.com) or [*Computer Science Educators*](https://cseducators.stackexchange.com). These are **question-and-answer forums for teachers** to discuss pedagogy, curriculum, classroom management, and professional challenges. For instance, the Computer Science Educators Stack Exchange is described as “a question and answer site for those involved in the field of teaching Computer Science”​. The datasets from these sites consist of **community-generated questions, answers, and discussions**. They are useful for text analyses like **topic modeling** (to find common discussion topics in teacher communities) or **sentiment/opinion mining** (e.g., teachers’ attitudes toward certain educational technologies or policies). They can also support discourse analysis of how educators seek and share knowledge online.
 
 -   **Source:** Stack Exchange content is publicly licensed (Creative Commons) and available via data dumps or the Stack Exchange Data Explorer. Instructions for downloading the **Stack Exchange data dump** for the educator sites can be found here: <https://matheducators.stackexchange.com/help/data-dumps>.
 
 -   **Text Type:** **Question posts and answer posts** written by educators (with comment threads in some cases), i.e. **online discussion content among teachers** focused on teaching practice.
+
+## References

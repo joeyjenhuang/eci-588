@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Shaun Kellogg">
-<meta name="dcterms.date" content="2025-04-12">
+<meta name="dcterms.date" content="2025-04-13">
 
 <title>Final Project: Data Sources &amp; Student Examples</title>
 <style>
@@ -22,7 +22,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="final-project-3_files/libs/clipboard/clipboard.min.js"></script>
@@ -66,6 +86,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#ratemyprofessors.com-reviews-higher-ed-student-feedback" id="toc-ratemyprofessors.com-reviews-higher-ed-student-feedback" class="nav-link" data-scroll-target="#ratemyprofessors.com-reviews-higher-ed-student-feedback">RateMyProfessors.com Reviews (Higher Ed Student Feedback)</a></li>
   <li><a href="#educator-online-qa-forums-teacher-development" id="toc-educator-online-qa-forums-teacher-development" class="nav-link" data-scroll-target="#educator-online-qa-forums-teacher-development">Educator Online Q&amp;A Forums (Teacher Development)</a></li>
   </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
 </div>
@@ -91,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 12, 2025</p>
+      <p class="date">April 13, 2025</p>
     </div>
   </div>
   
@@ -105,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>As part of your final projects for <em>ECI 586: Text Mining in Education</em>, you’ll explore a research question of interest using text mining techniques applied to real-world datasets. This document showcases a selection of student data products—ranging from interactive slide presentations and analytical reports to in-depth case studies—highlighting how text data can reveal insights into learning, teaching, and academic communities. Additionally, a curated list of public educational text datasets is provided to support future projects, research, and exploration. These datasets span diverse educational contexts including K–12 classrooms, online tutoring sessions, and higher education settings, offering rich opportunities for text analysis, sentiment modeling, discourse research, and predictive modeling.</p>
+<p>As part of your final projects for <em>ECI 586: Text Mining in Education</em>, you’ll explore a research question of interest using text mining techniques applied to real-world datasets. This document showcases a selection of student data products ranging from interactive slide presentations and analytical reports to in-depth case studies highlighting how text data can reveal insights into learning, teaching, and academic communities. Additionally, I’ve curated list of public educational text datasets that you are more than welcome to use for your final project. These datasets span diverse educational contexts including K–12 classrooms, online tutoring sessions, and higher education settings, offering rich opportunities for text analysis, sentiment modeling, discourse research, and predictive modeling.</p>
 </section>
 <section id="student-data-products" class="level2">
 <h2 class="anchored" data-anchor-id="student-data-products">Student Data Products</h2>
@@ -142,6 +163,10 @@ URL: <a href="https://rpubs.com/rmlucas/845863" class="uri">https://rpubs.com/rm
 <em>By Deijah Scales.</em><br>
 This project analyzes Twitter discussions using the hashtags #BlackinSTEM and #DiversityinSTEM. It applies sentiment and topic analysis to highlight key themes, voices, and issues shared by users advocating for inclusion and equity in STEM fields.<br>
 URL: <a href="https://rpubs.com/dsc21/845881" class="uri">https://rpubs.com/dsc21/845881</a></p></li>
+<li><p><strong>Reddit Vaccine Myths Sentiment Analysis</strong><br>
+<em>by</em> Jessica Bethea<br>
+This project analyzes sentiment within the r/VaccineMyths subreddit to understand how users discuss and perceive vaccines, particularly in the context of misinformation. By examining trends over time, the study explores whether user sentiment aligns with the subreddit’s goal of dispelling vaccine myths and identifies periods of heightened discussion.<br>
+URL: <a href="https://rpubs.com/jmbethe2/983173" class="uri">https://rpubs.com/jmbethe2/983173</a></p></li>
 </ol>
 </section>
 </section>
@@ -152,7 +177,7 @@ URL: <a href="https://rpubs.com/dsc21/845881" class="uri">https://rpubs.com/dsc2
 <h3 class="anchored" data-anchor-id="talkmoves-classroom-transcript-dataset-k12-math">TalkMoves Classroom Transcript Dataset (K‑12 Math)</h3>
 <ul>
 <li><p><strong>Description:</strong> <a href="aclanthology.org">TalkMoves</a> is a collection of <strong>567 transcripts of K‑12 mathematics lessons</strong>, drawn from real classroom recordings​. Each transcript is segmented by speaker (teacher or student) and <strong>annotated at the sentence/utterance level</strong>&nbsp;for teacher and student “talk moves” (discursive moves based on accountable talk theory) as well as dialogue act labels​. This rich annotation highlights how teachers prompt discussion and how students respond, making it useful for <strong>discourse analysis</strong> or studying interaction patterns. The dataset is openly licensed (CC BY-NC-SA) and available for research use.</p></li>
-<li><p><strong>Source:</strong> The dataset is described in Suresh et al. <span class="citation" data-cites="suresh-etal-2022-talkmoves">@suresh-etal-2022-talkmoves</span> and is released via the authors’ repository​at. It can be accessed on GitHub at <a href="https://github.com/SumnerLab/TalkMoves" class="uri">https://github.com/SumnerLab/TalkMoves</a>.</p></li>
+<li><p><strong>Source:</strong> The dataset is described in Suresh et al. <span class="citation" data-cites="suresh-etal-2022-talkmoves">Suresh et al. (<a href="#ref-suresh-etal-2022-talkmoves" role="doc-biblioref">2022</a>)</span> and is released via the authors’ repository​at. It can be accessed on GitHub at <a href="https://github.com/SumnerLab/TalkMoves" class="uri">https://github.com/SumnerLab/TalkMoves</a>.</p></li>
 <li><p><strong>Text Type:</strong> Full&nbsp;<strong>classroom discussion transcripts</strong> (teacher and student utterances), with discourse move annotations.</p></li>
 </ul>
 </section>
@@ -160,7 +185,7 @@ URL: <a href="https://rpubs.com/dsc21/845881" class="uri">https://rpubs.com/dsc2
 <h3 class="anchored" data-anchor-id="ncte-elementary-classroom-transcripts-k12-math">NCTE Elementary Classroom Transcripts (K‑12 Math)</h3>
 <ul>
 <li><p><strong>Description:</strong> The <a href="edworkingpapers.com">NCTE dataset</a> is the <strong>largest public collection of U.S. classroom transcripts</strong>to date​. It contains <strong>1,660 anonymized transcripts</strong>&nbsp;of 4th and 5th grade math lessons (45–60 minutes each) collected in the National Center for Teacher Effectiveness study. These transcripts include dialogue from&nbsp;<strong>whole-class and small-group instruction</strong>, and come with extensive&nbsp;<strong>metadata</strong>: turn-level codes for discourse moves, teacher effectiveness observation scores, teacher/student demographics, survey responses, and even student test score outcomes​. This makes it valuable for <strong>topic modeling</strong> of classroom talk, <strong>qualitative discourse analysis</strong>, or linking language patterns to educational outcomes. The data is fully anonymized and publicly shareable (with IRB clearance).</p></li>
-<li><p><strong>Source:</strong> The dataset is provided in an EdWorkingPaper by Demszky &amp; Hill <span class="citation" data-cites="demszky2022ncte">@demszky2022ncte</span> and is <strong>accessible via a GitHub repository at</strong> ​<a href="https://github.com/ddemszky/classroom-transcript-analysis" class="uri">https://github.com/ddemszky/classroom-transcript-analysis</a>.</p></li>
+<li><p><strong>Source:</strong> The dataset is provided in an EdWorkingPaper by Demszky &amp; Hill <span class="citation" data-cites="demszky2022ncte">Demszky and Hill (<a href="#ref-demszky2022ncte" role="doc-biblioref">2022</a>)</span> and is <strong>accessible via a GitHub repository at</strong> ​<a href="https://github.com/ddemszky/classroom-transcript-analysis" class="uri">https://github.com/ddemszky/classroom-transcript-analysis</a>.</p></li>
 <li><p><strong>Text Type:</strong> <strong>Elementary classroom transcripts</strong> (teacher and student dialogue in math lessons), plus associated <strong>survey and score data</strong> for context.</p></li>
 </ul>
 </section>
@@ -175,8 +200,8 @@ URL: <a href="https://rpubs.com/dsc21/845881" class="uri">https://rpubs.com/dsc2
 <section id="cima-tutoring-dialogues-dataset-online-learningtutoring" class="level3">
 <h3 class="anchored" data-anchor-id="cima-tutoring-dialogues-dataset-online-learningtutoring">CIMA Tutoring Dialogues Dataset (Online Learning/Tutoring)</h3>
 <ul>
-<li><p><strong>Description:</strong>&nbsp;<a href="https://aclanthology.org/2020.bea-1.5/#:~:text=One,concepts%20between%20exercises%20and%20multiple">CIMA</a> is a&nbsp;<strong>large open-access dialogue dataset for tutoring</strong>, introduced by Stasaski et al. <span class="citation" data-cites="stasaski-etal-2020-cima">@stasaski-etal-2020-cima</span>. It contains&nbsp;<strong>one-on-one tutoring conversations</strong> that were generated via a novel crowdsourcing method: crowdworkers role-played as students and tutors, producing extended tutoring dialogues​. The student role-players work through educational exercises and the tutor role-players respond with various instructional strategies (asking questions, giving hints, providing feedback, etc.). Notably, <strong>multiple alternative tutor responses</strong> were collected for the same student query, and students were exposed to overlapping concepts across exercises​. This dataset reflects some pedagogical dialogue norms (e.g.&nbsp;when to hint vs.&nbsp;when to question) and is ideal for <strong>conversation analysis</strong>, <strong>tutoring strategy mining</strong>, or training dialogue systems for education.</p></li>
-<li><p><strong>Source:</strong> The CIMA dataset is <strong>publicly available</strong> under a Creative Commons license​ and accompanies the ACL BEA 2020 paper by Stasaski et al. <span class="citation" data-cites="stasaski-etal-2020-cima">@stasaski-etal-2020-cima</span>, and the data (with annotations of tutor/student actions) can be obtained from the authors’ GitHub repository at <a href="#0">https://github.com/kstats/CIMA</a>.</p></li>
+<li><p><strong>Description:</strong> <a href="https://aclanthology.org/2020.bea-1.5/#:~:text=One,concepts%20between%20exercises%20and%20multiple">CIMA</a> is a <strong>large open-access dialogue dataset for tutoring</strong>, introduced by Stasaski et al. <span class="citation" data-cites="stasaski-etal-2020-cima">Stasaski, Kao, and Hearst (<a href="#ref-stasaski-etal-2020-cima" role="doc-biblioref">2020</a>)</span>. It contains <strong>one-on-one tutoring conversations</strong> that were generated via a novel crowdsourcing method: crowdworkers role-played as students and tutors, producing extended tutoring dialogues​. The student role-players work through educational exercises and the tutor role-players respond with various instructional strategies (asking questions, giving hints, providing feedback, etc.). Notably, <strong>multiple alternative tutor responses</strong> were collected for the same student query, and students were exposed to overlapping concepts across exercises​. This dataset reflects some pedagogical dialogue norms (e.g.&nbsp;when to hint vs.&nbsp;when to question) and is ideal for <strong>conversation analysis</strong>, <strong>tutoring strategy mining</strong>, or training dialogue systems for education.</p></li>
+<li><p><strong>Source:</strong> The CIMA dataset is <strong>publicly available</strong> under a Creative Commons license​ and accompanies the ACL BEA 2020 paper by Stasaski et al. <span class="citation" data-cites="stasaski-etal-2020-cima">Stasaski, Kao, and Hearst (<a href="#ref-stasaski-etal-2020-cima" role="doc-biblioref">2020</a>)</span>, and the data (with annotations of tutor/student actions) can be obtained from the authors’ GitHub repository at <a href="#0">https://github.com/kstats/CIMA</a>.</p></li>
 <li><p><strong>Text Type:</strong> <strong>Simulated tutoring conversation logs</strong>&nbsp;(dialogue between a tutor and a student in a text-based tutoring session), including annotations of tutor and student action types.</p></li>
 </ul>
 </section>
@@ -199,14 +224,28 @@ URL: <a href="https://rpubs.com/dsc21/845881" class="uri">https://rpubs.com/dsc2
 <section id="educator-online-qa-forums-teacher-development" class="level3">
 <h3 class="anchored" data-anchor-id="educator-online-qa-forums-teacher-development">Educator Online Q&amp;A Forums (Teacher Development)</h3>
 <ul>
-<li><p><strong>Description:</strong>&nbsp;Teachers and educators often exchange knowledge in online forums. One example is the Stack Exchange network’s sites for educators, such as <a href="https://matheducators.stackexchange.com"><em>Mathematics Educators</em></a>or <a href="https://cseducators.stackexchange.com"><em>Computer Science Educators</em></a>. These are <strong>question-and-answer forums for teachers</strong>&nbsp;to discuss pedagogy, curriculum, classroom management, and professional challenges. For instance, the Computer Science Educators Stack Exchange is described as “a question and answer site for those involved in the field of teaching Computer Science”​. The datasets from these sites consist of <strong>community-generated questions, answers, and discussions</strong>. They are useful for text analyses like&nbsp;<strong>topic modeling</strong>&nbsp;(to find common discussion topics in teacher communities) or&nbsp;<strong>sentiment/opinion mining</strong>&nbsp;(e.g., teachers’ attitudes toward certain educational technologies or policies). They can also support discourse analysis of how educators seek and share knowledge online.</p></li>
+<li><p><strong>Description:</strong>&nbsp;Teachers and educators often exchange knowledge in online forums. One example is the Stack Exchange network’s sites for educators, such as <a href="https://matheducators.stackexchange.com"><em>Mathematics Educators</em></a> or <a href="https://cseducators.stackexchange.com"><em>Computer Science Educators</em></a>. These are <strong>question-and-answer forums for teachers</strong>&nbsp;to discuss pedagogy, curriculum, classroom management, and professional challenges. For instance, the Computer Science Educators Stack Exchange is described as “a question and answer site for those involved in the field of teaching Computer Science”​. The datasets from these sites consist of <strong>community-generated questions, answers, and discussions</strong>. They are useful for text analyses like&nbsp;<strong>topic modeling</strong>&nbsp;(to find common discussion topics in teacher communities) or&nbsp;<strong>sentiment/opinion mining</strong>&nbsp;(e.g., teachers’ attitudes toward certain educational technologies or policies). They can also support discourse analysis of how educators seek and share knowledge online.</p></li>
 <li><p><strong>Source:</strong> Stack Exchange content is publicly licensed (Creative Commons) and available via data dumps or the Stack Exchange Data Explorer. Instructions for downloading the <strong>Stack Exchange data dump</strong> for the educator sites can be found here: <a href="https://matheducators.stackexchange.com/help/data-dumps" class="uri">https://matheducators.stackexchange.com/help/data-dumps</a>.</p></li>
 <li><p><strong>Text Type:</strong> <strong>Question posts and answer posts</strong>&nbsp;written by educators (with comment threads in some cases), i.e.&nbsp;<strong>online discussion content among teachers</strong>&nbsp;focused on teaching practice.</p></li>
 </ul>
 </section>
 </section>
+<section id="references" class="level2 unnumbered">
 
-</main>
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-demszky2022ncte" class="csl-entry" role="listitem">
+Demszky, Dorottya, and Heather Hill. 2022. <span>“The NCTE Transcripts: A Dataset of Elementary Math Classroom Transcripts.”</span> <em>arXiv Preprint arXiv:2211.11772</em>.
+</div>
+<div id="ref-stasaski-etal-2020-cima" class="csl-entry" role="listitem">
+Stasaski, Katherine, Kimberly Kao, and Marti A. Hearst. 2020. <span>“<span>CIMA</span>: A Large Open Access Dialogue Dataset for Tutoring.”</span> In <em>Proceedings of the Fifteenth Workshop on Innovative Use of NLP for Building Educational Applications</em>, 52–64. Seattle, WA, USA â†’ Online: Association for Computational Linguistics. <a href="https://www.aclweb.org/anthology/2020.bea-1.5">https://www.aclweb.org/anthology/2020.bea-1.5</a>.
+</div>
+<div id="ref-suresh-etal-2022-talkmoves" class="csl-entry" role="listitem">
+Suresh, Abhijit, Jennifer Jacobs, Charis Harty, Margaret Perkoff, James H. Martin, and Tamara Sumner. 2022. <span>“The <span>T</span>alk<span>M</span>oves Dataset: K-12 Mathematics Lesson Transcripts Annotated for Teacher and Student Discursive Moves.”</span> In <em>Proceedings of the Thirteenth Language Resources and Evaluation Conference</em>, edited by Nicoletta Calzolari, Frédéric Béchet, Philippe Blache, Khalid Choukri, Christopher Cieri, Thierry Declerck, Sara Goggi, et al., 4654–62. Marseille, France: European Language Resources Association. <a href="https://aclanthology.org/2022.lrec-1.497/">https://aclanthology.org/2022.lrec-1.497/</a>.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
