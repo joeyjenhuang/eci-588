@@ -19,7 +19,7 @@ For the end-of-course project, you'll be applying the knowledge and skills gaine
 
 ## Grading Criteria
 
-Grading criteria for your final project is guided by the Data-Intensive Research Workflow from [Learning analytics goes to school: A collaborative approach to improving education](https://catalog.lib.ncsu.edu/catalog/NCSU4862134) (Krumm, Means, & Bienkowski, 2018).
+Your final project is worth **18 points total**. You will receive **1 point (10 points total) for each of the project criteria adequately addressed** by your data product, and **4 points (8 points total) for each post providing constructive feedback** to at least two of your peers.
 
 ### Prepare
 
@@ -57,6 +57,40 @@ Your data product should demonstrate your ability to clearly and effectively com
 
 10. Discusses the **limitations** and any ethical/legal issues taken into consideration, including acknowledgments any reference materials used.
 
-## Assessment
+## Example Student Projects
 
-This assignment is worth **18 points total**. You will receive **1 point (10 points total) for each of the project criteria adequately addressed** by your data product, and **4 points (8 points total) for each post providing constructive feedback** to at least two of your peers.
+### Slides
+
+1.  **Academic Mental Health on Twitter**\
+    *By Jennifer Houchins*\
+    This project explores public sentiment around academic mental health using Twitter data. Through sentiment analysis in R, the study investigates how users discuss mental health in academic contexts and identifies prevailing emotions and keywords across tweets.\
+    URL: <https://jennhouchins.github.io/Sentiments/SentimentAnalysisinR.html#1>
+
+2.  **North Carolina Goes Back to School**\
+    *By Tori Culler*\
+    This analysis focuses on public discourse during the reopening of North Carolina schools in the context of COVID-19. Using text mining techniques, the project examines Twitter conversations to understand concerns, emotions, and topics prevalent in the back-to-school dialogue.\
+    URL: <https://cullerth.github.io/wk_7_indpndnt_analysis/wk_7_presentation.html>
+
+### Reports
+
+3.  **Comparing Duke, UNC, and NC State Twitter Activity: A Text Mining Approach**\
+    *By Soraya Campbell.*\
+    This report compares the social media presence of three major North Carolina universities by analyzing tweets mentioning Duke, UNC, and NC State. It employs frequency analysis, sentiment classification, and topic modeling to uncover differences in public perception and communication patterns.\
+    URL: <https://sorayaworldwide.github.io/DukeUNCNCStateTweets.html>
+
+### Case Studies
+
+4.  **Predicting Non-success in a College Science Course**\
+    *By Rebecca Lucas*\
+    This case study applies text mining and predictive modeling to student responses from a college science course. The goal is to identify linguistic patterns that may signal academic struggle or risk of non-completion, offering insights for early intervention.\
+    URL: <https://rpubs.com/rmlucas/845863>
+
+5.  **#BlackinSTEM and #DiversityinSTEM Twitter Analysis**\
+    *By Deijah Scales.*\
+    This project analyzes Twitter discussions using the hashtags #BlackinSTEM and #DiversityinSTEM. It applies sentiment and topic analysis to highlight key themes, voices, and issues shared by users advocating for inclusion and equity in STEM fields.\
+    URL: <https://rpubs.com/dsc21/845881>
+
+6.  **Reddit Vaccine Myths Sentiment Analysis**\
+    *by* Jessica Bethea\
+    This project analyzes sentiment within the r/VaccineMyths subreddit to understand how users discuss and perceive vaccines, particularly in the context of misinformation. By examining trends over time, the study explores whether user sentiment aligns with the subreddit’s goal of dispelling vaccine myths and identifies periods of heightened discussion.\
+    URL: <https://rpubs.com/jmbethe2/983173>
