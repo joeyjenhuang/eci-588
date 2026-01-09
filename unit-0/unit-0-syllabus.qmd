@@ -204,7 +204,7 @@ This course is divided into four **Units** introducing common and progressively 
 
 4.  **Case Studies (24 pts)**: In the third week of each unit, students will complete an interactive "case study" demonstrating how key data-intensive research workflow processes (i.e., wrangling, visualizing, summarizing, modeling, and communicating data) featured in exemplary education research studies are implemented in R. Coding case studies also provide a holistic setting to explore important foundational LA topics integral to data analysis such as reproducible research, use of APIs, ethical considerations, diversity and inclusion, and creation of useful data products.
 
-5.  **Final Project (22 pts)**: In lieu of a final exam, students will conduct an independent analysis using a data source of their choosing and create a "data product" (e.g. report, presentation, data dashboard, etc.) demonstrating the knowledge and skills gained throughout the semester.
+5.  **Final Project (24 pts)**: In lieu of a final exam, students will conduct an independent analysis using a data source of their choosing and create a "data product" (e.g. report, presentation, data dashboard, etc.) demonstrating the knowledge and skills gained throughout the semester.
 
 **Grading Scale:** The grading scale is based on 100 points:
 
