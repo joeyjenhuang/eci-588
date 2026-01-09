@@ -15,13 +15,13 @@ editor: visual
 
 As the use of digital resources continues expand in education, an unprecedented amount of new data is becoming available to educational researchers and practitioners. Among these new data sources, unstructured data such as text represents a significant share. This introductory course on text mining is designed to prepare education researchers and practitioners to use this data more efficiently, effectively, and ethically. This course will provide students with an overview of text mining as an analytic approach, examples of its use in educational contexts, and applied experience with widely adopted tools and techniques. As participants gain experience in the collection, analysis, and reporting of data throughout the course, they will be better prepared help educational organizations understand and improve both online and blended learning environments.
 
-**Course Prerequisites/Co-requisites:** This course is part of the [Graduate Certificate in Learning Analytics Program (GCLA)](#0) program and is open to all Masters and Doctoral students. This course has no prerequisites but ECI 586: Introduction to Learning Analytics and/or prior experience with R is highly recommended is highly recommended. ECI 586 Introduction to Learning Analytics. For those new to R and RStudio, however, tutorials will be provided.
+**Course Prerequisites/Co-requisites:** This course is part of the [Graduate Certificate in Learning Analytics Program (GCLA)](https://online-distance.ncsu.edu/program/learning-analytics/) program and is open to all Masters and Doctoral students. This course has no prerequisites but ECI 586: Introduction to Learning Analytics and/or prior experience with R is highly recommended is highly recommended. ECI 586 Introduction to Learning Analytics. For those new to R and RStudio, however, tutorials will be provided.
 
 **Number of Credits:** 3
 
 ## Time & Location
 
-**Meeting Time:** This distance education course is predominantly asynchronous. Online tools are utilized throughout the course for communication and interaction. In addition, we will use Zoom for synchronous virtual office hours, web conferencing, or whole class discussions. For optional live class meet-ups, I will send out a poll the first week of class to find a time that works for the majority of students and record these meetings for students who are not able to attend.
+**Meeting Time:** This distance education course is predominantly asynchronous. Online tools will be used throughout the course for communication and interaction. Zoom may be used for **optional** synchronous virtual office hours, web conferencing, or whole class discussions. If optional live class meet-ups are scheduled, I will send out a poll during the first week of class to identify a time that works for the majority of students. All live sessions will be recorded and made available for students who are unable to attend.
 
 **Virtual Class Locations:** All course materials and activities can be accessed online through NC State's Moodle course management platform. Access <http://wolfware.ncsu.edu/> and log-in with your Unity ID and password. After logging-in, locate and click on ECI 588 Text Mining in Education to access the course site.
 
@@ -29,10 +29,10 @@ Students must have Internet access and access to a Web browser (e.g., Safari, Fi
 
 ## Instructor Information
 
-**Name:** [Dr.](https://www.fi.ncsu.edu/people/sbkellog)Joey Huang\
+**Name:** Dr.Joey Huang\
 **Email:** [joeyhuang\@ncsu.edu](shaun.kellogg@ncsu.edu)\
-**Office:**\
-**Hours:** Appointments by [Calendly](https://calendly.com/sbkellogg/analytics) Monday-Friday 8:00-4:00
+**Office:** [Center for Technology and Innovation (CTI)](https://ced.ncsu.edu/venue/center-for-technology-and-innovation-cti/)\
+**Hours:** Appointments by [Google Calendar](https://calendar.app.google/3Jks7GJx8QedYfkg6) on Wednesdays and Thursdays. If the listed time slots are not available, please contact me to schedule an alternative time.
 
 ## Course Texts
 
@@ -70,7 +70,7 @@ Hands-on data analysis tutorials and experiences will make extensive use of R an
 
     -   Register for a free Posit Cloud account at: <https://login.posit.cloud/register.>
 
-    -   Following registration, you can access our ECI 588: Text Mining in Education Posit workspace at: <https://posit.cloud/spaces/597706/join?access_code=weMxPiHe3BsKRsQOtUOnlD9NwbNG3L1G7NsuBanV>
+    -   Following registration, you can access our ECI 588: Text Mining in Education Posit workspace at: <https://posit.cloud/spaces/677551/join?access_code=19XaljG95C_VBh5GKD2c_7CCp5jrxhc1_NcdjN1S>
 
 2.  **Quarto Pub** ([https://quartopub.com](https://quartopub.com/)) is a free and easy web publishing platform for Quarto docs. To publish the documents via Quarto Pub, however, you will first need to create an account.
 
@@ -80,7 +80,7 @@ Hands-on data analysis tutorials and experiences will make extensive use of R an
 
     -   Register for a free account using your \@ncsu.edu email address at: <https://www.datacamp.com/users/sign_up>
 
-    -   After registering with your NC State email, click the following link to access our [ECI 588: Text Mining in Education datacamp group](https://www.datacamp.com/groups/shared_links/2ce5a2006c31c52dcfe628b4ba3bde54e66a86e80f0bffa8b6182b5f5816dd46).
+    -   After registering with your NC State email, click the following link to access our [ECI 588: Text Mining in Education datacamp group](https://www.datacamp.com/groups/shared_links/160899bb7edcee8421a910a2576918e850dbfca1fac68a320e21a086051eb519).
 
         -   Your temporary membership (6 months) will provide you with free access to the full catalog of datacamp's tutorials and tools, including assigned activities for our course.
 
@@ -208,13 +208,13 @@ This course is divided into four **Units** introducing common and progressively 
 
 **Grading Scale:** The grading scale is based on 100 points:
 
-A+ (97-100), A (94-96), A- (90-93), B+ (87-89), B (84-86), B- (80-83)
+A+ (97-100), A (93-96), A- (90-92), B+ (87-89), B (84-86), B- (80-83)
 
 C+ (77-79), C (74-76), C- (70-73), D+ (67-69), D (64-66), D- (60-63), F (59 or less)
 
-Late work is accepted but may be penalized at 15% per week it is late. Assignments submitted by the due date, however, may be revised and resubmitted for a higher grade by the following week. Students experiencing unforeseen circumstances with a resulting excused absence (e.g., family medical emergency) are allowed to make up work without penalty.
+Late work is accepted but may be penalized at 10% per week it is late. Assignments submitted by the due date, however, may be revised and resubmitted for a higher grade by the following week. Students experiencing unforeseen circumstances with a resulting excused absence (e.g., family medical emergency) are allowed to make up work without penalty.
 
-**Course Feedback Expectations:** Please contact your instructor via email (shaun.kellogg\@ncsu.edu) with any questions about the course project or other assignments. Your instructor will strive to answer any emails within 24 hours (M-F) and 48 hours on the weekend, and grade submitted assignments within 5-7 days of the due date. In addition, students will be provided ongoing opportunities, and are strongly encouraged, to provide course feedback to help improve the design of current and future course implementations.
+**Course Feedback Expectations:** Please contact your instructor via email (joeyhuang\@ncsu.edu) with any questions about the course project or other assignments. Your instructor will strive to answer any emails within 48 hours (M-F) and 60 hours on the weekend, and grade submitted assignments within 7-14 days of the due date. In addition, students will be provided ongoing opportunities, and are strongly encouraged, to provide course feedback to help improve the design of current and future course implementations.
 
 ## Getting Support
 
@@ -226,7 +226,7 @@ When feeling stuck or like banging your head against your desk, there are severa
 
 1.  **Course Forums & Email**: Including this general software troubleshooting forum, we will have forums for each assignment. You'll likely have similar questions as your peers, and you'll likely be able to answer other peoples' questions too so I encourage you to use these forums. Unlike most of my apps and social media accounts, I actually have notifications enabled. Also, do not hesitate to email me directly as well.
 
-2.  **Learning Analytics Office Hours**: Some issues are much easier to troubleshoot in real time. To schedule a 1 on 1 meeting with me in person of via Zoom, use the following Calendly link: [https://calendly.com/sbkellogg/analytics](https://calendly.com/sbkellogg/analytics?back=1&month=2024-08)
+2.  **Learning Analytics Office Hours**: Some issues are much easier to troubleshoot in real time. To schedule a 1 on 1 meeting with me in person of via Zoom, use the following Calendly link: <https://calendar.app.google/3Jks7GJx8QedYfkg6>
 
 3.  **ChatGPT** (<https://openai.com/chatgpt/>) is an advanced AI language model developed by OpenAI and students are encouraged to explore it as a learning tool for this course. It's and excellent tool for helping to explaining concepts; interpreting, writing, and troubleshooting code; summarizing and dratfting text; and offering guidance on data analysis. However, it's important to recognize that it can frequently be wrong and produce very plausible but misleading or inaccurate results. See policies on using generative AI for this course in the next section.
 
@@ -256,7 +256,7 @@ Below are the acceptable uses of AI in this course:
 
 While I encourage the integration of GenAI in your learning experience, there are certain uses that are not permitted in this course:
 
--   **Course Readings & Discussion:** Please to do **NOT** use GenAI tools to craft written responses to discussion prompts. Using GenAI to generate a response to each unit's discussion questions will not help you think through the materials. Although the text it generates may sound plausible, there’s an official philosophical term for this kind of writing: [bulls\*\*t](https://doi.org/10.1007/s10676-024-09775-5), i.e. "“speech or text produced without concern for its truth” (Hicks, Humphries, and Slater 2024).
+-   **Course Readings & Discussion:** Please to do **NOT** use GenAI tools to craft written responses to discussion prompts. Using GenAI to generate a response to each unit's discussion questions will not help you think through the materials. Although the text it generates may sound plausible, there is an established philosophical term for this kind of writing, referring to "“speech or text produced without concern for its truth” (Hicks, Humphries, and Slater 2024).
 
 -   **Case Studies:** Although you are welcome to utilize GenAI tools to assist in generating, interpreting, and troubleshooting code and its output. However, using GenAI without ensuring that you understand the underlying code and interpreting the results critically is actually really detrimental to learning, especially if you just copy/paste directly from what it spits out. In addition, please do **NOT** use GenAI to generate responses to open-ended questions and prompts.
 
@@ -264,7 +264,7 @@ While I encourage the integration of GenAI in your learning experience, there ar
 
 ## NC State Policies
 
-**Academic Integrity:** Students are bound by the academic integrity policy as stated in the code of student conduct. Therefore, students are required to uphold the university pledge of honor and exercise honesty in completing any assignment. See the website for a full explanation: <http://www.ncsu.edu/policies/student_services/student_discipline/POL11.35.1.php>
+**Academic Integrity:** Students are bound by the academic integrity policy as stated in the code of student conduct. Therefore, students are required to uphold the university pledge of honor and exercise honesty in completing any assignment. See the website for a full explanation: <https://studentconduct.dasa.ncsu.edu/academic-integrity-overview/>
 
 **N.C. State University Policies, Regulations, and Rules (PRR)**: Students are responsible for reviewing the PRRs which pertain to their course rights and responsibilities. These include:
 
@@ -284,8 +284,6 @@ While I encourage the integration of GenAI in your learning experience, there ar
 
 -   **Keep Learning:** <https://dasa.ncsu.edu/students/keep-learning/>
 
--   **Protect the Pack FAQs:** <https://www.ncsu.edu/coronavirus/frequently-asked-question>
-
 -   **NC State Protect the Pack Resources for Students:** [Resources for Students \| Protect the Pack](https://www.ncsu.edu/coronavirus/reactivating-campus/resources-for-students/)
 
 -   **NC State Keep Learning, tips for students opting to take courses remotely:** [Keep Learning Tips for Remote Learning](https://dasa.ncsu.edu/students/keep-learning/)
@@ -302,19 +300,15 @@ While I encourage the integration of GenAI in your learning experience, there ar
 
 #### Introductory Readings (Choose 2)
 
-1.  Bail, C. (2018). Strengths and weaknesses of text as data. Retrieved from <https://cbail.github.io/textasdata/strengths-> weaknesses/rmarkdown/Strengths_and_Weaknesses.html
+1.  Bail, C. (2018). Strengths and weaknesses of text as data. Retrieved from <https://cbail.github.io/textasdata/strengths-weaknesses/rmarkdown/Strengths_and_Weaknesses.html>
 
-2.  Gupta, V., & Lehal, G. S. G. S. (2009). A Survey of Text Mining Techniques and Applications. Journal of Emerging Technologies in Web Intelligence, 1(1), 60–76. doi:10.4304/jetwi.1.1.60-76 3. 4.
+2.  Gupta, V., & Lehal, G. S. G. S. (2009). [A Survey of Text Mining Techniques and Application](https://learnpunjabi.org/pdf/gslehal-pap18.pdf)s. Journal of Emerging Technologies in Web Intelligence, 1(1), 60–76. doi:10.4304/jetwi.1.1.60-76 3. 4.
 
-3.  Hotho, A., Nürnberger, A., & Forum, G. P. L. (2005). A brief survey of text mining. JISC. (2008).
+3.  Hotho, A., Nürnberger, A., & Forum, G. P. L. (2005). [A brief survey of text mining](https://jlcl.org/article/view/68/66). JISC. (2008).
 
-4.  Text mining: Briefing paper. Retrieved from <http://www.jisc.ac.uk/publications/briefingpapers/2008/bptextminingv2.aspx> 5.
+4.  Kwartler, T. (2016). R tutorial: What is text mining? Retrieved from <https://youtu.be/mmz95b1k0J0>
 
-5.  Kwartler, T. (2016). R tutorial: What is text mining? Retrieved from <https://youtu.be/mmz95b1k0J0>
-
-6.  Kwartler, T. (2016). Cleaning and preprocessing text. Retrieved from <https://youtu.be/3putwMZpt1E>
-
-7.  Prato, S. (2013). What is text mining? Retrieved from <http://infospace.ischool.syr.edu/2013/04/23/what-is-text-mining/>
+5.  Prato, S. (2013). What is text mining? Retrieved from <http://infospace.ischool.syr.edu/2013/04/23/what-is-text-mining/>
 
 #### Text Mining in Education (Optional)
 
@@ -352,7 +346,7 @@ While I encourage the integration of GenAI in your learning experience, there ar
 
 3.  Bail, C. (2017). SICSS 2017 - dictionary-based text analysis. Retrieved from <https://youtu.be/4xv1ccEUleA>
 
-4.  Gupta, S. (2018). Reasons to replace dictionary based text mining with machine learning techniques. Retrieved from <https://hackernoon.com/reasons-to-replace-dictionary-based-text-> mining-with-machine-learning-techniques-27537835e1bf
+4.  Gupta, S. (2018). Reasons to replace dictionary based text mining with machine learning techniques. Retrieved from <https://medium.com/hackernoon/reasons-to-replace-dictionary-based-text-mining-with-machine-learning-techniques-27537835e1bf>
 
 #### Sentiment Analysis & LIWC (Optional)
 
