@@ -19,9 +19,7 @@ The primary goal of the Unit 1 readings and discussion is to build a foundationa
 
 ## READINGS
 
-To help address our discussion questions for the week, you'll be asked to read or view three resources, including: a required journal article, an instructor-selected resource, and one additional self-selected resource such as a journal article, video, news article, podcast, or blog post.
-
-### 1. Required
+To help address our discussion questions for the week, you will read or view **three resources**, including: **a required journal article, one instructor-selected resource, and one additional self-selected resource** (e.g., journal article, video, news article, podcast, or blog post).1. Required
 
 1.  Ferreira‐Mello, R., André, M., Pinheiro, A., Costa, E., & Romero, C. (2019). [Text mining in education](https://ncsu.summon.serialssolutions.com/#!/search?bookMark=eNp1j79PwzAQhS0UJErpwMYYiYkh7fkcx86Iyq9KRSyRGK2QXJCrxilOotL_noRIbNz0hu-903fJAtc4Yuyaw5ID4Opoy3rJhcAzNuNpjFGsUhn8Za0u2KJtdzCcQK01zthNRt9dWFtn3WdoXUhlX-SdbdwVO6_yfUsLFnS-pznLnh6z9Uu0fXverO-3UYGpwkgkukxFhUCUSCV5CRJUoitUMlWVEmmuyiQvKSZAiuWHApJaKVklwAG5mLPbafbgm6-e2s7smt674bFBAQI4Sg4DdTdRhW_a1lNlDt7WuT8ZDmY0N6O5Gc0HdjWxR7un0_-ged88vP42fgAOlliW). Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery, 9(6). https://doi.org/10.1002/widm.1332
 
@@ -31,7 +29,7 @@ To help address our discussion questions for the week, you'll be asked to read o
 
 2.  Bail, C. (2020). [An Introduction to Text Analysis](https://youtu.be/pLsC4UyzX_U). Retrieved from https://youtu.be/pLsC4UyzX_U
 
-3.  Takaki, P., & Dutra, M. L. (2024).[ Text mining applied to distance higher education: A systematic literature review.](https://link-springer-com.prox.lib.ncsu.edu/article/10.1007/s10639-023-12235-0) *Education and Information Technologies*, *29*(9), 10851-10878.
+3.  Takaki, P., & Dutra, M. L. (2024).[Text mining applied to distance higher education: A systematic literature review.](https://link-springer-com.prox.lib.ncsu.edu/article/10.1007/s10639-023-12235-0) *Education and Information Technologies*, *29*(9), 10851-10878.
 
 4.  Underwood, T. (2015). [Where to start with text mining](https://tedunderwood.com/2012/08/14/where-to-start-with-text-mining/). The Stone and the Shell. Retrieved from https://tedunderwood.com/2012/08/14/where-to-start-with-text-mining/
 
@@ -41,9 +39,27 @@ Use the [NCSU Library](#0), [Google Scholar](#0) or a search engine of your cho
 
 ## DISCUSSION
 
-In lieu of the peer interaction and discussion of course materials that normally take place in class, you will be asked to log in this week and engage with other members of our learning community through the course discussion forum. To help guide our conversations, **we will collectively address a set of guiding questions provided in each forum**. You are also welcome to introduce your own topics or questions for the class to discuss.
+In lieu of the peer interaction and discussion of course materials that normally take place in class, you will engage with other members of our learning community through the course discussion forum. This week’s discussion consists of **four required discussion posts**.
 
-With the exception of the self-selected resource, you are not required to post in every thread or respond to every question listed below, especially if you feel that others have already addressed the topic thoroughly. The primary goal of these discussions is to build a shared understanding of this week’s topics through meaningful back-and-forth dialogue, rather than a “collective monologue” in which many posts repeat the same ideas.
+**Posting Expectations (Required):** You are required to complete **ALL FOUR discussion posts** outlined below:
+
+1.  **Three Topic Posts**
+
+    -   You must post **one response to EACH of the three discussion topics** listed below (Topics 1–3).
+    -   For each topic, respond to **one or more guiding questions** within that topic.
+    -   Your responses should draw on:
+        -   the required course reading,
+
+        -   your instructor-selected resource, **and**
+
+        -   your self-selected resource where relevant.
+
+2.  **One Self-Selected Resource Post**
+
+    -   You must post **one separate discussion post** introducing and summarizing your self-selected resource.
+    -   This post should follow the **Student-Selected Resource guidelines** provided below.
+
+3.  You do **not** need to respond to every question within a topic. Choose questions that allow you to contribute meaningfully and avoid repeating points already made by others.
 
 ### Guiding Questions
 
@@ -81,45 +97,28 @@ Reflecting on the course text and your self-selected reading, answer one or more
 
 3.  What ethical issues should be considered when mining text for educational purposes or in general?
 
-#### Topic 4: Text-Based Data Sources
-
-Reflecting on the course text and your self-selected reading, answer one or more of the following questions:
-
-1.  What sources of data are commonly used in text mining, particularly in educational contexts?
-
-2.  Are some data sources more suitable or appropriate for text mining purposes than others?
-
-3.  What data sources in education are publicly available for analysis?
-
-4.  What sources of data are you interested in potentially exploring for an independent analysis or final course project?
-
 #### Student-Selected Resources
 
 Provide a brief overview of your self-selected resource that includes the following:
 
 -   APA Citation (note: this can be easily [retrieved via Google Scholar](#0))
-
--   What was the **purpose** of your article?
-
--   How was Text Mining **defined** and/or characterized?
-
+-   The purpose of the resource
+-   How was Text Mining **defined** and/or characterized?
 -   What **data source(s)** were analyzed or discussed?
-
 -   How, if at all, did your article touch upon the **application(s)** of text mining to "understand and improve learning and the contexts in which learning occurs?"
-
--   Did your selection address any **ethical or legal considerations** of text mining?
+-   Did your selection address any **ethical or legal considerations** of text mining?
 
 ## ASSESSMENT
 
 ### Grading
 
-Grading for this week is fairly lenient, provided that it's fairly clear from your posts that you've done the required reading. Readings and discussion for each unit are worth 6 points and judged based on three criteria: quantity, quality, and connections to readings.
+Grading for this week is intentionally lenient, as long as it is clear from your posts that you have completed the required readings. Readings and discussion for each unit are worth **6 points** total and are evaluated based on three criteria: **quantity, quality, and connections to readings**.
 
-In term of **quantity** (2 points), you'll be expected to add at least 4 posts over the course of the week and spread across at least two different days. *Your initial post should be shared by Friday* to help facilitate discussion.
+**Quantity** (2 points): You are expected to contribute **at least four discussion posts** over the course of the week, spread across **at least two different days**. To help facilitate meaningful discussion, your initial post should be submitted by **Friday**.
 
-In terms of **quality** (2 points), your posts over the next week should provide new or insightful contributions to the division questions or topics (see [Gao's productive online discussion model](https://scholarworks.bgsu.edu/cgi/viewcontent.cgi?article=1040&&context=vcte_pub&&sei-redir=1&referer=https%253A%252F%252Fscholar.google.com%252Fscholar%253Fhl%253Den%2526as_sdt%253D0%25252C34%2526q%253DGao%252Bproductive%252Bonline%252Bdiscussion%252Bmodel%2526btnG%253D#search=%22Gao%20productive%20online%20discussion%20model%22) summarized below). There is no requisite for the length of each posting; in fact short conversational exchanges (1-3 paragraphs) are highly encouraged.
+Q**uality** (2 points): Your posts should offer new, thoughtful, or insightful contributions to the discussion questions or topics (see [Gao’s productive online discussion model ](https://scholarworks.bgsu.edu/cgi/viewcontent.cgi?article=1040&&context=vcte_pub&&sei-redir=1&referer=https%253A%252F%252Fscholar.google.com%252Fscholar%253Fhl%253Den%2526as_sdt%253D0%25252C34%2526q%253DGao%252Bproductive%252Bonline%252Bdiscussion%252Bmodel%2526btnG%253D#search=%22Gao%20productive%20online%20discussion%20model%22)summarized below). There is no required length for individual posts; in fact, short conversational exchanges (approximately 1–3 paragraphs) are strongly encouraged.
 
-In terms of **connections** (2 points), your collective posts should help us interpret or elaborate on discussion topics, questions, or ideas other have shared by "making connection to the learning materials" as illustrated in Gao's Disposition 1: Discussion to Comprehend. Your posts should tie in to at least 3 different resources.
+**Connections to readings (2 points):** Across your posts, you should help interpret or extend the discussion by explicitly connecting ideas to the course readings or other shared resources. Following Gao’s *Disposition 1: Discussion to Comprehend*, your contributions should make clear connections to **at least three different resources** over the course of the week.
 
 ### Productive Online Discussion Model
 
