@@ -70,7 +70,7 @@ Hands-on data analysis tutorials and experiences will make extensive use of R an
 
     -   Register for a free Posit Cloud account at: <https://login.posit.cloud/register.>
 
-    -   Following registration, you can access our ECI 588: Text Mining in Education Posit workspace at: <https://posit.cloud/spaces/677551/join?access_code=19XaljG95C_VBh5GKD2c_7CCp5jrxhc1_NcdjN1S>
+    -   Following registration, you can access our ECI 588: Text Mining in Education Posit workspace at: <https://posit.cloud/spaces/738617/join?access_code=Y9YJqz42CtikhLyFvmgELNrqeOmkaXSo5n6N72CE>
 
 2.  **Quarto Pub** ([https://quartopub.com](https://quartopub.com/)) is a free and easy web publishing platform for Quarto docs. To publish the documents via Quarto Pub, however, you will first need to create an account.
 
