@@ -1,7 +1,7 @@
 ---
 title: "Unit 1 Readings: What is Text Mining?"
 subtitle: "ECI 588: Text Mining in Education"
-author: "Dr. Shaun Kellogg"
+author: "Dr. Joey Huang"
 date: today
 format:
   html:
@@ -15,7 +15,7 @@ editor: visual
 
 ## OVERVIEW
 
-The primary goal of the Unit 1 readings and discussion is to build a basic understanding of text mining and its applications for understanding and improving teaching. The required and self-selected readings for this week provide an introduction to text mining in the field of education, and text mining more generally. A secondary goal of readings and discussion is to help you start generating ideas for independent analyses and/or your final course project.
+The primary goal of the Unit 1 readings and discussion is to build a foundational understanding of text mining and its applications for understanding and improving teaching. The required and self-selected readings introduce text mining in educational contexts as well as text mining more broadly. A secondary goal of the readings and discussion is to help you begin generating ideas for independent analyses and your final course project.
 
 ## READINGS
 
@@ -31,21 +31,19 @@ To help address our discussion questions for the week, you'll be asked to read o
 
 2.  Bail, C. (2020). [An Introduction to Text Analysis](https://youtu.be/pLsC4UyzX_U). Retrieved from https://youtu.be/pLsC4UyzX_U
 
-3.  Fesler, L., Dee, T., Baker, R., & Evans, B. (2019). [Text as data methods for education research](https://moodle-courses2021.wolfware.ncsu.edu/draftfile.php/115316/user/draft/615071748/Fesler-2019-Text%20as%20Data%20Methods%20for%20Education%20Research.pdf). Journal of Research on Educational Effectiveness, 12(4), 707-727.
+3.  Takaki, P., & Dutra, M. L. (2024).[ Text mining applied to distance higher education: A systematic literature review.](https://link-springer-com.prox.lib.ncsu.edu/article/10.1007/s10639-023-12235-0) *Education and Information Technologies*, *29*(9), 10851-10878.
 
-4.  Temos, J. (2016). [Text analysis for teaching](https://mcgrawect.princeton.edu/text-analysis-for-teaching/). The McGraw Center. Retrieved from https://mcgrawect.princeton.edu/text-analysis-for-teaching/
-
-5.  Underwood, T. (2015). [Where to start with text mining](https://tedunderwood.com/2012/08/14/where-to-start-with-text-mining/). The Stone and the Shell. Retrieved from https://tedunderwood.com/2012/08/14/where-to-start-with-text-mining/
+4.  Underwood, T. (2015). [Where to start with text mining](https://tedunderwood.com/2012/08/14/where-to-start-with-text-mining/). The Stone and the Shell. Retrieved from https://tedunderwood.com/2012/08/14/where-to-start-with-text-mining/
 
 ### 3. Self-Selected Resource
 
-Use the [NCSU Library](#0), [Google Scholar](#0) or search engine of your choice to locate a journal article, presentation, website or other scholarly resource. For example, in [Text Mining in Education](#0) one of the articles cited in the literature review may have peaked your interest and you'd like to follow up on it. Your selection should also address one or more of the discussion topics/questions provided below. In addition, you are welcome to find less formal resources such as videos or shorter online articles to share with the class and that help us better understand this week's topics for discussion.
+Use the [NCSU Library](#0), [Google Scholar](#0) or a search engine of your choice to locate a journal article, presentation, website, or other scholarly resource. For example, in *Text Mining in Education* (Ferreira-Mello et al., 2019), one of the articles cited in the literature review may have piqued your interest and you may wish to follow up on it. Your selected resource should address one or more of the discussion topics or questions provided below. In addition, you are welcome to share less formal resources, such as videos or shorter online articles, that help the class better understand this week’s discussion topics.
 
 ## DISCUSSION
 
-In lieu of the peer interaction and discussion of course materials that normally take place "in class", you'll be asked to log in this week and engage with other members of our learning community through the course discussion forum. To help guide our discussions, **we will collectively address a set of guiding questions provided in each forum**. You are also welcome to add your own topics or questions for the class to discuss.
+In lieu of the peer interaction and discussion of course materials that normally take place in class, you will be asked to log in this week and engage with other members of our learning community through the course discussion forum. To help guide our conversations, **we will collectively address a set of guiding questions provided in each forum**. You are also welcome to introduce your own topics or questions for the class to discuss.
 
-With the exception of the Self-Selected resource, **you are not required to post to every thread or address every question listed below**, particularly if you feel others in the class have thoroughly addressed the topic or questions. Our primary goal for these discussions is to collectively build our understanding of this week's topics through back-and-forth dialogue and avoid a "collective monologue" in which we see 20 variations of the same post.
+With the exception of the self-selected resource, you are not required to post in every thread or respond to every question listed below, especially if you feel that others have already addressed the topic thoroughly. The primary goal of these discussions is to build a shared understanding of this week’s topics through meaningful back-and-forth dialogue, rather than a “collective monologue” in which many posts repeat the same ideas.
 
 ### Guiding Questions
 

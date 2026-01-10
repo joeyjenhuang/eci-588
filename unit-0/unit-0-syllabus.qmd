@@ -298,17 +298,17 @@ While I encourage the integration of GenAI in your learning experience, there ar
 
 ### Unit 1
 
-#### Introductory Readings (Choose 2)
+#### Introductory Readings
 
-1.  Bail, C. (2018). Strengths and weaknesses of text as data. Retrieved from <https://cbail.github.io/textasdata/strengths-weaknesses/rmarkdown/Strengths_and_Weaknesses.html>
+1.  Ferreira‐Mello, R., André, M., Pinheiro, A., Costa, E., & Romero, C. (2019). [Text mining in education](https://ncsu.summon.serialssolutions.com/#!/search?bookMark=eNp1j79PwzAQhS0UJErpwMYYiYkh7fkcx86Iyq9KRSyRGK2QXJCrxilOotL_noRIbNz0hu-903fJAtc4Yuyaw5ID4Opoy3rJhcAzNuNpjFGsUhn8Za0u2KJtdzCcQK01zthNRt9dWFtn3WdoXUhlX-SdbdwVO6_yfUsLFnS-pznLnh6z9Uu0fXverO-3UYGpwkgkukxFhUCUSCV5CRJUoitUMlWVEmmuyiQvKSZAiuWHApJaKVklwAG5mLPbafbgm6-e2s7smt674bFBAQI4Sg4DdTdRhW_a1lNlDt7WuT8ZDmY0N6O5Gc0HdjWxR7un0_-ged88vP42fgAOlliW). Wiley Interdisciplinary Reviews: Data Mining and Knowledge Discovery, 9(6). https://doi.org/10.1002/widm.1332
 
-2.  Gupta, V., & Lehal, G. S. G. S. (2009). [A Survey of Text Mining Techniques and Application](https://learnpunjabi.org/pdf/gslehal-pap18.pdf)s. Journal of Emerging Technologies in Web Intelligence, 1(1), 60–76. doi:10.4304/jetwi.1.1.60-76 3. 4.
+2.  Bail, C. (2018). Strengths and weaknesses of text as data. Retrieved from <https://cbail.github.io/textasdata/strengths-weaknesses/rmarkdown/Strengths_and_Weaknesses.html>
 
-3.  Hotho, A., Nürnberger, A., & Forum, G. P. L. (2005). [A brief survey of text mining](https://jlcl.org/article/view/68/66). JISC. (2008).
+3.  Bail, C. (2020). [An Introduction to Text Analysis](https://youtu.be/pLsC4UyzX_U). Retrieved from https://youtu.be/pLsC4UyzX_U
 
-4.  Kwartler, T. (2016). R tutorial: What is text mining? Retrieved from <https://youtu.be/mmz95b1k0J0>
+4.  Takaki, P., & Dutra, M. L. (2024).[ Text mining applied to distance higher education: A systematic literature review.](https://link-springer-com.prox.lib.ncsu.edu/article/10.1007/s10639-023-12235-0) *Education and Information Technologies*, *29*(9), 10851-10878. 
 
-5.  Prato, S. (2013). What is text mining? Retrieved from <http://infospace.ischool.syr.edu/2013/04/23/what-is-text-mining/>
+5.  Underwood, T. (2015). [Where to start with text mining](https://tedunderwood.com/2012/08/14/where-to-start-with-text-mining/). The Stone and the Shell. Retrieved from https://tedunderwood.com/2012/08/14/where-to-start-with-text-mining.
 
 #### Text Mining in Education (Optional)
 
@@ -336,7 +336,7 @@ While I encourage the integration of GenAI in your learning experience, there ar
 
 ### Unit 2
 
-#### Dictionary Methods (Chose 1)
+#### Dictionary Methods
 
 1.  Grimmer, J., & Stewart, B. M. (2013). Text as data: The promise and pitfalls of automatic content analysis methods for political texts. Political Analysis, 21(03), 267–297. <http://doi.org/10.1093/pan/mps028>
 
@@ -362,7 +362,7 @@ While I encourage the integration of GenAI in your learning experience, there ar
 
 ### Unit 3
 
-#### Introductory Readings & Resources (All required)
+#### Introductory Readings & Resources
 
 1.  Brett, M. R. (2012). Topic modeling: A basic introduction. *Journal of digital humanities*, *2*(1), 2-1. <https://journalofdigitalhumanities.org/2-1/topic-modeling-a-basic-introduction-by-megan-r-brett/>
 
