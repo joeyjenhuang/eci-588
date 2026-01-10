@@ -40,7 +40,7 @@ There are several required textbooks for this course, all of which are freely av
 
 ### Required
 
-1.  Silge, J., & Robinson, D. (2017). *Text mining with R: A tidy approach*. O'Reilly Media, Inc. [https://www.tidytextmining.com](#0)
+1.  Silge, J., & Robinson, D. (2017). *Text mining with R: A tidy approach*. O'Reilly Media, Inc. <https://www.tidytextmining.com>
 2.  Researcher and Practitioner Articles (see References). Provided through the Moodle course site.
 
 ### Optional
@@ -306,7 +306,7 @@ While I encourage the integration of GenAI in your learning experience, there ar
 
 3.  Bail, C. (2020). [An Introduction to Text Analysis](https://youtu.be/pLsC4UyzX_U). Retrieved from https://youtu.be/pLsC4UyzX_U
 
-4.  Takaki, P., & Dutra, M. L. (2024).[ Text mining applied to distance higher education: A systematic literature review.](https://link-springer-com.prox.lib.ncsu.edu/article/10.1007/s10639-023-12235-0) *Education and Information Technologies*, *29*(9), 10851-10878. 
+4.  Takaki, P., & Dutra, M. L. (2024).[Text mining applied to distance higher education: A systematic literature review.](https://link-springer-com.prox.lib.ncsu.edu/article/10.1007/s10639-023-12235-0) *Education and Information Technologies*, *29*(9), 10851-10878. 
 
 5.  Underwood, T. (2015). [Where to start with text mining](https://tedunderwood.com/2012/08/14/where-to-start-with-text-mining/). The Stone and the Shell. Retrieved from https://tedunderwood.com/2012/08/14/where-to-start-with-text-mining.
 
