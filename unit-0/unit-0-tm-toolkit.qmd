@@ -56,9 +56,9 @@ First, sign up for a DataCamp account using your NC State email.
 
 Next, click the following link to access our [ECI 588 Text Mining DataCamp group space](https://www.datacamp.com/groups/shared_links/160899bb7edcee8421a910a2576918e850dbfca1fac68a320e21a086051eb519). You will be informed that you have been invited to join the space and should see a message like the one below. Log in by creating a password to accept the invitation to our group, and then click the **“Getting Started”** button on the page that follows.
 
-![](images/Screenshot 2026-01-09 at 8.16.55 PM.png){fig-align="center" width="381"}
+![](img/datacamp 1.png){fig-align="center" width="381"}
 
-Next you'll be prompted to "Start with the course that Joey Huang has assigned to you" or "Go to the Dashboard -\>" instead. You're welcome to get started immediately on the **Introduction to R** course, but I recommend taking a quick visit to the group dashboard first. ![](images/Screenshot 2026-01-09 at 8.16.40 PM.png)
+Next you'll be prompted to "Start with the course that Joey Huang has assigned to you" or "Go to the Dashboard -\>" instead. You're welcome to get started immediately on the **Introduction to R** course, but I recommend taking a quick visit to the group dashboard first. ![](img/datacamp 2.png)
 
 ### Visit Dashboard
 
