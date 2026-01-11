@@ -34,7 +34,7 @@ Hands-on data analysis tutorials and experiences will make extensive use of R an
 
     -   First, register for a free Posit Cloud account at: <https://login.posit.cloud/register.>
 
-    -   Next, access our ECI 588: Text Mining in Education workspace at: <https://posit.cloud/spaces/738617/join?access_code=Y9YJqz42CtikhLyFvmgELNrqeOmkaXSo5n6N72CE>
+    -   Next, access our ECI 588: Text Mining in Education workspace at: <https://posit.cloud/spaces/738839/join?access_code=7T6vEWWqCSB_pGA_kMXmPT-aflK0xWRkUyw-C2v4>
 
 2.  **DataCamp** ([https://www.datacamp.com](https://www.datacamp.com/)) is an online learning platform with a large catalog of video tutorials, coding activities, assessments and certifications for R, Python, data science, statistics & more.
 
@@ -56,9 +56,9 @@ First, sign up for a DataCamp account using your NC State email.
 
 Next, click the following link to access our [ECI 588 Text Mining DataCamp group space](https://www.datacamp.com/groups/shared_links/160899bb7edcee8421a910a2576918e850dbfca1fac68a320e21a086051eb519). You will be informed that you have been invited to join the space and should see a message like the one below. Log in by creating a password to accept the invitation to our group, and then click the **“Getting Started”** button on the page that follows.
 
-![](img/datacamp 1.png){fig-align="center" width="381"}
+![](img/datacamp%201.png){fig-align="center" width="381"}
 
-Next you'll be prompted to "Start with the course that Joey Huang has assigned to you" or "Go to the Dashboard -\>" instead. You're welcome to get started immediately on the **Introduction to R** course, but I recommend taking a quick visit to the group dashboard first. ![](img/datacamp 2.png)
+Next you'll be prompted to "Start with the course that Joey Huang has assigned to you" or "Go to the Dashboard -\>" instead. You're welcome to get started immediately on the **Introduction to R** course, but I recommend taking a quick visit to the group dashboard first. ![](img/datacamp%202.png)
 
 ### Visit Dashboard
 
@@ -92,7 +92,7 @@ If you haven't done so already, be sure to sign up for a free Posit account. You
 
 ### Join Space
 
-Next, access our [ECI 588 Text Mining in Education (2026)](https://posit.cloud/spaces/738617/join?access_code=Y9YJqz42CtikhLyFvmgELNrqeOmkaXSo5n6N72CE) workspace. This space is part of my paid plan and will provide you unlimited use of Posit Cloud during the semester. You should see a prompt to "Join Space?" like the one below:
+Next, access our [ECI 588 Text Mining in Education (2026)](https://posit.cloud/spaces/738839/join?access_code=7T6vEWWqCSB_pGA_kMXmPT-aflK0xWRkUyw-C2v4) workspace. This space is part of my paid plan and will provide you unlimited use of Posit Cloud during the semester. You should see a prompt to "Join Space?" like the one below:
 
 ![](img/join-space.png){width="100%"}
 
