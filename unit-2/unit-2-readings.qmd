@@ -107,6 +107,8 @@ Reflecting on the course text and your self-selected reading, answer one or more
 
 #### Topic 3: Lexicons and Measures
 
+Reflecting on the course text and your self-selected reading, answer one or more of the following questions:
+
 1.  What types of dictionaries or lexicons were described in the readings, and how are they created?
 2.  How can lexicons be used to classify, quantify, and/or measure a collection of documents? 
 3.  Under what conditions or contexts are lexicons and associated measures more or less trustworthy?
