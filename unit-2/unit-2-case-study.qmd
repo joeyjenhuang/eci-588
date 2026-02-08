@@ -1,7 +1,7 @@
 ---
 title: "Unit 2 Case Study: Twitter Sentiment Towards State Standards"
 subtitle: "ECI 588: Text Mining in Education"
-author: "Dr. Shaun Kellogg"
+author: "Dr. Joey Huang"
 date: today
 format:
   html:
@@ -18,18 +18,18 @@ execute:
 
 ## 0. INTRODUCTION
 
-Data sources such as digital learning environments and administrative data systems, as well as data produced by social media websites and the mass digitization of academic and practitioner publications, hold enormous potential to address a range of pressing problems in education, but collecting and analyzing text-based data also presents unique challenges. This week, our case study is guided by my colleague Josh Rosenberg's study, **Understanding Public Sentiment about Educational Reforms: The Next Generation Science Standards on Twitter.** We will focus on conducting a very simplistic "replication study" by comparing the sentiment of tweets about the [Next Generation Science Standards](https://www.nextgenscience.org) (NGSS) and [Common Core State Standards](http://www.corestandards.org) (CCSS) in order to better understand public reaction to these two curriculum reform efforts.
+Data sources such as digital learning environments and administrative data systems, as well as data produced by social media websites and the mass digitization of academic and practitioner publications, hold enormous potential to address a range of pressing problems in education, but collecting and analyzing text-based data also presents unique challenges. This week, our case study is guided by Josh Rosenberg's study, **Understanding Public Sentiment about Educational Reforms: The Next Generation Science Standards on Twitter.** We will focus on conducting a very simplistic "replication study" by comparing the sentiment of tweets about the [Next Generation Science Standards](https://www.nextgenscience.org) (NGSS) and [Common Core State Standards](http://www.corestandards.org) (CCSS) in order to better understand public reaction to these two curriculum reform efforts.
 
 ### Case Study Focus
 
-For Unit 2, our focus will be using data that was collected using a now sadly depricated Twitter API and using sentiment lexicons to help gauge public opinion about those topics or tweets. The following diagram from Silge & Robinson @silge2017text nicely illustrates the process of using text mining {tidverse} functions to analyze the sentiment of text:
+For Unit 2, our focus will be using data that was collected using a now sadly deprecated Twitter API and using sentiment lexicons to help gauge public opinion about those topics or tweets. The following diagram from Silge & Robinson @silge2017text nicely illustrates the process of using text mining {tidverse} functions to analyze the sentiment of text:
 
 [![Figure 2.1: A flowchart of a typical text analysis that uses tidytext for sentiment analysis.](img/sentiment-flow.png "Figure 2.1: A flowchart of a typical text analysis that uses tidytext for sentiment analysis. This chapter shows how to implement sentiment analysis using tidy data principles."){width="100%"}](https://www.tidytextmining.com/sentiment.html#sentiment)
 
 For Unit 2, our case study will cover the following topics:
 
 1.  **Prepare**: Prior to analysis, it's critical to understand the context and data sources you're working with so you can formulate useful and answerable questions. We'll take a quick look at Dr. Rosenberg's study as how data through Twitter's now deprecated API.
-2.  **Wrangle**: In section 2 we revisit tidying and tokenizing text from Unit 1 and learn some new functions for appending sentiment scores to our tweets using the AFFIN, bing, and nrc sentiment lexicons.
+2.  **Wrangle**: In section 2 we revisit tidying and tokenizing text from Unit 1 and learn some new functions for appending sentiment scores to our tweets using the AFFIN, Bing, and NRC sentiment lexicons.
 3.  **Explore**: In section 3, we use simple summary statistics and basic data visualization to compare sentiment between NGSS and CCSS tweets.
 4.  **Model**: We explore the {vader} package to model the sentiment of tweets, as well as examine a mixed-effects model used by Rosenberg et al. to analyze the sentiment of tweets.
 5.  **Communicate:** Finally, I'll demonstrated a simple data product for communicating findings from our analysis.
@@ -110,7 +110,7 @@ The purpose of this study was to understand the nature of the public sentiment e
 
 2.  What factors explain variation in this public sentiment?
 
-For this case study, we'll use a similar approach used by the authors to guage public sentiment around the NGSS, by comparing how much more positive or negative NGSS tweets are relative to CSSS tweets.
+For this case study, we'll use a similar approach used by the authors to gauge public sentiment around the NGSS, by comparing how much more positive or negative NGSS tweets are relative to CSSS tweets.
 
 Our (very) specific questions of interest for this case study are:
 
@@ -123,7 +123,7 @@ And just to reiterate from Unit 1, one overarching question we'll explore throug
 
 ### 1c. Load Libraries
 
-As highlighted in [Chapter 6 of Data Science in Education Using R](https://datascienceineducation.com/c06#c06p) (DSIEUR), **packages** are shareable collections of R code that contain functions, data, and documentation. Sometimes refered to as libraries, these **packages**:
+As highlighted in [Chapter 6 of Data Science in Education Using R](https://datascienceineducation.com/c06#c06p) (DSIEUR), **packages** are shareable collections of R code that contain functions, data, and documentation. Sometimes referred to as libraries, these **packages**:
 
 > increase the functionality of R by providing access to additional functions to suit a variety of needs. While it is entirely possible to do your work in R without packages, it’s not recommend. There are a wealth of packages available that reduce the learning curve the time spent on analytical projects.
 
