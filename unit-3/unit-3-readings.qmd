@@ -9,7 +9,6 @@ format:
     toc-depth: 4
 theme:
   light: simplex
-  dark: cyborg
 editor: visual
 ---
 
@@ -78,7 +77,7 @@ Reflecting on the course text and your self-selected reading, answer one or more
 3.  How could topic modeling be applied in your own professional context? What text data exists there that might be worth analyzing?
 4.  Could topic modeling be used to address systemic or persistent problems in education? How so?
 
-#### Topic 3:  Measures, Validation & Interpretation
+#### Topic 3: Measures, Validation & Interpretation
 
 Reflecting on the course text and your self-selected reading, answer one or more of the following questions:
 
