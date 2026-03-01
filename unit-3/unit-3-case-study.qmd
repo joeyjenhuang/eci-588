@@ -129,6 +129,7 @@ Below is a brief introduction to key packages commonly used in the topic modelin
 Use the code chunk below to load all of the packages highlighted above, including the {tidyverse} and {tidytext} packages:
 
 ```{r setup}
+#| include: false
 #| cache: false
 library(readr)
 library(dplyr)
@@ -145,6 +146,23 @@ library(knitr)
 library(LDAvis)
 ```
 
+```{r}
+#| eval: false
+# YOUR CODE HERE
+library(readr)
+library(dplyr)
+library(tidytext)
+library(ggplot2)
+library(tm)
+library(topicmodels)
+library(stm)
+library(ldatuning)
+library(SnowballC)
+library(tidyr)
+library(purrr)
+library(knitr)
+library(LDAvis)
+```
 ## 2. WRANGLE
 
 As noted previously, data wrangling involves some combination of cleaning, reshaping, transforming, and merging data [@wickham2023r]. This week we'll revisit tidying and tokenizing text using the {tidytext} package, but are also introduced to the the {stm} package. This package makes use of {tm} text mining package to preprocess text (e.g., removing punctuation, stop words, etc.) and will also be our first introduction to word stemming.
