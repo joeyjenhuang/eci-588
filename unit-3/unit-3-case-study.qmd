@@ -128,7 +128,8 @@ Below is a brief introduction to key packages commonly used in the topic modelin
 
 Use the code chunk below to load all of the packages highlighted above, including the {tidyverse} and {tidytext} packages:
 
-```{# YOUR CODE HERE}
+```{r setup}
+# YOUR CODE HERE
 
 
 ```
@@ -147,7 +148,8 @@ To get started, we need to import, or "read", our data into R. The function used
 
 Now let's read our data into our Environment using the `read_csv()` function and assign it to a variable named `ts_forum_data` so we can work with it like any other object in R.
 
-```{ts_forum_data <- read_csv("data/ts_forum_data.csv",}
+```
+{ts_forum_data <- read_csv("data/ts_forum_data.csv",}
   col_types = cols(course_id = col_character(),
                    forum_id = col_character(), 
                    discussion_id = col_character(), 
