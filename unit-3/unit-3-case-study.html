@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Dr.&nbsp;Shaun Kellogg">
-<meta name="dcterms.date" content="2025-03-05">
+<meta name="author" content="Dr.&nbsp;Joey Huang">
+<meta name="dcterms.date" content="2026-03-01">
 
 <title>Unit 3 Case Study: Topic Modeling in MOOC-Eds</title>
 <style>
@@ -23,8 +23,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -35,7 +36,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -80,22 +81,21 @@ div.csl-indent {
 
 
 <script src="unit-3-case-study_files/libs/clipboard/clipboard.min.js"></script>
-<script src="unit-3-case-study_files/libs/quarto-html/quarto.js"></script>
+<script src="unit-3-case-study_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="unit-3-case-study_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="unit-3-case-study_files/libs/quarto-html/popper.min.js"></script>
 <script src="unit-3-case-study_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="unit-3-case-study_files/libs/quarto-html/anchor.min.js"></script>
 <link href="unit-3-case-study_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="unit-3-case-study_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="unit-3-case-study_files/libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="unit-3-case-study_files/libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="unit-3-case-study_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="unit-3-case-study_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="unit-3-case-study_files/libs/bootstrap/bootstrap-00d65cf21f174b4516a2e66297fda939.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="unit-3-case-study_files/libs/bootstrap/bootstrap-dark-c849bbedd074e1c235909309894d6680.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="unit-3-case-study_files/libs/bootstrap/bootstrap-46505373cc1e1718b5c25ed721e20305.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
 
-<body>
+<body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -154,14 +154,14 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Dr.&nbsp;Shaun Kellogg </p>
+             <p>Dr.&nbsp;Joey Huang </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 5, 2025</p>
+      <p class="date">March 1, 2026</p>
     </div>
   </div>
   
@@ -175,7 +175,7 @@ div.csl-indent {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">0. INTRODUCTION</h2>
-<p>The Unit 3 case study extends previous research and evaluation work by myself and some of my colleagues at the Friday Institute for Educational Innovation at North Carolina State University. In addition to many other areas of inquiry, our work was aimed at understanding and improving peer interaction and discussion in the Friday Institute’s Massively Open Online Courses for Educators (MOOC-Ed) and Online Professional Learning programs. To learn more about these courses and programs, visit: <a href="https://place.fi.ncsu.edu" class="uri">https://place.fi.ncsu.edu</a></p>
+<p>The Unit 3 case study extends previous research and evaluation work by my former colleague, Dr.&nbsp;Shuan Kellogg, and colleagues at the Friday Institute for Educational Innovation at North Carolina State University. In addition to many other areas of inquiry, the work was aimed at understanding and improving peer interaction and discussion in the Friday Institute’s Massively Open Online Courses for Educators (MOOC-Ed) and Online Professional Learning programs. To learn more about these courses and programs, visit: <a href="https://place.fi.ncsu.edu" class="uri">https://place.fi.ncsu.edu</a></p>
 <section id="case-study-focus" class="level3">
 <h3 class="anchored" data-anchor-id="case-study-focus">Case Study Focus</h3>
 <p>Our focus this week will be on identifying “topics” by examining how words cohere into different latent, or hidden, “themes” based on patterns of co-occurrence of words within documents. With a bit of tongue-in-cheek,&nbsp;<a href="http://journalofdigitalhumanities.org/2-1/dh-contribution-to-topic-modeling/">Meeks and Weingart (2012)</a> describe topic modeling as:&nbsp;</p>
@@ -186,7 +186,7 @@ div.csl-indent {
 <p>With respect to the actual R workflow of applying topic models to documents and text of interests, Silge &amp; Robinson <span class="citation" data-cites="silge2017text">Silge and Robinson (<a href="#ref-silge2017text" role="doc-biblioref">2017</a>)</span> added a new bottom row their flowchart consisting of three new terms, including new data structures (i.e., a <strong>corpus</strong> object and <strong>document-term matrix</strong>) and the <strong>Latent Dirichlet Allocation (LDA)</strong> model:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://www.tidytextmining.com/topicmodeling.html"><img src="img/tm_flow.png" title="A flowchart of a text analysis that incorporates topic modeling. The topicmodels package takes a Document-Term Matrix as input and produces a model that can be tided by tidytext, such that it can be manipulated and visualized with dplyr and ggplot2." class="img-fluid figure-img" style="width:90.0%" alt="Figure&nbsp;source:&nbsp;Silge,&nbsp;J.,&nbsp;&amp;&nbsp;Robinson,&nbsp;D.&nbsp;(2017).&nbsp;Text&nbsp;mining&nbsp;with&nbsp;R:&nbsp;A&nbsp;tidy&nbsp;approach.&nbsp;O’Reilly&nbsp;Media,&nbsp;Inc.&nbsp;Retrieved from: https://www.tidytextmining.com/topicmodeling.html"></a></p>
+<p><a href="https://www.tidytextmining.com/topicmodeling.html"><img src="img/tm_flow.png" title="A flowchart of a text analysis that incorporates topic modeling. The topicmodels package takes a Document-Term Matrix as input and produces a model that can be tided by tidytext, such that it can be manipulated and visualized with dplyr and ggplot2." class="img-fluid figure-img" style="width:90.0%"></a></p>
 <figcaption>Figure&nbsp;source:&nbsp;Silge,&nbsp;J.,&nbsp;&amp;&nbsp;Robinson,&nbsp;D.&nbsp;(2017).&nbsp;Text&nbsp;mining&nbsp;with&nbsp;R:&nbsp;A&nbsp;tidy&nbsp;approach.&nbsp;O’Reilly&nbsp;Media,&nbsp;Inc.&nbsp;Retrieved from: https://www.tidytextmining.com/topicmodeling.html</figcaption>
 </figure>
 </div>
@@ -216,7 +216,7 @@ div.csl-indent {
 <figure class="figure">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><a href="https://place.fi.ncsu.edu/local/catalog/course.php?id=4&amp;ref=1"><img src="img/tsdi.png" title="Our world is rich with data sources, and technology makes data more accessible than ever before! To help ensure students are future ready to use data for making informed decisions, many countries around the world have increased the emphasis on statistics and data analysis in school curriculum–from elementary/primary grades through college. This course allows you to learn, along with colleagues from other schools, an investigation cycle to teach statistics and to help students explore data to make evidence-based claims. To learn more about engaging learners in making inferences and claims supported by data and how to emphasize inferential reasoning in teaching statistics through posing different types of investigative questions, enroll in our Teaching Statistics through Inferential Reasoning MOOC-Ed." class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:50.0%" alt="Teaching Statistics Through Data Investigations MOOC-Ed"></a></p>
+<p><a href="https://place.fi.ncsu.edu/local/catalog/course.php?id=4&amp;ref=1"><img src="img/tsdi.png" title="Our world is rich with data sources, and technology makes data more accessible than ever before! To help ensure students are future ready to use data for making informed decisions, many countries around the world have increased the emphasis on statistics and data analysis in school curriculum–from elementary/primary grades through college. This course allows you to learn, along with colleagues from other schools, an investigation cycle to teach statistics and to help students explore data to make evidence-based claims. To learn more about engaging learners in making inferences and claims supported by data and how to emphasize inferential reasoning in teaching statistics through posing different types of investigative questions, enroll in our Teaching Statistics through Inferential Reasoning MOOC-Ed." class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:50.0%"></a></p>
 </figure>
 </div>
 <figcaption>Teaching Statistics Through Data Investigations MOOC-Ed</figcaption>
@@ -289,7 +289,49 @@ div.csl-indent {
 <h4 class="anchored" data-anchor-id="your-turn"><strong>👉 Your Turn ⤵</strong></h4>
 <p>Use the code chunk below to load all of the packages highlighted above, including the {tidyverse} and {tidytext} packages:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: NLP</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'NLP'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:ggplot2':
+
+    annotate</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(topicmodels)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>stm v1.3.8 successfully loaded. See ?stm for help. 
+ Papers, resources, and other materials at structuraltopicmodel.com</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ldatuning)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SnowballC)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(LDAvis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -307,20 +349,20 @@ div.csl-indent {
 <p>To get started, we need to import, or “read”, our data into R. The function used to import your data will depend on the file format of the data you are trying to import. First, however, check your Files tab in RStudio to verify that there is indeed file named <code>ts_forum_data.csv</code> in your <code>data</code> folder.</p>
 <p>Now let’s read our data into our Environment using the <code>read_csv()</code> function and assign it to a variable named <code>ts_forum_data</code> so we can work with it like any other object in R.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ts_forum_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ts_forum_data.csv"</span>, </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">course_id =</span> <span class="fu">col_character</span>(),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">forum_id =</span> <span class="fu">col_character</span>(), </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">discussion_id =</span> <span class="fu">col_character</span>(), </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">post_id =</span> <span class="fu">col_character</span>()</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                   )</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ts_forum_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ts_forum_data.csv"</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">course_id =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">forum_id =</span> <span class="fu">col_character</span>(), </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">discussion_id =</span> <span class="fu">col_character</span>(), </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">post_id =</span> <span class="fu">col_character</span>()</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                   )</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>By default, many of the columns like <code>course_id</code> and <code>forum_id</code> are read in as numeric data. For our purposes, we plan to treat them as unique identifiers or names for out courses, forums, discussions, and posts. The <code>read_csv()</code> function has a handy <code>col_types =</code> argument changing the column types from numeric to characters.</p>
 <section id="your-turn-1" class="level4">
 <h4 class="anchored" data-anchor-id="your-turn-1"><strong>👉 Your Turn ⤵</strong></h4>
 <p>Use the code chunk below to inspect the data frame you just imported using a function of your choosing:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#YOUR CODE HERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#YOUR CODE HERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In this case study, we are exploring the use of topic modeling to analyze online discussions in an online course for educators. One critical step in preparing data for analysis is creating a codebook, which serves as a reference document that defines each variable in a dataset, including its meaning, format, and potential values.</p>
 <p>In the table, provide a short description for each variable based on what you think the values for each column represent. The fist one has been completed for you:</p>
@@ -426,22 +468,74 @@ div.csl-indent {
 </ol>
 <p>Let’s tokenize our forum text and by using the familiar <code>unnest_tokens()</code> and remove stop words per usual:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>forums_tidy <span class="ot">&lt;-</span> ts_forum_data <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> post_content) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>forums_tidy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>forums_tidy <span class="ot">&lt;-</span> ts_forum_data <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> post_content) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>forums_tidy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 194,298 × 14
+   course_id course_name       forum_id forum_name discussion_id discussion_name
+   &lt;chr&gt;     &lt;chr&gt;             &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;          
+ 1 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 2 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 3 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 4 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 5 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 6 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 7 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 8 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 9 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+10 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+# ℹ 194,288 more rows
+# ℹ 8 more variables: discussion_creator &lt;dbl&gt;, discussion_poster &lt;dbl&gt;,
+#   discussion_reference &lt;chr&gt;, parent_id &lt;dbl&gt;, post_date &lt;chr&gt;,
+#   post_id &lt;chr&gt;, post_title &lt;chr&gt;, word &lt;chr&gt;</code></pre>
+</div>
 </div>
 <p>Now let’s do a quick word count to see some of the most common words used throughout the forums. This should get a sense of what we’re working with and later we’ll need these word counts for creating our document term matrix for topic modeling:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>forums_tidy <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>forums_tidy <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 13,448 × 2
+   word           n
+   &lt;chr&gt;      &lt;int&gt;
+ 1 students    6842
+ 2 data        4370
+ 3 statistics  3107
+ 4 school      1488
+ 5 questions   1470
+ 6 class       1426
+ 7 font        1311
+ 8 span        1267
+ 9 time        1253
+10 style       1178
+# ℹ 13,438 more rows</code></pre>
+</div>
 </div>
 <p>Terms like “students,” “data,” and “class” are about what we would have expected from a course teaching statistics. The term “agree” and “time” however, are not so intuitive and worth a quick look as well.</p>
 </section>
 <section id="your-turn-2" class="level4">
 <h4 class="anchored" data-anchor-id="your-turn-2"><strong>👉 Your Turn ⤵</strong></h4>
 <p>Use the <code>filter()</code> and <code>grepl()</code> functions introduced in <a href="https://sbkellogg.github.io/eci-588/unit-1/unit-1-walkthrough.html#b.-word-search">Unit 1. Section 3b</a> to filter for rows in our <code>ts_forum_data</code> data frame that contain a term or terms of your choosing. Select a random sample of 10 posts using the <code>sample_n()</code> function for your term(s) and answer the questions below.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 1
+   post_content                                                                 
+   &lt;chr&gt;                                                                        
+ 1 "I used the tuva website with my class a couple weeks ago.  I gave them a br…
+ 2 "Also  if you end up teaching AP Statistics  you can join the AP Teacher Com…
+ 3 "I think that these type of \\data-ready\\\" examples give the students a te…
+ 4 "I see that lots of you like the Coke/Pepsi activity and there's definitely …
+ 5 "Of the three middle school task  all students will be able to relate to tim…
+ 6 "Our school has a 30 min each day where every student is assigned to a teach…
+ 7 "This activity has a built in reward : drink of a popular beverage which  sh…
+ 8 "Our school offers this type of course for the clientele you describe.  asid…
+ 9 "This is a concern about not seeing what we got wrong.  I have taken a numbe…
+10 "I loved that this activity is easily accessible for all levels of learners …</code></pre>
+</div>
+</div>
 <p>Your output should look something like this:</p>
 <p><img src="img/sample-posts.png" class="img-fluid" style="width:100.0%"></p>
 </section>
@@ -468,23 +562,39 @@ div.csl-indent {
 <p>For example, we could consider each individual discussion post, or <code>post_id</code> in our data frame, as a document. It might also make sense to combine texts from all posts within each discussion, or <code>disccussion_id</code>, and consider that as our “document” since these posts are often interconnected an build off one another. For now, however, let treat each individual post as a unique document.</p>
 <p>To create our document term matrix, we’ll need to first <code>count()</code> how many times each <code>word</code> occurs in each document, or <code>post_id</code> in our case, like so:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>forums_tidy <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(post_id, word) <span class="sc">|&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>forums_tidy <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(post_id, word) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 143,113 × 3
+   post_id word       n
+   &lt;chr&gt;   &lt;chr&gt;  &lt;int&gt;
+ 1 20198   0        226
+ 2 50804   td       196
+ 3 20198   style    184
+ 4 34853   td       150
+ 5 20198   border   145
+ 6 20198   span     128
+ 7 20198   0px      126
+ 8 20198   color    125
+ 9 20198   rgb      124
+10 20198   153      118
+# ℹ 143,103 more rows</code></pre>
+</div>
 </div>
 <p>Once we have created a count of each word contained in a document, we next create a “tidy” matrix that contains one row per post as our original data frame did, but now contains a column for each <code>word</code> in the entire corpus and a value of <code>n</code> for how many times that word occurs in each post.</p>
 <p>Let’s create this document term matrix from our post counts, we’ll use the <code>cast_dtm()</code> function and assign it to the variable <code>forums_dtm</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>forums_dtm <span class="ot">&lt;-</span> forums_tidy <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(post_id, word) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cast_dtm</span>(post_id, word, n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>forums_dtm <span class="ot">&lt;-</span> forums_tidy <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(post_id, word) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cast_dtm</span>(post_id, word, n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="your-turn-3" class="level4">
 <h4 class="anchored" data-anchor-id="your-turn-3"><strong>👉 Your Turn ⤵</strong></h4>
 <p>Use the code chunk below to print the <code>forums_dtm</code> object in the console and answer the questions below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Take a look at our <code>forums_dtm</code> object in the console and answer the following question:</p>
 <ol type="1">
@@ -519,25 +629,34 @@ div.csl-indent {
 <p>Like <code>unnest_tokens()</code>, the <code>textProcessor()</code> function includes several useful arguments for processing text like converting text to lowercase and removing punctuation and numbers. I’ve included several of these in the script below along with their defaults used if you do not explicitly specify in your function. Most of these are pretty intuitive and you can learn more by viewing the <code>?textProcessor</code> documentation.</p>
 <p>Let’s go ahead and process our discussion forum <code>post_content</code> in preparation for our structural topic modeling that we’ll introduce later:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">textProcessor</span>(ts_forum_data<span class="sc">$</span>post_content, </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">metadata =</span> ts_forum_data,  </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">lowercase=</span><span class="cn">TRUE</span>, </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">removestopwords=</span><span class="cn">TRUE</span>, </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">removenumbers=</span><span class="cn">TRUE</span>,  </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">removepunctuation=</span><span class="cn">TRUE</span>, </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">wordLengths=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="cn">Inf</span>),</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stem=</span><span class="cn">TRUE</span>,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">onlycharacter=</span> <span class="cn">FALSE</span>, </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">striphtml=</span><span class="cn">TRUE</span>, </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                    <span class="at">customstopwords=</span><span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">textProcessor</span>(ts_forum_data<span class="sc">$</span>post_content, </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">metadata =</span> ts_forum_data,  </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">lowercase=</span><span class="cn">TRUE</span>, </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">removestopwords=</span><span class="cn">TRUE</span>, </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">removenumbers=</span><span class="cn">TRUE</span>,  </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">removepunctuation=</span><span class="cn">TRUE</span>, </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">wordLengths=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="cn">Inf</span>),</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stem=</span><span class="cn">TRUE</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">onlycharacter=</span> <span class="cn">FALSE</span>, </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">striphtml=</span><span class="cn">TRUE</span>, </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                    <span class="at">customstopwords=</span><span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Building corpus... 
+Converting to Lower Case... 
+Removing punctuation... 
+Removing stopwords... 
+Removing numbers... 
+Stemming... 
+Creating Output... </code></pre>
+</div>
 </div>
 <p>Note that the first argument the <code>textProcessor</code> function expects is the column in our data frame that contains the text to be processed, in our case it’s the column <code>post_content</code>, which is extracted from <code>ts_forum_data</code> the using the <code>$</code> operator.</p>
 <p>The second argument <code>metadata =</code> expects the data frame that contains the text of interest and uses the column names to label the metadata such as course ids and forum names. This meatdata can be used to to improve the assignment of words to topics in a corpus and examine the relationship between topics and various covariates of interest.</p>
 <p>Unlike the <code>unnest_tokens()</code> function, the output is not a nice tidy data frame. Topic modeling using the {stm} package requires a very unique set of inputs that are specific to the package. The following code will pull elements from the <code>temp</code> list that was created, which will be required for the <code>stm()</code> function we’ll use in Section 4:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> temp<span class="sc">$</span>meta</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>vocab <span class="ot">&lt;-</span> temp<span class="sc">$</span>vocab</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>docs <span class="ot">&lt;-</span> temp<span class="sc">$</span>documents</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> temp<span class="sc">$</span>meta</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>vocab <span class="ot">&lt;-</span> temp<span class="sc">$</span>vocab</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>docs <span class="ot">&lt;-</span> temp<span class="sc">$</span>documents</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="stemming-tidy-text" class="level4">
@@ -557,12 +676,31 @@ div.csl-indent {
 <p>Since the <code>unnest_tokens()</code> function does not (intentionally I believe) include a stemming function, one approach would be to use the <code>wordStem()</code> function from the <code>snowballC</code> package to either replace our <code>words</code> column with a word stems or create a new variable called <code>stem</code> with our stemmed words using the <code>mutate()</code> function.</p>
 <p>Let’s do the latter and take a look at the original words and the stem that was produced:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>stemmed_forums <span class="ot">&lt;-</span> ts_forum_data <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> post_content) <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stem =</span> <span class="fu">wordStem</span>(word))</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>stemmed_forums</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>stemmed_forums <span class="ot">&lt;-</span> ts_forum_data <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> post_content) <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stem =</span> <span class="fu">wordStem</span>(word))</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>stemmed_forums</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 194,298 × 15
+   course_id course_name       forum_id forum_name discussion_id discussion_name
+   &lt;chr&gt;     &lt;chr&gt;             &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;          
+ 1 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 2 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 3 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 4 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 5 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 6 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 7 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 8 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+ 9 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+10 9         Teaching Statist… 126      Investiga… 6822          Not much compa…
+# ℹ 194,288 more rows
+# ℹ 9 more variables: discussion_creator &lt;dbl&gt;, discussion_poster &lt;dbl&gt;,
+#   discussion_reference &lt;chr&gt;, parent_id &lt;dbl&gt;, post_date &lt;chr&gt;,
+#   post_id &lt;chr&gt;, post_title &lt;chr&gt;, word &lt;chr&gt;, stem &lt;chr&gt;</code></pre>
+</div>
 </div>
 <p>You can see that words like “activity” and “activities” that occur frequently in our discussions have been reduced to the word stem “activ”. If you are interested in learning other approaches for word stemming in R, as well as reading a more in depth description of the stemming process, I highly recommend the <a href="https://smltar.com/stemming.html">Chapter 4 Stemming</a> from Hvitfeldt and Silge (2021) book, <em>Supervised Machine Learning for Text Analysis in R</em>.</p>
 <section id="your-turn-4" class="level5">
@@ -570,24 +708,40 @@ div.csl-indent {
 <p>Complete the following code using what we learned in the section on <a href="#creating-a-document-term-matrix">Creating a Document Term Matrix</a> and answer the questions below:</p>
 <p><strong>Hint:</strong> Make sure your code includes stem counts rather than word counts.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>stemmed_dtm <span class="ot">&lt;-</span> ts_forum_data <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> post_content) <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stem =</span> <span class="fu">wordStem</span>(word)) <span class="sc">|&gt;</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">______</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">______</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>stemmed_dtm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>stemmed_dtm <span class="ot">&lt;-</span> ts_forum_data <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> post_content) <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stem =</span> <span class="fu">wordStem</span>(word)) <span class="sc">|&gt;</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">______</span>() <span class="sc">|&gt;</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">______</span>() <span class="sc">|&gt;</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>stemmed_dtm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s also take a quick look at our word counts for our stemmed corpus using a tidytext approach:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>stem_counts <span class="ot">&lt;-</span> ts_forum_data <span class="sc">|&gt;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> post_content) <span class="sc">|&gt;</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stem =</span> <span class="fu">wordStem</span>(word)) <span class="sc">|&gt;</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(stem, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>stem_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>stem_counts <span class="ot">&lt;-</span> ts_forum_data <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="at">output =</span> word, <span class="at">input =</span> post_content) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stem =</span> <span class="fu">wordStem</span>(word)) <span class="sc">|&gt;</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(stem, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>stem_counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9,825 × 2
+   stem         n
+   &lt;chr&gt;    &lt;int&gt;
+ 1 student   7355
+ 2 data      4370
+ 3 statist   4165
+ 4 question  2471
+ 5 teach     1858
+ 6 class     1738
+ 7 school    1606
+ 8 time      1457
+ 9 learn     1372
+10 font      1311
+# ℹ 9,815 more rows</code></pre>
+</div>
 </div>
 </section>
 </section>
@@ -636,18 +790,26 @@ div.csl-indent {
 <p>Similar to k-means other other simple clustering approaches, however, LDA does require us to specify beforehand a value for <em>k</em>, i.e., the number of topics in our corpus. Selecting <em>k</em> is no trivial matter and can greatly impact your results.</p>
 <p>Since we don’t have a have strong rationale about the number of topics that might exist in discussion forums, let’s use the <code>n_distinct()</code> function from the <code>dplyr</code> package to find the number of unique forum names in our course data and use that as a starting point:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(ts_forum_data<span class="sc">$</span>forum_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(ts_forum_data<span class="sc">$</span>forum_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 21</code></pre>
+</div>
 </div>
 <p>Since it looks like there are 20 distinct discussion forums, we’ll use that as our value for the <code>k =</code> argument of the <code>LDA()</code>. Be patient while this runs, since the default setting of is to perform a large number of iterations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(ts_forum_data<span class="sc">$</span>forum_name)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>forums_lda <span class="ot">&lt;-</span> <span class="fu">LDA</span>(forums_dtm, </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">k =</span> <span class="dv">20</span>, </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">588</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                  )</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>forums_lda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(ts_forum_data<span class="sc">$</span>forum_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 21</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>forums_lda <span class="ot">&lt;-</span> <span class="fu">LDA</span>(forums_dtm, </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">k =</span> <span class="dv">20</span>, </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">588</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>forums_lda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A LDA_VEM topic model with 20 topics.</code></pre>
+</div>
 </div>
 <p>Note that we used the <code>control =</code> argument to pass a random number (<code>588</code>) to seed the assignment of topics to each word in our corpus. Since LDA is a <a href="https://machinelearningmastery.com/stochastic-in-machine-learning/">stochastic algorithm</a> that could have different results depending on where the algorithm starts, specified a <code>seed</code> for reproducibility and so we’re all seeing the same results every time we specify the same number of topics.</p>
 <p>By default, the <code>LDA()</code> function uses the <code>method =</code> “VEM” (Variational Expectation Maximization) estimation method, which is generally faster and more scalable. However, there is “Gibbs” (Gibbs Sampling) method, which is more accurate but computationally intensive, as well as the “CTM” (Correlated Topic Model) method, a variation of LDA with correlated topics.</p>
@@ -656,15 +818,29 @@ div.csl-indent {
 <h4 class="anchored" data-anchor-id="viewing-topic-terms">Viewing Topic Terms</h4>
 <p>Before moving on, let’s view the top 5 words in each topic using the dead simple <code>terms()</code> function. We’ll also send this to the <code>as_tibble()</code> function to make the output a little easier to read:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">terms</span>(forums_lda, <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">terms</span>(forums_lda, <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 20
+  `Topic 1` `Topic 2`   `Topic 3`   `Topic 4`  `Topic 5` `Topic 6` `Topic 7`
+  &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    
+1 students  students    technology  statistics students  kids      div      
+2 task      statistical students    resources  activity  science   href     
+3 data      level       simulations teaching   time      math      https    
+4 tasks     data        simulation  students   standard  age       http     
+5 question  technology  software    feel       minutes   students  www      
+# ℹ 13 more variables: `Topic 8` &lt;chr&gt;, `Topic 9` &lt;chr&gt;, `Topic 10` &lt;chr&gt;,
+#   `Topic 11` &lt;chr&gt;, `Topic 12` &lt;chr&gt;, `Topic 13` &lt;chr&gt;, `Topic 14` &lt;chr&gt;,
+#   `Topic 15` &lt;chr&gt;, `Topic 16` &lt;chr&gt;, `Topic 17` &lt;chr&gt;, `Topic 18` &lt;chr&gt;,
+#   `Topic 19` &lt;chr&gt;, `Topic 20` &lt;chr&gt;</code></pre>
+</div>
 </div>
 </section>
 <section id="your-turn-5" class="level4">
 <h4 class="anchored" data-anchor-id="your-turn-5"><strong>👉 Your Turn ⤵</strong></h4>
 <p>Use the code chunk below to increase the number of terms associated with each “Topic” and answer the prompt that follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As you can see form the output, each “Topic” is essentially a “bag-of-words” that typically occur together across documents. Pick two topics from the table above and use a short phrase or sentence that you think describes the topic.</p>
 <ul>
@@ -702,30 +878,47 @@ Note
 </ul>
 <p>Let’s go ahead and extract these elements:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>docs <span class="ot">&lt;-</span> temp<span class="sc">$</span>documents </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> temp<span class="sc">$</span>meta </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>vocab <span class="ot">&lt;-</span> temp<span class="sc">$</span>vocab </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>docs <span class="ot">&lt;-</span> temp<span class="sc">$</span>documents </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> temp<span class="sc">$</span>meta </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>vocab <span class="ot">&lt;-</span> temp<span class="sc">$</span>vocab </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And now use these elements to fit the model using the same number of topics for <em>K</em> that we specified for our LDA topic model. Let’s also take advantage of the fact that we can include the <code>course_id</code> and <code>forum_id</code> covariates in the <code>prevealence =</code> argument to help improve, in theory, our model fit:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>forums_stm <span class="ot">&lt;-</span> <span class="fu">stm</span>(<span class="at">documents=</span>docs, </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>meta,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">vocab=</span>vocab, </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">prevalence =</span><span class="sc">~</span> course_id <span class="sc">+</span> forum_id,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">K=</span><span class="dv">20</span>,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">max.em.its=</span><span class="dv">25</span>,</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>forums_stm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>forums_stm <span class="ot">&lt;-</span> <span class="fu">stm</span>(<span class="at">documents=</span>docs, </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">data=</span>meta,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">vocab=</span>vocab, </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">prevalence =</span><span class="sc">~</span> course_id <span class="sc">+</span> forum_id,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">K=</span><span class="dv">20</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">max.em.its=</span><span class="dv">25</span>,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>forums_stm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A topic model with 20 topics, 5781 documents and a 7820 word dictionary.</code></pre>
+</div>
 </div>
 <p>As noted earlier, the <code>stm</code> package has a number of handy features. One of these is the <code>plot.STM()</code> function for viewing the most probable words assigned to each topic.</p>
 <p>By default, it only shows the first 3 terms so let’s change that to 5 to help with interpretation:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.STM</span>(forums_stm, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.STM</span>(forums_stm, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="unit-3-case-study_files/figure-html/plot-stm-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>Note that you can also just use the base R <code>plot()</code> function as well:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(forums_stm, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(forums_stm, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="unit-3-case-study_files/figure-html/plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>You should see an output that looks something like the image below:</p>
 <p><img src="img/stm-topics.png" class="img-fluid" style="width:100.0%"></p>
@@ -757,7 +950,7 @@ Note
 <h4 class="anchored" data-anchor-id="your-turn-6"><strong>👉 Your Turn ⤵</strong></h4>
 <p>Fit a model for both LDA and STM using different values for K and answer the questions below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="1">
 <li>What topics appear to be similar to those using 20 topics for K?
@@ -787,19 +980,19 @@ Note
 <p>The {ldatuning} package has functions for both calculating and plotting different metrics that can be used to estimate the most preferable number of topics for LDA model. It also conveniently takes the standard document term matrix object that we created from out tidy text and has the added benefit of running fairly quickly, especially compared to the function for finding <em>K</em> from the {stm} package.</p>
 <p>Let’s use the defaults specified in the <code>?FindTopicNumber</code> documentation and modify slightly get metrics for a sequence of topics from 10-75 counting by 5 and plot the output we saved using the <code>FindTopicsNumber_plot()</code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>k_metrics <span class="ot">&lt;-</span> <span class="fu">FindTopicsNumber</span>(</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  forums_dtm,</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">topics =</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">75</span>, <span class="at">by =</span> <span class="dv">5</span>),</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="st">"Griffiths2004"</span>,</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"Gibbs"</span>,</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(),</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">mc.cores =</span> <span class="cn">NA</span>,</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">return_models =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">libpath =</span> <span class="cn">NULL</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="fu">FindTopicsNumber_plot</span>(k_metrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>k_metrics <span class="ot">&lt;-</span> <span class="fu">FindTopicsNumber</span>(</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  forums_dtm,</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">topics =</span> <span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">75</span>, <span class="at">by =</span> <span class="dv">5</span>),</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="st">"Griffiths2004"</span>,</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"Gibbs"</span>,</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">list</span>(),</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">mc.cores =</span> <span class="cn">NA</span>,</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">return_models =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">libpath =</span> <span class="cn">NULL</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="fu">FindTopicsNumber_plot</span>(k_metrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that the <code>FindTopicNumbers()</code> function contains three additional metrics for calculating metrics that can be used to estimate the most preferable number of topics for LDA model. We used the Griffiths2004 metrics included in the default example and I’ve also found this to produce the most interpretable results as show in the figure below:</p>
 <p><img src="img/k-metrics.png" class="img-fluid" style="width:100.0%"></p>
@@ -810,13 +1003,13 @@ Note
 <p>Finally, Bail (2018) notes that the<code>stm</code> package has a useful function called <code>searchK</code> which allows us to specify a range of values for <code>k</code> and outputs multiple goodness-of-fit measures that are “very useful in identifying a range of values for <code>k</code> that provide the best fit for the data.”</p>
 <p>The syntax of this function is very similar to the <code>stm()</code> function we used above, except that we specify a range for <code>k</code> as one of the arguments. In the code below, we search all values of&nbsp;<code>k</code>&nbsp;between 10 and 30.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>findingk <span class="ot">&lt;-</span> <span class="fu">searchK</span>(docs, </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                    vocab, </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">K =</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">15</span>),</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> meta, </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(findingk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>findingk <span class="ot">&lt;-</span> <span class="fu">searchK</span>(docs, </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>                    vocab, </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">K =</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">15</span>),</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">data =</span> meta, </span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(findingk)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -840,7 +1033,10 @@ Warning
 <h4 class="anchored" data-anchor-id="the-ldavis-explorer">The LDAvis Explorer</h4>
 <p>One final tool that I want to introduce from the <code>stm</code> package is the <code>toLDAvis()</code> function which provides a great visualizations for exploring topic and word distributions using <code>LDAvis</code> topic browser:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toLDAvis</span>(<span class="at">mod =</span> forums_stm, <span class="at">docs =</span> docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toLDAvis</span>(<span class="at">mod =</span> forums_stm, <span class="at">docs =</span> docs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required namespace: servr</code></pre>
+</div>
 </div>
 <p>As you can see from the browser screen shot below, our current STM with 20 topics is resulting in a lot of overlap among topics and suggest that 20 may not be an optimal number of topics, as other approaches for finding k also suggests:</p>
 <p><img src="img/ldavis.png" class="img-fluid"></p>
@@ -859,7 +1055,33 @@ Warning
 <p>Hidden within this <code>forums_lda</code> topic model object we created are per-topic-per-word probabilities, called β (“beta”). It is the probability of a term (word) belonging to a topic.&nbsp;</p>
 <p>Let’s take a look again at the 5 most likely terms assigned to each topic, i.e.&nbsp;those with the largest β values using the <code>terms()</code> function from the <code>topicmodels</code> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">terms</span>(forums_lda, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">terms</span>(forums_lda, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Topic 1    Topic 2       Topic 3       Topic 4      Topic 5    Topic 6   
+[1,] "students" "students"    "technology"  "statistics" "students" "kids"    
+[2,] "task"     "statistical" "students"    "resources"  "activity" "science" 
+[3,] "data"     "level"       "simulations" "teaching"   "time"     "math"    
+[4,] "tasks"    "data"        "simulation"  "students"   "standard" "age"     
+[5,] "question" "technology"  "software"    "feel"       "minutes"  "students"
+     Topic 7 Topic 8      Topic 9       Topic 10   Topic 11     Topic 12
+[1,] "div"   "sample"     "statistics"  "students" "li"         "span"  
+[2,] "href"  "sampling"   "students"    "idea"     "strong"     "style" 
+[3,] "https" "population" "mathematics" "class"    "href"       "td"    
+[4,] "http"  "samples"    "math"        "question" "statistics" "0"     
+[5,] "www"   "data"       "learn"       "activity" "target"     "height"
+     Topic 13     Topic 14 Topic 15     Topic 16   Topic 17 Topic 18    
+[1,] "students"   "font"   "stats"      "data"     "grade"  "locus"     
+[2,] "school"     "normal" "ap"         "students" "6th"    "items"     
+[3,] "statistics" "text"   "statistics" "real"     "7th"    "assessment"
+[4,] "middle"     "0px"    "class"      "project"  "8th"    "resource"  
+[5,] "time"       "style"  "students"   "analysis" "link"   "website"   
+     Topic 19    Topic 20    
+[1,] "data"      "questions" 
+[2,] "students"  "students"  
+[3,] "census"    "answer"    
+[4,] "gapminder" "question"  
+[5,] "school"    "statistics"</code></pre>
+</div>
 </div>
 <p>Even though we’ve somewhat arbitrarily selected the number of topics for our corpus, some these topics or themes are fairly intuitive to interpret. For example:</p>
 <ul>
@@ -869,29 +1091,52 @@ Warning
 </ul>
 <p>Not surprisingly, the <code>tidytext</code> package has a handy function conveniently name <code>tidy()</code> to convert our LDA model to a tidy data frame containing these beta values for each term:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>tidy_lda <span class="ot">&lt;-</span> <span class="fu">tidy</span>(forums_lda)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>tidy_lda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>tidy_lda <span class="ot">&lt;-</span> <span class="fu">tidy</span>(forums_lda)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>tidy_lda</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 268,960 × 3
+   topic term       beta
+   &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
+ 1     1 2015  2.94e- 62
+ 2     2 2015  3.53e- 80
+ 3     3 2015  1.66e- 60
+ 4     4 2015  1.49e- 34
+ 5     5 2015  8.13e-218
+ 6     6 2015  6.00e-  4
+ 7     7 2015  2.88e-  4
+ 8     8 2015  3.28e-  3
+ 9     9 2015  1.78e-  4
+10    10 2015  7.62e- 58
+# ℹ 268,950 more rows</code></pre>
+</div>
 </div>
 <p>Obviously, it’s not very easy to interpret what the topics are about from a data frame like this so let’s borrow code again from <a href="https://www.tidytextmining.com/nasa.html?q=beta#interpreting-the-topic-model">Chapter 8.4.3 Interpreting the topic model</a> in Text Mining with R to examine the top 5 terms for each topic and then look at this information visually:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>top_terms <span class="ot">&lt;-</span> tidy_lda <span class="sc">|&gt;</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">|&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(beta, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(topic, <span class="sc">-</span>beta)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>top_terms <span class="sc">|&gt;</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">reorder_within</span>(term, beta, topic)) <span class="sc">|&gt;</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic, term) <span class="sc">|&gt;</span>    </span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(beta)) <span class="sc">|&gt;</span>  </span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(beta, term, <span class="at">fill =</span> <span class="fu">as.factor</span>(topic))) <span class="sc">+</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reordered</span>() <span class="sc">+</span></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 5 terms in each LDA topic"</span>,</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(beta), <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> topic, <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>top_terms <span class="ot">&lt;-</span> tidy_lda <span class="sc">|&gt;</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">|&gt;</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(beta, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">with_ties =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(topic, <span class="sc">-</span>beta)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>top_terms <span class="sc">|&gt;</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">reorder_within</span>(term, beta, topic)) <span class="sc">|&gt;</span></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic, term) <span class="sc">|&gt;</span>    </span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(beta)) <span class="sc">|&gt;</span>  </span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(beta, term, <span class="at">fill =</span> <span class="fu">as.factor</span>(topic))) <span class="sc">+</span></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reordered</span>() <span class="sc">+</span></span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 5 terms in each LDA topic"</span>,</span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="fu">expression</span>(beta), <span class="at">y =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> topic, <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="unit-3-case-study_files/figure-html/top_terms-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="b.-exploring-gamma-values" class="level3">
@@ -901,41 +1146,201 @@ Warning
 <p>To do this, we’re going to again borrow some code from the Silge (2018) post, <a href="https://juliasilge.com/blog/evaluating-stm/">Training, evaluating, and interpreting topic models</a>.</p>
 <p>First, let’s create two tidy data frames for our beta and gamma values</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>td_beta <span class="ot">&lt;-</span> <span class="fu">tidy</span>(forums_lda)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>td_gamma <span class="ot">&lt;-</span> <span class="fu">tidy</span>(forums_lda, <span class="at">matrix =</span> <span class="st">"gamma"</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>td_beta</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>td_gamma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>td_beta <span class="ot">&lt;-</span> <span class="fu">tidy</span>(forums_lda)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>td_gamma <span class="ot">&lt;-</span> <span class="fu">tidy</span>(forums_lda, <span class="at">matrix =</span> <span class="st">"gamma"</span>)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>td_beta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 268,960 × 3
+   topic term       beta
+   &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt;
+ 1     1 2015  2.94e- 62
+ 2     2 2015  3.53e- 80
+ 3     3 2015  1.66e- 60
+ 4     4 2015  1.49e- 34
+ 5     5 2015  8.13e-218
+ 6     6 2015  6.00e-  4
+ 7     7 2015  2.88e-  4
+ 8     8 2015  3.28e-  3
+ 9     9 2015  1.78e-  4
+10    10 2015  7.62e- 58
+# ℹ 268,950 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>td_gamma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 115,320 × 3
+   document topic    gamma
+   &lt;chr&gt;    &lt;int&gt;    &lt;dbl&gt;
+ 1 11295        1 0.00170 
+ 2 12711        1 0.000209
+ 3 12725        1 0.0244  
+ 4 12733        1 0.00198 
+ 5 12743        1 0.00683 
+ 6 12744        1 0.00340 
+ 7 12756        1 0.0244  
+ 8 12757        1 0.00251 
+ 9 12775        1 0.00251 
+10 12816        1 0.00251 
+# ℹ 115,310 more rows</code></pre>
+</div>
 </div>
 <p>Next, we’ll adopt Julia’s code wholesale to create a filtered data frame of our <code>top_terms</code>, join this to a new data frame for <code>gamma-terms</code> and create a nice clean table using the <code>kabel()</code> function <code>knitr</code> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>top_terms <span class="ot">&lt;-</span> td_beta <span class="sc">|&gt;</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(beta) <span class="sc">|&gt;</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">|&gt;</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">7</span>, beta) <span class="sc">|&gt;</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>beta) <span class="sc">|&gt;</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(topic, term) <span class="sc">|&gt;</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">terms =</span> <span class="fu">list</span>(term)) <span class="sc">|&gt;</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">terms =</span> <span class="fu">map</span>(terms, paste, <span class="at">collapse =</span> <span class="st">", "</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>()</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>gamma_terms <span class="ot">&lt;-</span> td_gamma <span class="sc">|&gt;</span></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">|&gt;</span></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gamma =</span> <span class="fu">mean</span>(gamma)) <span class="sc">|&gt;</span></span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(gamma)) <span class="sc">|&gt;</span></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(top_terms, <span class="at">by =</span> <span class="st">"topic"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">topic =</span> <span class="fu">paste0</span>(<span class="st">"Topic "</span>, topic),</span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">topic =</span> <span class="fu">reorder</span>(topic, gamma))</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>gamma_terms <span class="sc">|&gt;</span></span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(topic, gamma, terms) <span class="sc">|&gt;</span></span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>, </span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Topic"</span>, <span class="st">"Expected topic proportion"</span>, <span class="st">"Top 7 terms"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>top_terms <span class="ot">&lt;-</span> td_beta <span class="sc">|&gt;</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(beta) <span class="sc">|&gt;</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">|&gt;</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">7</span>, beta) <span class="sc">|&gt;</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>beta) <span class="sc">|&gt;</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(topic, term) <span class="sc">|&gt;</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">terms =</span> <span class="fu">list</span>(term)) <span class="sc">|&gt;</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">terms =</span> <span class="fu">map</span>(terms, paste, <span class="at">collapse =</span> <span class="st">", "</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `cols` is now required when using `unnest()`.
+ℹ Please use `cols = c(terms)`.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>gamma_terms <span class="ot">&lt;-</span> td_gamma <span class="sc">|&gt;</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">|&gt;</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gamma =</span> <span class="fu">mean</span>(gamma)) <span class="sc">|&gt;</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(gamma)) <span class="sc">|&gt;</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(top_terms, <span class="at">by =</span> <span class="st">"topic"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">topic =</span> <span class="fu">paste0</span>(<span class="st">"Topic "</span>, topic),</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">topic =</span> <span class="fu">reorder</span>(topic, gamma))</span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>gamma_terms <span class="sc">|&gt;</span></span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(topic, gamma, terms) <span class="sc">|&gt;</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>, </span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Topic"</span>, <span class="st">"Expected topic proportion"</span>, <span class="st">"Top 7 terms"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 22%">
+<col style="width: 69%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Topic</th>
+<th style="text-align: right;">Expected topic proportion</th>
+<th style="text-align: left;">Top 7 terms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Topic 4</td>
+<td style="text-align: right;">0.115</td>
+<td style="text-align: left;">statistics, resources, teaching, students, feel, teach, learning</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Topic 20</td>
+<td style="text-align: right;">0.094</td>
+<td style="text-align: left;">questions, students, answer, question, statistics, feel, struggle</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Topic 13</td>
+<td style="text-align: right;">0.074</td>
+<td style="text-align: left;">students, school, statistics, middle, time, agree, teachers</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Topic 15</td>
+<td style="text-align: right;">0.074</td>
+<td style="text-align: left;">stats, ap, statistics, class, students, math, school</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Topic 19</td>
+<td style="text-align: right;">0.070</td>
+<td style="text-align: left;">data, students, census, gapminder, school, questions, set</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Topic 2</td>
+<td style="text-align: right;">0.062</td>
+<td style="text-align: left;">students, statistical, level, data, technology, levels, mind</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Topic 10</td>
+<td style="text-align: right;">0.062</td>
+<td style="text-align: left;">students, idea, class, question, activity, experiment, coke</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Topic 16</td>
+<td style="text-align: right;">0.062</td>
+<td style="text-align: left;">data, students, real, project, analysis, collect, analyze</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Topic 1</td>
+<td style="text-align: right;">0.060</td>
+<td style="text-align: left;">students, task, data, tasks, question, time, activity</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Topic 3</td>
+<td style="text-align: right;">0.051</td>
+<td style="text-align: left;">technology, students, simulations, simulation, software, hypothesis, calculator</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Topic 9</td>
+<td style="text-align: right;">0.048</td>
+<td style="text-align: left;">statistics, students, mathematics, math, learn, teaching, statistical</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Topic 5</td>
+<td style="text-align: right;">0.040</td>
+<td style="text-align: left;">students, activity, time, standard, minutes, deviation, social</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Topic 8</td>
+<td style="text-align: right;">0.035</td>
+<td style="text-align: left;">sample, sampling, population, samples, data, size, img</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Topic 6</td>
+<td style="text-align: right;">0.034</td>
+<td style="text-align: left;">kids, science, math, age, students, statistics, nz</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Topic 7</td>
+<td style="text-align: right;">0.026</td>
+<td style="text-align: left;">div, href, https, http, www, target, _blank</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Topic 18</td>
+<td style="text-align: right;">0.025</td>
+<td style="text-align: left;">locus, items, assessment, resource, website, topics, statisticseducation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Topic 11</td>
+<td style="text-align: right;">0.021</td>
+<td style="text-align: left;">li, strong, href, statistics, target, _blank, ncsu</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Topic 14</td>
+<td style="text-align: right;">0.019</td>
+<td style="text-align: left;">font, normal, text, 0px, style, 51, 255</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Topic 17</td>
+<td style="text-align: right;">0.016</td>
+<td style="text-align: left;">grade, 6th, 7th, 8th, link, standards, 3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Topic 12</td>
+<td style="text-align: right;">0.012</td>
+<td style="text-align: left;">span, style, td, 0, height, font, line</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <p>And let’s also compare this to the most prevalent topics and terms from our <code>forums_stm</code> model that we created using the <code>plot()</code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(forums_stm, <span class="at">n =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(forums_stm, <span class="at">n =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="unit-3-case-study_files/figure-html/plot_stm-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="c.-reading-the-tea-leaves" class="level3">
@@ -953,33 +1358,75 @@ Warning
 <p>The first line of code may not be necessary for your independent analysis, but because the <code>textProcessor()</code> function removed several documents during processing, the <code>findthoughts()</code> function can’t properly index the processed docs. This <a href="https://stackoverflow.com/questions/43492667/r-stm-number-of-provided-texts-and-number-of-documents-modeled-do-not-match">line of code found on stackoverflow</a> removes documents from original <code>ts_forum_data</code> source that were removed during processing so there is a one-to-one correspondence with <code>forums_stm</code> and so you can use the function to find posts associated with a given topic.</p>
 <p>Let’s slightly reduce our original data set to match our STM model, pass both to the <code>findThoughts()</code> function, and set our arguments to return <code>n =10</code> posts from <code>topics = 2</code> (i.e.&nbsp;Topic 2) that have at least 50% or <code>thresh = 0.5</code> as a minimum threshold for the estimated topic proportion.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ts_forum_data_reduced <span class="ot">&lt;-</span>ts_forum_data<span class="sc">$</span>post_content[<span class="sc">-</span>temp<span class="sc">$</span>docs.removed]</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">findThoughts</span>(forums_stm,</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">texts =</span> ts_forum_data_reduced,</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">topics =</span> <span class="dv">2</span>, </span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">n =</span> <span class="dv">10</span>,</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">thresh =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>ts_forum_data_reduced <span class="ot">&lt;-</span>ts_forum_data<span class="sc">$</span>post_content[<span class="sc">-</span>temp<span class="sc">$</span>docs.removed]</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">findThoughts</span>(forums_stm,</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">texts =</span> ts_forum_data_reduced,</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">topics =</span> <span class="dv">2</span>, </span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">n =</span> <span class="dv">10</span>,</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">thresh =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Topic 2: 
+     Thank you for providing these links and resources. The resources you provided in this MOOC have been very beneficial. I look forward to utilizing them in future lessons.
+    The American Statistical Association released a document recently that is worth looking at. It is freely available at:  http://www.amstat.org/education/SET/SET.pdf.  Definitely worth a read. Lots of great information  and good examples  the demonstrate what this unit is emphasizing.
+    Thank you for sharing the link!!!  I think that this is the document that Chris mentions co-writing and being ready for NCTM's National Conference in San Francisco this April. :-)
+    QELP looks so cool! Thanks for sharing!
+    Thanks!  I will show to my class at the beginning of class in the fall.  Thanks for the great idea!
+    This is my third course through MOOC and have enjoyed each of them. I have learned a lot from the experts  activities and resources in each of the courses. Thank you to all who have a role in putting MOOC out there for the world.
+    As a statistics teacher I am always looking for activities that are fun and demonstrate and idea in a reasonable amount of time.  The biggest benefit I feel this course is for me is all the resources.  I have really enjoyed the interactive videos and the activity ideas. I plan on using a lot of these investigations in my classroom.
+    Thank you for sharing!  I look forward to using this in my class.
+    Wow...all these ideas are great!  The spaghetti experiment sounds like so much fun.  These ideas do take up valuable time in our classes...but if the activity is meaningful  then it should be worth our time.  Thanks so much...can't wait to try some out with my students.
+    I had a similar reaction to this MOOC.  I am looking forward to incorporating some of the activities and websites presented here into my own class!</code></pre>
+</div>
 </div>
 <p>Duplicate posts aside, this <strong>Course Utility</strong> topic returns posts there were expected based on my interpretation of the key terms for Topic 2. It looks like I may have read those tea leaves correctly!</p>
 <p>Now let’s take a look at Topic 16 that we thought might be related to student engagement:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">findThoughts</span>(forums_stm,</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">texts =</span> ts_forum_data_reduced,</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">topics =</span> <span class="dv">16</span>, </span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">n =</span> <span class="dv">10</span>,</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">thresh =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">findThoughts</span>(forums_stm,</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">texts =</span> ts_forum_data_reduced,</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">topics =</span> <span class="dv">16</span>, </span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">n =</span> <span class="dv">10</span>,</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">thresh =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Topic 16: 
+     I remember when Paul the octopus was making these picks on TV.  It made me think of the bookmaker's strategy of releasing a \free\" pick to his clients.  Half of the clients would receive one pick  and the other half would receive the opposite pick...the bookmaker is now guaranteed to be correct for half of his clients.  He can then continue this process among those who received a correct pick for the next several weeks.  After 8 weeks  he then charges a premium for access to his next pick.  In this case  the bookmaker is randomly picking a winner to half of his remaining clients each week  but from the lens of the gambler  it appears as though the bookmaker has some mystical insight  as he just went 8/8 on his previous picks.  The gambler may now be inclined to pay a pretty penny for access to the bookmaker's next pick.  "
+    When you say Projects are you talking about outside the class assigned projects or in class projects?
+    Learning through mistakes. Works well.   I have two assignments that allow students to make corrections and resubmit.  Weekly Homework - this assignment introduces the concepts. When a student submits his or her Homework by a specific day  I will grade and return the assignment. The student may correct and resubmit.   Progressive paper - this paper is submitted weekly with new content and corrections from the previous week. It is a project paper. Each week  a draft version is submitted. The paper is graded on the final week of class.
+    Alternative Project Proposal ‚Äì Using real data to create a  function and make predictions based on that function.       Rationale:          I am a 9&lt;sup&gt;th&lt;/sup&gt; grade Algebra teacher.  This project is for a Regents (average)  level class.  They have spent a lot  of time on functions and are familiar with exponential  linear and quadratic  models.  I would like them to  collect data  plot it and find a function to best fit their data  using  technology.  This project is real  and will hopefully be interesting for the students.  By choosing their own topic and collecting their own data   students should have ownership of their data.  That will hopefully lead to more interest and motivation.       Goals:         &lt;p style=\text-indent:-.25in\"&gt;&lt;!--[if !supportLists]--&gt;&lt;span style=\"font-family:Symbol\"&gt;¬∑&lt;span style=\"font:7.0pt &amp;quot;Times New Roman&amp;quot;\"&gt;       &lt;/span&gt;&lt;/span&gt;&lt;!--[endif]--&gt;students will be able to choose an appropriate  function to fit their data.     &lt;p style=\"text-indent:-.25in\"&gt;&lt;!--[if !supportLists]--&gt;&lt;span style=\"font-family:Symbol\"&gt;¬∑&lt;span style=\"font:7.0pt &amp;quot;Times New Roman&amp;quot;\"&gt;       &lt;/span&gt;&lt;/span&gt;&lt;!--[endif]--&gt;students can develop a function based on their  data.         &lt;p style=\"text-indent:-.25in\"&gt;&lt;!--[if !supportLists]--&gt;&lt;span style=\"font-family:Symbol\"&gt;¬∑&lt;span style=\"font:7.0pt &amp;quot;Times New Roman&amp;quot;\"&gt;       &lt;/span&gt;&lt;/span&gt;&lt;!--[endif]--&gt;students can make interpolate and extrapolate  based on their model.      Planned Content:       This project focuses on regression  interpolation and  extrapolation.  Like many topics in  Algebra 2  there is an emphasis on functions.          CCSS to be addressed in this project:       &lt;a name=\"CCSS.Math.Content.HSS.ID.B.6.a\"&gt;&lt;/a&gt;&lt;a href=\"http://www.corestandards.org/Math/Content/HSS/ID/B/6/a/\"&gt;CCSS.Math.Content.HSS.ID.B.6.a&lt;/a&gt; - Fit a  function to the data; use functions fitted to data to solve problems in the  context of the data. Use given functions or choose a function suggested by the  context. Emphasize linear  quadratic  and exponential models.          &lt;a name=\"CCSS.Math.Content.HSS.ID.B.6.b\"&gt;&lt;/a&gt;&lt;a href=\"http://www.corestandards.org/Math/Content/HSS/ID/B/6/b/\"&gt;CCSS.Math.Content.HSS.ID.B.6.b&lt;/a&gt; -  Informally assess the fit of a function by plotting and analyzing residuals.       &lt;a name=\"CCSS.Math.Content.HSS.ID.B.6.c\"&gt;&lt;/a&gt;&lt;a href=\"http://www.corestandards.org/Math/Content/HSS/ID/B/6/c/\"&gt;CCSS.Math.Content.HSS.ID.B.6.c&lt;/a&gt; - Fit a  linear function for a scatter plot that suggests a linear association.      Development Schedule:       This project will take approximately 7 class (40 minute  periods) days.  For the first three  days  the teacher will supply data that best fits a linear  quadratic or  exponential model.  We will also  discuss how to choose the appropriate function  based on given data.  After the first three days  students  will choose a topic.  Examples  might include:     &lt;p style=\"text-indent:-.25in\"&gt;&lt;!--[if !supportLists]--&gt;&lt;span style=\"font-family:Symbol\"&gt;¬∑&lt;span style=\"font:7.0pt &amp;quot;Times New Roman&amp;quot;\"&gt;       &lt;/span&gt;&lt;/span&gt;&lt;!--[endif]--&gt;population in our town over the past 100 years     &lt;p style=\"text-indent:-.25in\"&gt;&lt;!--[if !supportLists]--&gt;&lt;span style=\"font-family:Symbol\"&gt;¬∑&lt;span style=\"font:7.0pt &amp;quot;Times New Roman&amp;quot;\"&gt;       &lt;/span&gt;&lt;/span&gt;&lt;!--[endif]--&gt;amount of money in a current savings or checking  account     &lt;p style=\"text-indent:-.25in\"&gt;&lt;!--[if !supportLists]--&gt;&lt;span style=\"font-family:Symbol\"&gt;¬∑&lt;span style=\"font:7.0pt &amp;quot;Times New Roman&amp;quot;\"&gt;       &lt;/span&gt;&lt;/span&gt;&lt;!--[endif]--&gt;number of text messages sent in a month and  price of a cell phone plan     &lt;p style=\"margin-left:.25in\"&gt;      &lt;p style=\"margin-left:.25in\"&gt;Students will be encouraged to  choose something interesting to them.   They will collect data from their peers in a mathematically sound and  effective manner.  They will then  graph their data and create a model based on their collected data.  They will make a minimum of 5  predictions based on their data.   On the last day  they will present their graphs  their models  their  predictions and any thoughts to their classmates.    "
+    I've done the stacking cubes with my students  and it works well.  You could also do it with sticky notes or candy if you didn't have the cubes.  My class like the candy since it meant they could eat it when they were done!
+    We do several projects and explorations throughout the year in my AP stats class.  Because I have a mix of juniors and seniors in the class and seniors are done about a week before juniors  I had to come up with something to keep the juniors busy that last week.  What I do is a \junior project.\"  Basically they have to come up with their own question they want answered  figure out how to gather the data  gather the data  analyze it  and then present it to the class.  I usually suggest they do some type of expansion on things we've already done in class.  One we do in class is look at the distribution of colors in plain m&amp;amp;m's.  So often the kids will then compare different types of m&amp;amp;m's to see if they have the same distribution  or see if other types of candy have equally distributed colors/flavors.  Another we do in class is 2 versions of paper airplanes (they are the same except for the first fold).  So then kids get excited to look up other types of paper airplanes and see which is the best.  Any project that I assign  I want them to pick something that is interesting to them.  Right now I've got a student who is very into cars and knows a ton about them.  So his project he's working on now deals with several factors that can affect the price of a car (also relevant to many high school students because they are learning to drive and getting a car at this time).  One thing I have learned is that I always want students to check their ideas with me first because there are certain things that just won't be possible for them to do at certain points in the class because they haven't learned enough yet.  Or I want to make sure that they consider certain things when gathering their data  even if we haven't yet discussed all of the things that go into collecting good data or doing a good experiment (it's in Ch. 4 in AP stats but we do several data collection things before then).  It also helps because then when we get to Ch. 4 we can talk about the things they've done prior to that and how they might want to adjust their methods for the next time.  "
+    When I tried to do part 2: respond to a question  I got the error message \Sorry but you do not currently have permissions to do that (manage a lesson activity).   "
+    My students always turn in their projects.  We don't have that many and the ones we do have are put on posterboard for a one day gallery walk.  Half the class stands by their posters and gives a mini presentation about their work  answering questions etc.  Then  halfway through the class period we switch.  Those that were walking around are now presenting and vice versa.  The fact that they are presenting to their peers ups the accountability.  They don't want to be known as the one that didn't do the project.
+    Hi guys  any feedback on my project draft would be appreciated.
+    A variation on stacking cubes is having students make stacks for their extended families  cousins etc.</code></pre>
+</div>
 </div>
 <p>It looks like my tea reading was a partially correct for Topic 16, though the results seem to be about a specific “Pepsi challenge” activity conducted with students.</p>
 <p>Finally, let’s look at posts from Topic 3 which we though might be an overarching theme about teaching statistics:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ts_forum_data_reduced <span class="ot">&lt;-</span>ts_forum_data<span class="sc">$</span>post_content[<span class="sc">-</span>temp<span class="sc">$</span>docs.removed]</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">findThoughts</span>(forums_stm,</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">texts =</span> ts_forum_data_reduced,</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">topics =</span> <span class="dv">3</span>, </span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">n =</span> <span class="dv">10</span>,</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">thresh =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>ts_forum_data_reduced <span class="ot">&lt;-</span>ts_forum_data<span class="sc">$</span>post_content[<span class="sc">-</span>temp<span class="sc">$</span>docs.removed]</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">findThoughts</span>(forums_stm,</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">texts =</span> ts_forum_data_reduced,</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">topics =</span> <span class="dv">3</span>, </span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">n =</span> <span class="dv">10</span>,</span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">thresh =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Topic 3: 
+     I do not think that my students are well prepared to respond to these questions. The challenge I have (as I suspect most of us do) is to balance instruction leading to genuine understanding and completing the syllabus in time for their external examinations. I hate that I have to rush through some content when there are so many rich experiences that can be had engaging with statistics. To assist students to reach competence in answering these questions will require a thorough examination of the syllabus and a redesign of instructional experiences so that an integration of content coverage and the real-life data analysis skills required is achieved.
+    I agree! I have a lot of English Language Learners and this would be extremely difficult for them.
+    I too would like to see my mistakes. i like to know what I did well in answering so I can know what I need to work on so I can help my students. I got a 67% as well so I would like to improve so my students are better prepared
+    I agree with the language part.  I found that my students who are in the speech and debate team do well with the argumentative writing part.  In the past  we have recruited students out of Honors/AP English to take AP Statistics.  And I have had students who were non-Math kids but were competent in English do well in the AP Stats class.
+    For the high school students I teach  I think they are actually prepared to answer these types of questions  but that they lack confidence in their skills and have difficulty persevering (instead wanting to answer quickly and be done/move on).  My undergraduate students I teach are much better prepared  overall  to spend time thinking critically  analyzing the questions and their understanding  and developing comprehensive responses.  Ana
+    &lt;strong&gt;How well prepared are they to answer the items in this investigation?&lt;/strong&gt;  This is a bit hard for me to answer as this is only my first full year teaching middle school.  However  I do not believe that my students would be very well prepared to answer these.        &lt;strong&gt;What would be needed to assist students in preparing to answer these types of questions?&lt;/strong&gt;  I believe the students need a lot more experience with looking at types of data and playing around with different representations.  They also need a lot more work with vocabulary.
+    Considering the students that  I work with. I believe they would not be prepared to answer the items in this investigation. Background information or content they can relate to is  needed to assist students in preparing to answer these types of questions.
+    They Would not be very prepared at all. They would need some assistants in answer these types of questions. I would need assistants teaching it.
+    Thank you.  I was disappointed when I saw just my score...I want to know exactly which problems I got wrong.  To make sure that I'll be able to teach the concepts correctly to my students.
+    &lt;span style=\color: rgb(51  51  51); font-family: UniversRoman  Arial  sans-serif; font-size: 14px; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; display: inline !important; background-color: rgb(250  250  250);\"&gt;&lt;b&gt;Consider the students that you work with. How well prepared are they to answer the items in this investigation? &lt;/b&gt;&lt;/span&gt;  &lt;span style=\"color: rgb(51  51  51); font-family: UniversRoman  Arial  sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(250  250  250);\"&gt;Simply put  they are not.  &lt;/span&gt;  &lt;span style=\"color: rgb(51  51  51); font-family: UniversRoman  Arial  sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(250  250  250);\"&gt; &lt;/span&gt;  &lt;span style=\"color: rgb(51  51  51); font-family: UniversRoman  Arial  sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(250  250  250);\"&gt; &lt;/span&gt;  &lt;span style=\"color: rgb(51  51  51); font-family: UniversRoman  Arial  sans-serif; font-size: 14px; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: 20px; orphans: auto; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; float: none; display: inline !important; background-color: rgb(250  250  250);\"&gt;&lt;b&gt;What would be needed to assist students in preparing to answer these types of questions?&lt;/b&gt;&lt;/span&gt;   &lt;span style=\"background-color: rgb(250  250  250);\"&gt;Engaging activities  structured discussions  lots of reading assistance&lt;/span&gt; "</code></pre>
+</div>
 </div>
 <p>Looking at just the 10 posts returned, perhaps a better name for this topic would be <strong>Course Reflections on Teaching Statistics</strong>.</p>
 <section id="key-takeaways" class="level4">
@@ -994,7 +1441,7 @@ Warning
 <h4 class="anchored" data-anchor-id="your-turn-7"><strong>👉 Your Turn ⤵</strong></h4>
 <p>Using the STM model you fit in Section 3 with a different value for K, use the approaches demonstrated in Section 4 to explore and interpret your topics and terms and answer the question below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YOUR CODE HERE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1044,380 +1491,242 @@ Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023. <em>R for 
 </div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
       });
     }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        return container.innerHTML
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -1425,185 +1734,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
 
 
