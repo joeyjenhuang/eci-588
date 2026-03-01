@@ -1,7 +1,7 @@
 ---
 title: "Unit 3 Case Study: Topic Modeling in MOOC-Eds"
 subtitle: "ECI 588: Text Mining in Education"
-author: "Dr. Shaun Kellogg"
+author: "Dr. Joey Huang"
 date: today
 format:
   html:
@@ -9,14 +9,13 @@ format:
     toc-depth: 3
 theme:
   light: simplex
-  dark: cyborg
 editor: visual
 bibliography: lit/references.bib
 ---
 
 ## 0. INTRODUCTION
 
-The Unit 3 case study extends previous research and evaluation work by myself and some of my colleagues at the Friday Institute for Educational Innovation at North Carolina State University. In addition to many other areas of inquiry, our work was aimed at understanding and improving peer interaction and discussion in the Friday Institute's Massively Open Online Courses for Educators (MOOC-Ed) and Online Professional Learning programs. To learn more about these courses and programs, visit: <https://place.fi.ncsu.edu>
+The Unit 3 case study extends previous research and evaluation work by my former colleague, Dr. Shuan Kellogg, and colleagues at the Friday Institute for Educational Innovation at North Carolina State University. In addition to many other areas of inquiry, the work was aimed at understanding and improving peer interaction and discussion in the Friday Institute's Massively Open Online Courses for Educators (MOOC-Ed) and Online Professional Learning programs. To learn more about these courses and programs, visit: <https://place.fi.ncsu.edu>
 
 ### Case Study Focus
 
@@ -129,8 +128,7 @@ Below is a brief introduction to key packages commonly used in the topic modelin
 
 Use the code chunk below to load all of the packages highlighted above, including the {tidyverse} and {tidytext} packages:
 
-```{r}
-# YOUR CODE HERE
+```{# YOUR CODE HERE}
 
 
 ```
@@ -149,8 +147,7 @@ To get started, we need to import, or "read", our data into R. The function used
 
 Now let's read our data into our Environment using the `read_csv()` function and assign it to a variable named `ts_forum_data` so we can work with it like any other object in R.
 
-```{r read-csv}
-ts_forum_data <- read_csv("data/ts_forum_data.csv", 
+```{ts_forum_data <- read_csv("data/ts_forum_data.csv",}
   col_types = cols(course_id = col_character(),
                    forum_id = col_character(), 
                    discussion_id = col_character(), 
