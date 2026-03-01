@@ -13,6 +13,23 @@ editor: visual
 bibliography: lit/references.bib
 ---
 
+```{r setup}
+#| include: false
+#| cache: false
+library(readr)
+library(dplyr)
+library(tidytext)
+library(ggplot2)
+library(tm)
+library(topicmodels)
+library(stm)
+library(ldatuning)
+library(SnowballC)
+library(tidyr)
+library(purrr)
+library(knitr)
+library(LDAvis)
+```
 ## 0. INTRODUCTION
 
 The Unit 3 case study extends previous research and evaluation work by my former colleague, Dr. Shuan Kellogg, and colleagues at the Friday Institute for Educational Innovation at North Carolina State University. In addition to many other areas of inquiry, the work was aimed at understanding and improving peer interaction and discussion in the Friday Institute's Massively Open Online Courses for Educators (MOOC-Ed) and Online Professional Learning programs. To learn more about these courses and programs, visit: <https://place.fi.ncsu.edu>
@@ -127,24 +144,6 @@ Below is a brief introduction to key packages commonly used in the topic modelin
 #### **👉 Your Turn ⤵**
 
 Use the code chunk below to load all of the packages highlighted above, including the {tidyverse} and {tidytext} packages:
-
-```{r setup}
-#| include: false
-#| cache: false
-library(readr)
-library(dplyr)
-library(tidytext)
-library(ggplot2)
-library(tm)
-library(topicmodels)
-library(stm)
-library(ldatuning)
-library(SnowballC)
-library(tidyr)
-library(purrr)
-library(knitr)
-library(LDAvis)
-```
 
 ```{r}
 #| eval: false
