@@ -1,7 +1,7 @@
 ---
 title: "Unit 4 Readings: Intro to Quantitative Enthnography"
 subtitle: "ECI 588: Text Mining in Education"
-author: "Dr. Shaun Kellogg"
+author: "Dr. Joey Huang"
 date: today
 format:
   html:
@@ -9,22 +9,23 @@ format:
     toc-depth: 4
 theme:
   light: simplex
-  dark: cyborg
 editor: visual
 bibliography: lit/references.bib
 ---
 
 ## OVERVIEW
 
-The readings and resources for Unit 3 introduce Quantitative Ethnography (QE) and Epistemic Network Analysis (ENA) as powerful methods for analyzing educational discourse. While traditional text mining techniques, such as topic modeling, identify themes in large corpora, QE and ENA go a step further by modeling how ideas are connected in discourse, providing deeper insights into learning and collaboration. Through these resources, you will gain an understanding of how QE integrates qualitative and quantitative analysis, how ENA visualizes conceptual relationships, and how these methods can be used to study student interactions, teacher discourse, and cross-cultural learning experiences. Per usual, your course readings, discussion guidelines, and assessment criteria are described below. If you have any questions about this week's assignment, please post them there or email me separately.
+The readings and resources for Unit 3 introduce Quantitative Ethnography (QE) and Epistemic Network Analysis (ENA) as powerful methods for analyzing educational discourse. While traditional text mining techniques, such as topic modeling, identify themes in large corpora, QE and ENA go a step further by modeling how ideas are connected in discourse, providing deeper insights into learning and collaboration. Through these materials, you will explore how QE brings together qualitative and quantitative approaches to analysis, how ENA represents relationships among concepts, and how these methods can be used to study student interactions, teacher discourse, and cross cultural learning contexts. As usual, the course readings, discussion guidelines, and assessment criteria are outlined below. If you have any questions about this week’s assignment, please post them there or feel free to email me.
 
 ## READINGS
 
-To help address our discussion questions for the week, you'll be asked to **read or view 3 resources**, including: 1) a required journal article, 2) an instructor-selected resource, and 3) a self-selected resource such as a journal article, video, news article, podcast, or blog post.
+To help address our discussion questions for the week, you'll be asked to **read 3 resources**, including: 1) a required journal article, 2) an instructor-selected resource, and 3) a self-selected resource such as a journal article, video, news article, podcast, or blog post.
 
 ### 1. Required
 
-1.  [**The Foundations and Fundamentals of Quantitative Ethnography**](https://par.nsf.gov/servlets/purl/10442783). This recent paper by Irgens and Eagan @arastoopour2022foundations provides an accessible summary of the QE methodology and identifies five key practices for rigorous QE studies.
+This paper by Irgens and Eagan @arastoopour2022foundations provides an accessible summary of the QE methodology and identifies five key practices for rigorous QE studies.
+
+-   Arastoopour Irgens, G., & Eagan, B. (2022, October). [The foundations and fundamentals of quantitative ethnography.](https://par.nsf.gov/servlets/purl/10442783) In *International Conference on Quantitative Ethnography* (pp. 3-16). Cham: Springer Nature Switzerland.
 
 ### 2. Instructor-Selected Resources (Choose One)
 
@@ -40,9 +41,7 @@ The resources curated below provide a introduction to QE/ENA, covering both foun
 
 5.  [**Big Ideas: Quantitative Ethnography**](https://youtu.be/TX-NeXBE9MA?si=ZlWjD0QUlzyIj-rk). In this talk David Williamson Shaffer @Shaffer2020BigIdeas looks at the transformation of the social sciences in the age of Big Data through the lens of Quantitative Ethnography, an approach to analyzing human behavior that goes beyond the old dichotomy of qualitative and quantitative methods and past simple mixtures of methods in thinking about data and data analysis.
 
-6.  [**LAK18 Keynote: Quantitative Ethnography**](https://youtu.be/LjcfGSdIBAk?si=qyUI3SZl89sj1iYV). In this keynote, David Williamson Shaffer @Shaffer2018QE QE as a response to the challenges of big data in the social sciences, particularly in learning analytics and education research, critiquing traditional approaches that separate qualitative and quantitative methods.
-
-7.  [**Network Analysis of Interactions Between Students and an Instructor During Design Meetings**](https://peer.asee.org/25782.pdf). This applied case study by Fisher et al. @fisher2016network uses ENA in an engineering education context to analyze how engineering students and their instructor interact during design meetings, using ENA to map the discourse patterns of their design discussions
+6.  [**Network Analysis of Interactions Between Students and an Instructor During Design Meetings**](https://peer.asee.org/25782.pdf). This applied case study by Fisher et al. @fisher2016network uses ENA in an engineering education context to analyze how engineering students and their instructor interact during design meetings, using ENA to map the discourse patterns of their design discussions
 
 ### 3. Self-Selected Resource
 
@@ -50,9 +49,9 @@ Use the [NCSU Library](#0), [Google Scholar](#0) or search engine of your choic
 
 ## DISCUSSION
 
-In lieu of the peer interaction and discussion of course materials that normally take place "in class", you'll be asked to log in this week and engage with other members of our learning community through the course discussion forum. To help guide our discussions, **we will collectively address a set of guiding questions provided in each forum**. You are also welcome to add your own topics or questions for the class to discuss.
+Instead of the peer interaction and discussion of course materials that typically take place in class, you will log in this week and engage with other members of our learning community through the course discussion forum. To help guide the conversation, each forum includes a set of guiding questions that we will collectively explore. You are also welcome to introduce additional topics or questions for the class to discuss.
 
-With the exception of the Self-Selected resource, **you are not required to post to every thread or address every question listed below**, particularly if you feel others in the class have thoroughly addressed the topic or questions. Our primary goal for these discussions is to collectively build our understanding of this week's topics through back-and-forth dialogue and avoid a "collective monologue" in which we see 20 variations of the same post.
+**With the exception of the Self-Selected resource**, **you are not required to post to every thread or address every question listed below**, particularly if you feel others in the class have thoroughly addressed the topic or questions. Our primary goal for these discussions is to collectively build our understanding of this week's topics through back-and-forth dialogue and avoid a "collective monologue" in which we see 20 variations of the same post.
 
 ### Guiding Questions
 
@@ -60,69 +59,59 @@ With the exception of the Self-Selected resource, **you are not required to post
 
 Reflecting on the course text and your self-selected reading, answer one or more of the following questions:
 
-1.  **QE Definitions & Differentiators**: How would you define *Quantitative Ethnography* and *Epistemic Network Analysis* in your own words? How do QE and ENA compare to other text mining approachces we've learned about so far in this course? What about other more traditional educational research approaches (like analyzing test scores statistically or qualitatively coding interview transcripts)?
+1.  **Definitions and Differences:** How would you define *Quantitative Ethnography (QE)* and *Epistemic Network Analysis (ENA)* in your own words? How do these approaches differ from other text mining methods we have discussed in this course?
 
-2.  **Theoretical Foundations**: What are some of the theoretical foundations of QE? How do these theories shape the way we collect, code, and interpret text as data, and in what ways do they set QE apart from purely empirical approaches?
+2.  **Theoretical Foundations:** What theoretical perspectives inform QE? How do these ideas shape the way researchers collect, code, and interpret discourse data
 
-3.  **Epistemic Frames**: What is an "epistemic frame" in the context of QE, and how does this concept inform the analytical approach of ENA?
+3.  **Epistemic Frames:** What is an *epistemic frame* in the context of QE, and why is it important for understanding learning or professional practice?
 
-4.  **Bridging Gaps**: How does quantitative ethnography attempt to bridge the gap between qualitative and quantitative research methods? What unique advantages might this integrated approach offer?
-
-5.  **Other Vocabulary**: What are some other new terms, words, concepts that you have come across in the resources that were unfamiliar to you, or that you had come across before but feel you have a better understanding of after this week?
+4.  **New Vocabulary:** What new terms or concepts did you encounter in this week’s resources? Which ones helped clarify your understanding of QE or ENA?
 
 #### Topic 2: Applications in Education
 
 Reflecting on the course text and your self-selected reading, answer one or more of the following questions:
 
-1.  **Use Cases**: How might QE/ENA be use to better understand teaching and learning? How might ENA be used to analyze collaborative learning processes? What aspects of group interaction could it illuminate that might otherwise remain hidden?
+1.  **Use Cases:** How might QE or ENA be used to better understand teaching, learning, or collaboration in educational settings?
 
-2.  **In Online Learning**: What potential applications does QE/ENA have for understanding online learning environments? How might it help us better understand virtual educational spaces?
+2.  **Online Learning:** What potential applications could QE or ENA have for studying online learning environments or virtual classrooms?
 
-3.  **Instructor Use**: How could instructors use QE/ENA findings to inform their teaching practices or curriculum design? What specific aspects of classroom interaction might be illuminated or insights gained that could be used to revise educational materials or sequences? What would they be looking for in the network models?
+3.  **Instructor Insights:** How might instructors use findings from QE or ENA to inform teaching practices, curriculum design, or classroom activities?
 
-4.  **Potential Research Questions**: Identify a real-world educational scenario where QE and ENA could be applied. What research question might a study in this context ask, and how could QE/ENA provide insights into that question that other methods might miss?
-
-5.  **Adapting for Context**: How might ENA be applied across different educational levels (e.g., from K-12 to higher education) or subject areas (e.g., in STEM education versus humanities education)? What adaptations might be necessary for different contexts?
+4.  **Research Questions:** Describe a real world educational scenario where QE or ENA could be applied. What research question might guide such a study?
 
 #### Topic 3: Methods and Measures
 
 Reflecting on the course text and your self-selected reading, answer one or more of the following questions:
 
-1.  **QE Process**: What are the key steps in conducting a Quantitative Ethnography study from start to finish? How might a researcher might go from raw data (e.g. video or transcript data) to an ENA visualization?
+1.  **QE Process:** What are the main steps in conducting a Quantitative Ethnography study, from raw data to ENA visualization?
 
-2.  **Coding & Reliability**: Coding is a critical part of QE. How is a coding scheme developed and validated in a QE project, either using traditional qualitative methods or automated approaches like demonstrated in prior units?
+2.  **Coding and Reliability:** How are coding schemes developed and validated in QE studies? Why is reliability important?
 
-3.  **Network Graphs**: ENA models quantify relationships by looking at how codes co-occur in the data. When you see an ENA network graph or plot, what do you look for to interpret it? For example, if two codes are strongly connected in an ENA, what might that tell you about the underlying qualitative data? How you would explain the meaning of an ENA visualization to someone unfamiliar with the technique?
+3.  **Interpreting Network Graphs:** When you look at an ENA network graph, what features help you interpret the relationships between ideas or codes?
 
-4.  **Making Comparisons**: ENA allows researchers to compare connection patterns between different groups or conditions. How should a researcher interpret differences in networks and how do researchers to determine if a meaningful difference exists in how two groups think or communicate, according to ENA outputs?
-
-5.  **QE/ENA Measures**: What kinds of measures are used in QE and ENA, either during coding, visualization, or when conducting statistical analyses?
+4.  **Comparisons Across Groups:** How can ENA be used to compare patterns of thinking or communication across different groups or conditions?
 
 #### Topic 4: Affordances, Limitations, & Ethical Issues
 
 Reflecting on the course text and your self-selected reading, answer one or more of the following questions:
 
-1.  **Potential Benefits**: Can you describe a scenario where using QE/ENA would likely offer clearer or deeper insights than other text mining methods, or more conventional research methods, and conversely, a scenario where QE/ENA might not be the best approach?
+1.  **Benefits:** In what situations might QE or ENA provide insights that other text mining or research methods might miss??
 
-2.  **Limitations & Challenges**: What potential limitations or challenges should researchers be aware of when applying QE and ENA in education? Consider issues such as the complexity of the analysis, the need for expertise in both qualitative and quantitative methods, or difficulties in interpreting network results for practical educational decisions.
+2.  **Limitations:** What challenges or limitations should researchers consider when applying QE or ENA in educational research?
 
-3.  **Quantifying the Qualitative**: QE essentially translates rich qualitative data into quantitative form. What are some risks of this translation? Discuss the potential loss of context or nuance when complex human behaviors and conversations are reduced to codes and numbers. How might this simplification bias the findings, and how can researchers address or acknowledge this issue?
+3.  **Quantifying Qualitative Data:** What risks might arise when translating rich qualitative data into coded quantitative forms? How might researchers address these concerns?
 
-4.  **Maintaining Context**: How can researchers ensure that the context of the original data is not lost when using QE and ENA? In QE it’s recommended to “view the original qualitative data to close the interpretative loop” when examining statistical results.
-
-5.  **Biases in Coding and Analysis**: What biases could affect a QE study at various stages, such as during the coding process or interpreting networks during the analysis stage? How can researchers mitigate biases to ensure the analysis remains credible?
-
-6.  **Ethical Considerations**: What are some ethical considerations when applying QE and ENA? For instance, if you are analyzing educational data (student discussions, personal reflections, etc.), what privacy and consent issues might arise and how can we ensure that participants’ data is used responsibly and that the way we present network results doesn’t misrepresent or stigmatize individuals or groups?
+4.  **Ethical Considerations:** What ethical issues should researchers consider when analyzing educational discourse data using QE or ENA?
 
 #### Topic 5: Data Sources
 
 Reflecting on the course text and your self-selected reading, answer one or more of the following questions:
 
-1.  **Data Types**. What types of data can be used in a Quantitative Ethnography? How might the choice of data source influence the way you design your study or the kind of insights you can get? Discourse Diversity: How do different forms of discourse data (classroom discussion, online forums, written assignments, etc.) present different opportunities and challenges for QE analysis?
+1.  **Types of Data:** What types of data can be used in Quantitative Ethnography? How might different sources (e.g., classroom discussions, online forums, written assignments) shape the analysis?
 
-2.  **Data Format**. How does the format of data impact the coding and analysis in QE? For instance, consider the differences between spoken conversation data and written text data: what coding challenges or strategies might differ between transcribing/classifying a live classroom dialogue versus analyzing an online forum thread, and how could those differences affect the resulting ENA network?
+2.  **Data Format:** How might the format of data, such as spoken conversation versus written text, influence coding and analysis in QE?
 
-3.  **Data Volume and Granularity**: QE has been applied to both small-scale qualitative data and large-scale “big data.” What challenges arise when using very large datasets in QE (e.g., thousands of online messages)? Do we risk losing the ethnographic depth? Conversely, what challenges occur when using very small or sparse data with ENA (e.g., a short interview) in terms of getting reliable quantitative patterns? Discuss how a researcher might balance depth and breadth in data selection for QE.
+3.  **Data Size:** What challenges arise when using very large datasets or very small datasets in QE and ENA? How might researchers balance depth and scale?
 
 4.  **Data Quality and Collection Issues**: The reliability of data is crucial. What potential issues in data collection and quality should be considered when planning a QE study? For example, think about missing or incomplete data, transcription errors, or noise in audio/video recordings. How might such issues influence the outcomes of an ENA, and what steps can be taken during data collection and preprocessing to ensure the data is as trustworthy and representative as possible for analysis?
 
@@ -131,17 +120,11 @@ Reflecting on the course text and your self-selected reading, answer one or more
 Provide a brief overview of your self-selected resource that includes the following:
 
 -   APA Citation (note: this can be easily [retrieved via Google Scholar](#0))
-
 -   What was the **purpose** of your article?
-
 -   How was QE/ENA **defined** and/or characterized?
-
 -   What **data source(s)** were analyzed or discussed?
-
 -   How, if at all, did your article touch upon the **application(s)** of QE/ENA to "understand and improve learning and the contexts in which learning occurs?"
-
 -   What were some key **findings** from the analysis?
-
 -   Did your selection address any **ethical or legal considerations** of text mining?
 
 ## ASSESSMENT
