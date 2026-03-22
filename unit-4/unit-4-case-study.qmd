@@ -587,6 +587,7 @@ unit.A.point = set.ena$points$ENA_UNIT$`FirstGame.steven z`
 Then, plot the network and point for that unit.
 
 ```{r}
+#| eval: false
 ena.plot(set.ena, title = "Individual network: `FirstGame`.steven z") |> 
           ena.plot.network(network = as.vector(colMeans(unit.A.line.weights)), colors = c("red")) |>
           ena.plot.points(points = unit.A.point, colors = c("red"))
@@ -611,6 +612,7 @@ unit.B.point = set.ena$points$ENA_UNIT$`SecondGame.samuel o`
 To visually analyze the differences between the two individual networks, we can also plot their subtracted network.
 
 ```{r}
+#| eval: false
 ena.plot(set.ena, title = "Subtracted network: `FirstGame`.steven z (red) - `SecondGame`.samuel o (blue)")  |>
           ena.plot.network(network = (as.vector(colMeans(unit.A.line.weights)) - as.vector(colMeans(unit.B.line.weights))) * 5,
           colors = c("red", "blue")) |>
@@ -751,6 +753,7 @@ To demonstrate both parametric and non-parametric approaches to this question, t
 First, we need to load the {lsr} package to enable calculation of effect size (Cohen’s *d*) for the *t* test.
 
 ```{r}
+if (!require(lsr)) install.packages("lsr", repos = "https://cran.rstudio.com/")
 library(lsr)
 ```
 
@@ -799,6 +802,7 @@ The Mann-Whitney *U* test is a non-parametric alternative to the independent t
 First, let's load the `rcompanion` package that we'll use to calculate the effect size (*r*) for a Mann-Whitney *U* test.
 
 ```{r}
+if (!require(rcompanion)) install.packages("rcompanion", repos = "https://cran.rstudio.com/")
 library(rcompanion)
 ```
 
@@ -886,6 +890,7 @@ For example, based on our visual analysis of the network of `SecondGame.samuel 
 Let’s first review what `SecondGame.samuel o` ENA network looks like.
 
 ```{r}
+#| eval: false
 ena.plot(set.ena, title = "Individual network: `SecondGame`.samuel o") |> 
           ena.plot.network(network = as.matrix(set.ena$line.weights$ENA_UNIT$`SecondGame.samuel o`), colors = c("blue")) |>
           ena.plot.points(points = as.matrix(set.ena$points$ENA_UNIT$`SecondGame.samuel o`), colors = c("blue"))
