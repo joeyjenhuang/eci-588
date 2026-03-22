@@ -653,6 +653,7 @@ For each unit, in our case individual study participants, ENA creates a cumulati
 To access ENA adjacency vectors, let's use `$` operator to access `connection.counts` from our `set.ena` object:
 
 ```{r}
+#| output: false
 set.ena$connection.counts
 ```
 
@@ -724,6 +725,7 @@ By default, `rENA`visualizes ENA points on an x-y coordinate plane defined by t
 To access these points, use `set.ena$points` .
 
 ```{r}
+#| output: false
 set.ena$points
 ```
 
