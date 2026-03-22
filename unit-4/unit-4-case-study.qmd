@@ -1,7 +1,7 @@
 ---
 title: "Unit 4 Case Study: An ENA of Virtual Internship Conversations"
 subtitle: "ECI 588: Text Mining in Education"
-author: "Dr. Shaun Kellogg"
+author: "Dr. Joey Huang"
 date: today
 format:
   html:
@@ -9,7 +9,6 @@ format:
     toc-depth: 3
 theme:
   light: simplex
-  dark: cyborg
 editor: visual
 bibliography: lit/references.bib
 ---
@@ -95,15 +94,27 @@ Moreover, echoing a central question identified by Silge and Robinson (2018) as 
 
 ### 1c. Load Libraries
 
-As highlighted in [Chapter 6 of Data Science in Education Using R](https://datascienceineducation.com/c06#c06p) (DSIEUR), **packages** are shareable collections of R code that contain functions, data, and documentation. Sometimes refered to as libraries, these **packages**:
+As highlighted in [Chapter 6 of Data Science in Education Using R](https://datascienceineducation.com/c06#c06p) (DSIEUR), **packages** are shareable collections of R code that contain functions, data, and documentation. Sometimes referred to as libraries, these **packages**:
 
 > increase the functionality of R by providing access to additional functions to suit a variety of needs. While it is entirely possible to do your work in R without packages, it’s not recommend. There are a wealth of packages available that reduce the learning curve the time spent on analytical projects.
 
 Run the code chunk below to load {tidyvers} and {tidytext} packages that were introduced in previous units:
 
 ```{r}
-library(tidyverse)
+library(readr)
+library(dplyr)
 library(tidytext)
+library(ggplot2)
+library(tm)
+library(topicmodels)
+library(stm)
+library(ldatuning)
+library(SnowballC)
+library(tidyr)
+library(purrr)
+library(knitr)
+library(LDAvis)
+library(rENA)  
 ```
 
 #### The rENA Package 📦
@@ -157,7 +168,7 @@ In this case study, we are exploring the use of Epistemic Network Analysis (ENA)
 In the table below, a short description is provided for each variable based on the dataset provided. The first one has been completed for you:
 
 | Variable Name | Short Description |
-|----------------------|--------------------------------------------------|
+|------------------------|------------------------------------------------|
 | UserName | Unique identifier (username) for each participant. |
 | Condition |  |
 | CONFIDENCE.Pre |  |
@@ -264,9 +275,13 @@ For this case study, we'll choose the `Condition`, `GroupName`, and `ActivityNum
 Similar to how we specified **units** and **codes** above, use the code chunk below to create a character vector that specifies the **conversation** parameter using the `Condition`, `GroupName`, and `ActivityNumber` columns, and then verify that the conversations are correctly specified by subset and preview the unique values in the conversation columns.
 
 ```{r}
+#| echo: false
+#| include: false
+conversationCols <- c("Condition", "GroupName", "ActivityNumber")
+```
+
+```{r}
 # YOUR CODE HERE
-
-
 ```
 
 Again, your code should return a tibble containing only the thre columns you listed in `conversationCols` vector (in exactly that order) and all 3,824 rows from `rescushell_data`.
@@ -573,7 +588,7 @@ Then, plot the network and point for that unit.
 
 ```{r}
 ena.plot(set.ena, title = "Individual network: `FirstGame`.steven z") |> 
-          ena.plot.network(network = unit.A.line.weights, colors = c("red")) |>
+          ena.plot.network(network = as.vector(colMeans(unit.A.line.weights)), colors = c("red")) |>
           ena.plot.points(points = unit.A.point, colors = c("red"))
 ```
 
@@ -582,10 +597,14 @@ ena.plot(set.ena, title = "Individual network: `FirstGame`.steven z") |>
 Follow the exact same procedure to choose a unit from the other condition to plot and also construct a subtracted plot for those two units.
 
 ```{r}
+#| echo: false
+#| include: false
+unit.B.line.weights = as.matrix(set.ena$line.weights$ENA_UNIT$`SecondGame.samuel o`)
+unit.B.point = as.matrix(set.ena$points$ENA_UNIT$`SecondGame.samuel o`)
+```
+
+```{r}
 # YOUR CODE HERE
-
-
-
 
 ```
 
@@ -593,7 +612,7 @@ To visually analyze the differences between the two individual networks, we can 
 
 ```{r}
 ena.plot(set.ena, title = "Subtracted network: `FirstGame`.steven z (red) - `SecondGame`.samuel o (blue)")  |>
-          ena.plot.network(network = (unit.A.line.weights - unit.B.line.weights) * 5,
+          ena.plot.network(network = (as.vector(colMeans(unit.A.line.weights)) - as.vector(colMeans(unit.B.line.weights))) * 5,
           colors = c("red", "blue")) |>
           ena.plot.points(points = unit.A.point, colors = c("red")) |> 
           ena.plot.points(points = unit.B.point, colors = c("blue"))

@@ -1,7 +1,7 @@
 ---
 title: "Unit 4 Case Study: An ENA of Virtual Internship Conversations"
 subtitle: "ECI 588: Text Mining in Education"
-author: "Dr. Shaun Kellogg"
+author: "Dr. Joey Huang"
 date: today
 format:
   html:
@@ -9,7 +9,6 @@ format:
     toc-depth: 3
 theme:
   light: simplex
-  dark: cyborg
 editor: visual
 bibliography: lit/references.bib
 ---
@@ -22,7 +21,7 @@ Epistemic Network Analysis, developed by David Williamson Shaffer and colleagues
 
 ### Case Study Focus
 
-This case study is adapted from a chapter by Tan et al. @tan2024epistemic in the excellent book, Learning [Analytics Methods and Tutorials](https://lamethods.org). Our focus will be on applying ENA to investigate discourse patterns in a collaborative digital STEM learning environment. Specifically, we will examine how participants engage in problem-solving activities, make connections between STEM concepts, and collaboratively construct knowledge.By using ENA, researchers can systematically map the epistemic frames that occur when learners collaboratively tackle STEM-related problems, providing a quantitative yet qualitative-rich understanding of group learning dynamics. This analysis is particularly critical for understanding the nuances of learner interactions in digital environments, which often involve complex dialogues and exchanges that traditional qualitative methods might miss or oversimplify.
+This case study is adapted from a chapter by Tan et al. @tan2024epistemic in the excellent book, Learning [Analytics Methods and Tutorials](https://lamethods.org). Our focus will be on applying ENA to investigate discourse patterns in a collaborative digital STEM learning environment. Specifically, we will examine how participants engage in problem-solving activities, make connections between STEM concepts, and collaboratively construct knowledge. By using ENA, researchers can systematically map the epistemic frames that occur when learners collaboratively tackle STEM-related problems, providing a quantitative yet qualitative-rich understanding of group learning dynamics. This analysis is particularly critical for understanding the nuances of learner interactions in digital environments, which often involve complex dialogues and exchanges that traditional qualitative methods might miss or oversimplify.
 
 Our ENA case study covers the following concepts and skills:
 
@@ -95,7 +94,7 @@ Moreover, echoing a central question identified by Silge and Robinson (2018) as 
 
 ### 1c. Load Libraries
 
-As highlighted in [Chapter 6 of Data Science in Education Using R](https://datascienceineducation.com/c06#c06p) (DSIEUR), **packages** are shareable collections of R code that contain functions, data, and documentation. Sometimes refered to as libraries, these **packages**:
+As highlighted in [Chapter 6 of Data Science in Education Using R](https://datascienceineducation.com/c06#c06p) (DSIEUR), **packages** are shareable collections of R code that contain functions, data, and documentation. Sometimes referred to as libraries, these **packages**:
 
 > increase the functionality of R by providing access to additional functions to suit a variety of needs. While it is entirely possible to do your work in R without packages, it’s not recommend. There are a wealth of packages available that reduce the learning curve the time spent on analytical projects.
 
