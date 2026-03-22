@@ -580,8 +580,8 @@ Note that the majority of the red points (`FirstGame`) are located on the left s
 Plotting the network and ENA point for a single unit uses the same approach. First, subset the line weights and point for a given unit:
 
 ```{r}
-unit.A.line.weights = as.matrix(set.ena$line.weights$ENA_UNIT$`FirstGame.steven z`) # subset line weights
-unit.A.point = as.matrix(set.ena$points$ENA_UNIT$`FirstGame.steven z`) # subset ENA point
+unit.A.line.weights = as.matrix(set.ena$line.weights$ENA_UNIT$`FirstGame.steven z`)
+unit.A.point = set.ena$points$ENA_UNIT$`FirstGame.steven z`
 ```
 
 Then, plot the network and point for that unit.
@@ -600,7 +600,7 @@ Follow the exact same procedure to choose a unit from the other condition to plo
 #| echo: false
 #| include: false
 unit.B.line.weights = as.matrix(set.ena$line.weights$ENA_UNIT$`SecondGame.samuel o`)
-unit.B.point = as.matrix(set.ena$points$ENA_UNIT$`SecondGame.samuel o`)
+unit.B.point = set.ena$points$ENA_UNIT$`SecondGame.samuel o`
 ```
 
 ```{r}
