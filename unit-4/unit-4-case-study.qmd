@@ -168,7 +168,7 @@ In this case study, we are exploring the use of Epistemic Network Analysis (ENA)
 In the table below, a short description is provided for each variable based on the dataset provided. The first one has been completed for you:
 
 | Variable Name | Short Description |
-|-------------------------|------------------------------------------------|
+|-------------------------|-----------------------------------------------|
 | UserName | Unique identifier (username) for each participant. |
 | Condition |  |
 | CONFIDENCE.Pre |  |
