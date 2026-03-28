@@ -1,7 +1,7 @@
 ---
 title: "Final Project: Independent Data Product"
-subtitle: "ECI 586 Intro to Learning Analytics"
-author: "Dr. Shaun Kellogg"
+subtitle: "ECI 588 Text Mining in Education"
+author: "Dr. Joey Huang"
 date: today
 format:
   html:
@@ -19,7 +19,7 @@ For the end-of-course project, you'll be applying the knowledge and skills gaine
 
 ## Grading Criteria
 
-Your final project is worth **18 points total**. You will receive **1 point (10 points total) for each of the project criteria adequately addressed** by your data product, and **4 points (8 points total) for each post providing constructive feedback** to at least two of your peers.
+Your final project is worth 18 points total. You will receive **1 point for each of the 10 project criteria adequately** addressed by your data product (10 points total), and **4 points for each post providing constructive feedback** to at least two of your peers (8 points total).
 
 ### Prepare
 
@@ -31,31 +31,31 @@ Your data product should demonstrate your ability to formulate clear, actionable
 
 ### Wrangle
 
-Your data project should demonstrate your ability to use R to manipulate, clean, transform, and/or merging data in order to prepare your data for analysis. Specifically, your data product should clearly describe:
+Your data product should demonstrate your ability to use R to manipulate, clean, transform, and/or merge data in order to prepare your data for analysis. Specifically, your data product should clearly describe:
 
-3.  **Data preprocessing** steps (e.g., renaming variables, filtering, tokenization, stemming, dealing with missing values, etc.) taken to clean and prepare your data for analysis and why are they necessary, as well as any steps will excluded and why.
+3.  **Data preprocessing** steps (e.g., renaming variables, filtering, tokenization, stemming, dealing with missing values, etc.) taken to clean and prepare your data for analysis and why they are necessary, as well as any steps that were excluded and why.
 
-4.  Any **new variables or features** you created to address your research questions; or any data **transformations** you made required for the types of analyses or packages used (e.g. reshaping, merging, joining etc.).
+4.  Any **new variables or features** you created to address your research questions; or any data **transformations** you made required for the types of analyses or packages used (e.g. reshaping, merging, joining etc.).
 
 ### Analyze
 
-Your data project should demonstrate your ability to use R to apply learning analytics techniques appropriate to your research questions and data sources. Specifically, your data product should clearly include:
+Your data product should demonstrate your ability to use R to apply learning analytics techniques appropriate to your research questions and data sources. Specifically, your data product should clearly include:
 
 5.  Clear descriptions of the **techniques** (e.g., descriptive statistics, network analysis, sentiment analysis, etc.) you applied to analyze your data.
 
 6.  Interpretations/meanings of specific **metrics** (e.g., counts, means, proportions, sentiment values, centrality measures, etc.) that your analysis generated. 
 
-7.  Data **visualizations** that are attractive and easy to interpret, and include text or narrative for aiding their Interpretation by others.
+7.  Data **visualizations** that are attractive and easy to interpret, and include text or narrative for aiding their interpretation by others.
 
 ### Communication
 
 Your data product should demonstrate your ability to clearly and effectively communicate the most important and most useful findings. Specifically, your data product should:
 
-8.  Highlights **key finding and insights** in response to your research questions.
+8.  Highlight **key findings and insights** in response to your research questions.
 
-9.  Suggests potential **action** that you and/or your target audience to better understand and improve the context in which your data product is intended to inform.
+9.  Suggest potential **actions** that you and/or your target audience could take to better understand and improve the context your data product is intended to inform.
 
-10. Discusses the **limitations** and any ethical/legal issues taken into consideration, including acknowledgments any reference materials used.
+10. Discuss the **limitations** and any ethical/legal issues taken into consideration, including acknowledgment of any references or source materials used.
 
 ## Example Student Projects
 
