@@ -1,7 +1,7 @@
 ---
 title: "Final Project: Independent Analysis Planning"
 subtitle: "ECI 588: Text Mining in Education"
-author: "Dr. Shaun Kellogg"
+author: "Dr. Joey Huang"
 date: today
 format:
   html:
@@ -16,7 +16,7 @@ bibliography: lit/references.bib
 
 ## Overview
 
-Throughout this course, you conducted several analyses as part of the unit case studies and many of you have developed your own data products as part of independent analyses in each unit. For your final course project, and in lieu of a final exam, you'll be required to complete a more in-depth independent analysis and accompanying data product (e.g., slide show, dashboard, report, or mini "case study") to showcase the your text mining knowledge and skills acquired throughout the course. Your data product will bring together some of the data-intensive research workflow and text mining processes that we've learned this semester to help **answer a research question you have about a text-based dataset of your own choosing**.
+Throughout this course, you've conducted several analyses as part of the unit case studies and many of you have developed your own data products as part of independent analyses in each unit. For your final course project, I'd like you to complete a more in-depth independent analysis and accompanying data product (e.g., slide show, dashboard, report, or mini "case study") to showcase the text mining knowledge and skills you've acquired throughout the course. Your data product will bring together the data-intensive research workflow and text mining processes we've covered this semester to help **answer a research question you have about a text-based dataset of your own choosing**. I recommend choosing a dataset and topic you're genuinely interested in — it makes the analysis much more engaging and the final product stronger.
 
 ## Assignment
 
